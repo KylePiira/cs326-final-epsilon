@@ -18,7 +18,7 @@ Overall the site is functionally similar to Reddit where instead of following su
 
 ## Important Components
 
-For the purpose of tracking stock performance in user profiles we will use the [iexcloud](https://www.iexcloud.io/) API which offers a generous free tier. Other then that we don't have any external dependencies.
+For the purpose of tracking stock performance in user profiles we will use the [iexcloud](https://www.iexcloud.io/) API which offers a generous free tier. Other than that we don't have any external dependencies.
 
 We will need to use a Node JS server and database to user accounts, stories, comments, and profiles.
 
