@@ -41,5 +41,7 @@ The URL structure of the site will be as follows:
 * `/user/{USER}`
   
   * A user profile listing all the stocks in their public profile
-
-
+* `/story/{ID}`
+  * The title and summary of each story along with its comments
+* `/submit` 
+  * A page containing a form for submitting news stories
