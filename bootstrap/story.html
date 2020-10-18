@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>Stock News</title>
+	<!-- Bootstrap core CSS -->
+	<link href="https://cdn.hoxly.com/bootstrap/4/themes/spacelab/bootstrap.min.css" rel="stylesheet">
+	<!-- Custome Styles -->
+	<style type="text/css">
+		/* Vote styles taken from http://jsfiddle.net/ujew6/ */
+		.upvote {
+			width: 0; height: 0;
+			border-color: #e8e8e8;
+			border-left: 8px solid transparent;
+			border-right: 8px solid transparent;
+			border-bottom: 8px solid #e8e8e8;
+		}
+		.upvote:after {
+			width: 5px;
+			height: 6px;
+			background-color: #e8e8e8;
+			content: '';
+			position:absolute;
+			margin-top: 8px;
+			margin-left: -3px;
+		}
+
+		.upvote:hover {
+			width: 0; height: 0;
+			border-color: #01770b;
+			border-left: 8px solid transparent;
+			border-right: 8px solid transparent;
+			border-bottom: 8px solid #01770b;
+		}
+
+		.upvote:hover:after {
+			width: 5px;
+			height: 6px;
+			background-color: #01770b;
+			content: '';
+			position:absolute;
+			margin-top: 8px;
+			margin-left: -3px;
+		}
+
+		.downvote {
+			width: 0;
+			height: 0;
+			border-left: 8px solid transparent;
+			border-right: 8px solid transparent;
+			border-top: 8px solid #e8e8e8;
+			margin-left: -1px;
+		}
+
+		.downvote:after {
+			width: 5px;
+			height: 6px;
+			background-color: #e8e8e8;
+			content: '';
+			position: absolute;
+			margin-left: -2px;
+			margin-top: -14px;
+		}
+
+		.downvote:hover {
+			width: 0;
+			height: 0;
+			border-left: 8px solid transparent;
+			border-right: 8px solid transparent;
+			border-top: 8px solid #9e1301;
+			margin-left: -1px;
+		}
+
+		.downvote:hover:after {
+			width: 5px;
+			height: 6px;
+			background-color: #9e1301;
+			content: '';
+			position: absolute;
+			margin-left: -2px;
+			margin-top: -14px;
+		}
+	</style>
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+		<div class="container">
+			<a class="navbar-brand" href="#">Stock News | STOCK</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarCollapse">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item">
+						<form class="form-inline my-2 my-lg-0 mr-auto">
+							<input class="form-control mr-sm-2" type="text" placeholder="Search...">
+							<button class="btn btn-white my-2 my-sm-0" type="submit">Search</button>
+						</form>
+					</li>
+				</ul>
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="#">Submit</a>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Account</a>
+						<div class="dropdown-menu dropdown-menu-right">
+							<a class="dropdown-item" href="#">Profile</a>
+							<a class="dropdown-item" href="#">Settings</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="#">Logout</a>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="container">
+		<div class="row mt-3">
+			<div class="col-md-2 order-md-0 mb-4">
+				<div class="card">
+					<div class="card-body">
+						<h5 class="card-title text-muted">Watchlist</h5>
+						<ul class="list-group list-group-flush">
+							<li class="list-group-item">AAPL</li>
+							<li class="list-group-item">MSFT</li>
+							<li class="list-group-item">TSLA</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-8 order-first order-md-1 mb-4">
+				<div class="card">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-1 pl-0 pr-0">
+								<center>
+									<div class="upvote"></div>
+									<p class="mt-2 mb-2 badge badge-light">5</p>
+									<div class="downvote"></div>
+								</center>
+							</div>
+							<div class="col-11 pl-0">
+								<h5 class="card-title">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</h5>
+								<span class="badge badge-secondary">example.com</span>
+								<span>submitted 10 minutes ago by frank</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<br>
+				<div class="card">
+					<div class="card-body">
+						<div class="comment row mt-3">
+							<div class="col-1 pl-0 pr-0">
+								<center>
+									<div class="upvote"></div>
+									<p class="mt-2 mb-2 badge badge-light">2</p>
+									<div class="downvote"></div>
+								</center>
+							</div>
+							<div class="col-11 pl-0">
+								<span><a href="#">john</a> - <i>5 minutes ago</i></span>
+								<p>Deleniti aut qui ab voluptates in qui at tempora. Unde ratione natus laborum eum voluptates. Sequi deserunt dolor doloremque maiores quia. Minus iure deleniti ducimus dolore. Dignissimos perferendis quia voluptatem laboriosam delectus magni. Optio itaque ut autem vero excepturi.</p>
+								<span class="btn btn-sm btn-primary">reply</span>
+								<!-- Reply -->
+								<div class="comment row mt-3">
+									<div class="col-1 pl-0 pr-0">
+										<center>
+											<div class="upvote"></div>
+											<p class="mt-2 mb-2 badge badge-light">1</p>
+											<div class="downvote"></div>
+										</center>
+									</div>
+									<div class="col-11 pl-0">
+										<span><a href="#">frank</a> - <i>3 minutes ago</i></span>
+										<p>Quia blanditiis et optio suscipit non. Maiores et distinctio repudiandae voluptas sequi. Quo molestiae velit dolorem. </p>
+										<span class="btn btn-sm btn-primary">reply</span>
+										<!-- Reply -->
+										<div class="comment row mt-3">
+											<div class="col-1 pl-0 pr-0">
+												<center>
+													<div class="upvote"></div>
+													<p class="mt-2 mb-2 badge badge-light">1</p>
+													<div class="downvote"></div>
+												</center>
+											</div>
+											<div class="col-11 pl-0">
+												<span><a href="#">john</a> - <i>1 minutes ago</i></span>
+												<p>Sit ipsam fugit nulla nihil ratione aut aut. Voluptatem harum nemo alias nam deleniti excepturi. Quaerat corporis enim ipsum vel fuga quo. In assumenda vel nesciunt eius voluptatem eum. </p>
+												<span class="btn btn-sm btn-primary">reply</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="comment row mt-3">
+							<div class="col-1 pl-0 pr-0">
+								<center>
+									<div class="upvote"></div>
+									<p class="mt-2 mb-2 badge badge-light">2</p>
+									<div class="downvote"></div>
+								</center>
+							</div>
+							<div class="col-11 pl-0">
+								<span><a href="#">sara</a> - <i>7 minutes ago</i></span>
+								<p>Atque molestiae ea nam praesentium quia. Repellat sint doloribus vero eum asperiores officiis ducimus. Eligendi non omnis voluptates quia provident. Ab distinctio totam mollitia consectetur quis facere ipsam recusandae. Officiis ducimus mollitia qui dolores tempore commodi tenetur. Consequatur illo mollitia voluptas et dolor ut eius nulla. </p>
+								<span class="btn btn-sm btn-primary">reply</span>
+								<!-- Reply -->
+								<div class="comment row mt-3">
+									<div class="col-1 pl-0 pr-0">
+										<center>
+											<div class="upvote"></div>
+											<p class="mt-2 mb-2 badge badge-light">1</p>
+											<div class="downvote"></div>
+										</center>
+									</div>
+									<div class="col-11 pl-0">
+										<span><a href="#">mica</a> - <i>3 minutes ago</i></span>
+										<p>Sunt sit fugiat atque itaque aspernatur qui ducimus dolorem. Omnis repellendus voluptatem velit molestias eveniet sed ea ea. Commodi sed est neque doloribus cum excepturi in. Sint aliquam a omnis. </p>
+										<span class="btn btn-sm btn-primary">reply</span>
+									</div>
+								</div>
+								<!-- Reply 2 -->
+								<div class="comment row mt-3">
+									<div class="col-1 pl-0 pr-0">
+										<center>
+											<div class="upvote"></div>
+											<p class="mt-2 mb-2 badge badge-light">1</p>
+											<div class="downvote"></div>
+										</center>
+									</div>
+									<div class="col-11 pl-0">
+										<span><a href="#">john</a> - <i>1 minutes ago</i></span>
+										<p>Et porro molestiae illo nemo ipsum et ut quia. Libero explicabo reiciendis nulla iusto voluptatibus consequuntur est. Possimus voluptas mollitia quas accusamus at voluptatem provident eaque. Repellendus sed pariatur minus voluptas et quae. </p>
+										<span class="btn btn-sm btn-primary">reply</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<br>
+				<nav aria-label="Page navigation" class="d-flex justify-content-center">
+					<ul class="pagination">
+						<li class="page-item">
+							<a class="page-link" href="#" aria-label="Previous">
+								<span aria-hidden="true">&laquo;</span>
+							</a>
+						</li>
+						<li class="page-item"><a class="page-link" href="#">1</a></li>
+						<li class="page-item"><a class="page-link" href="#">2</a></li>
+						<li class="page-item"><a class="page-link" href="#">3</a></li>
+						<li class="page-item">
+							<a class="page-link" href="#" aria-label="Next">
+								<span aria-hidden="true">&raquo;</span>
+							</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+			<div class="col-md-2 order-md-2 mb-4">
+				<div class="card">
+					<div class="card-body">
+						<div class="progress">
+							<div class="progress-bar" role="progressbar" style="width: 10%;" title="Voting power"></div>
+						</div>
+						<br>
+						<h5 class="card-title text-muted">Long</h5>
+						<ul class="list-group list-group-flush">
+							<li class="list-group-item text-success">AAPL</li>
+							<li class="list-group-item text-success">MSFT</li>
+							<li class="list-group-item text-success">VT</li>
+							<li class="list-group-item text-success">AMZN</li>
+						</ul>
+						<br>
+						<h5 class="card-title text-muted">Short</h5>
+						<ul class="list-group list-group-flush">
+							<li class="list-group-item text-danger">TSLA</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="d-flex justify-content-center">
+		<p>© 2020 Copyright Kyle Piira, Hannah Dacayanan, and Nga Huynh, All Rights Reserved</p>
+	</div>
+	<!-- JQuery -->
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+	<!-- Bootstrap core JavaScript -->
+	<script type="text/javascript" src="https://cdn.hoxly.com/bootstrap/4/js/bootstrap.min.js"></script>
+</body>
+</html>
