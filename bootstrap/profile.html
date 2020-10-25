@@ -9,81 +9,7 @@
 	<!-- Bootstrap core CSS -->
 	<link href="https://cdn.hoxly.com/bootstrap/4/themes/spacelab/bootstrap.min.css" rel="stylesheet">
 	<!-- Custom Styles -->
-	<style type="text/css">
-		/* Vote styles taken from http://jsfiddle.net/ujew6/ */
-		.upvote {
-			width: 0; height: 0;
-			border-color: #e8e8e8;
-			border-left: 8px solid transparent;
-			border-right: 8px solid transparent;
-			border-bottom: 8px solid #e8e8e8;
-		}
-		.upvote:after {
-			width: 5px;
-			height: 6px;
-			background-color: #e8e8e8;
-			content: '';
-			position:absolute;
-			margin-top: 8px;
-			margin-left: -3px;
-		}
-
-		.upvote:hover {
-			width: 0; height: 0;
-			border-color: #01770b;
-			border-left: 8px solid transparent;
-			border-right: 8px solid transparent;
-			border-bottom: 8px solid #01770b;
-		}
-
-		.upvote:hover:after {
-			width: 5px;
-			height: 6px;
-			background-color: #01770b;
-			content: '';
-			position:absolute;
-			margin-top: 8px;
-			margin-left: -3px;
-		}
-
-		.downvote {
-			width: 0;
-			height: 0;
-			border-left: 8px solid transparent;
-			border-right: 8px solid transparent;
-			border-top: 8px solid #e8e8e8;
-			margin-left: -1px;
-		}
-
-		.downvote:after {
-			width: 5px;
-			height: 6px;
-			background-color: #e8e8e8;
-			content: '';
-			position: absolute;
-			margin-left: -2px;
-			margin-top: -14px;
-		}
-
-		.downvote:hover {
-			width: 0;
-			height: 0;
-			border-left: 8px solid transparent;
-			border-right: 8px solid transparent;
-			border-top: 8px solid #9e1301;
-			margin-left: -1px;
-		}
-
-		.downvote:hover:after {
-			width: 5px;
-			height: 6px;
-			background-color: #9e1301;
-			content: '';
-			position: absolute;
-			margin-left: -2px;
-			margin-top: -14px;
-		}
-	</style>
+	<link href="appstyle.css" rel="stylesheet">
 </head>
 
 <body>
@@ -275,7 +201,7 @@
 				<div class="card">
 					<div class="card-body">
 						<div class="progress">
-							<div class="progress-bar" role="progressbar" style="width: 10%;" title="Voting power"></div>
+							<div class="progress-bar progress-bar-placeholder" role="progressbar" title="Voting power"></div>
 						</div>
 						<br>
 						<h5 class="card-title text-muted">Long</h5>
