@@ -7,12 +7,12 @@
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
 	<title>Login - Stock News</title>
 	<!-- Bootstrap core CSS -->
-	<link href="https://cdn.hoxly.com/bootstrap/4/themes/spacelab/bootstrap.min.css" rel="stylesheet">
+	<link href="https://cdn.hoxly.com/bootstrap/4/themes/flatly/bootstrap.min.css" rel="stylesheet">
 	<!-- Custom Styles -->
 	<link href="appstyle.css" rel="stylesheet">
 </head>
 
-<body class="center">
+<body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 		<div class="container">
 			<a class="navbar-brand" href="#">Stock News | Login</a>
@@ -46,31 +46,38 @@
 		</div>
 	</nav>
 
-	<form class="login-form">
-		<div class="login-container">
-			<h3><small class="text-muted">Login</small></h3>
-			<div class="user-input">
-				<label for="usn"><b>Username: </b></label>
+	<div class="container mt-5 mb-5">
+		<div class="row justify-content-center">
+			<div class="col-md-4 col-sm-12">
+				<div class="card">
+					<div class="card-body">
+						<h3 class="card-title"><small class="text-muted">Login</small></h3>
+						<form>
+							<div class="text-left">
+								<label for="username"><b>Username: </b></label>
+							</div>
+							<input type="text" class="form-control" placeholder="Enter Username" name="username" required>
+							<br>
+							<br>
+							<div class="text-left">
+								<label for="password"><b>Password: </b></label>
+							</div>
+							<input type="text" class="form-control" placeholder="Enter Password" name="password" required>
+							<label>
+								<input type="checkbox" checked="checked" name="remember"> Remember me
+							</label>
+							<br>
+							<br>
+							<div class="d-flex justify-content-center">
+								<button type="button" class="btn btn-primary">Login</button>
+								<button type="button" class="btn btn-link">Sign Up</button>
+							</div>
+						</form>
+					</div>
+				</div>
 			</div>
-			<input type="text" class="input-info" placeholder="Enter Username" name="usn" required>
-			<br>
-			<br>
-			<div class="user-input">
-				<label for="psw"><b>Password: </b></label>
-			</div>
-			<input type="password"class="input-info" placeholder="Enter Password" name="psw" required>
-			<br>
-			<br>
-			<label>
-				<input type="checkbox" checked="checked" name="remember"> Remember me
-			</label>
-			<br>
-			<div>
-				<button type="submit" class="btn btn-success">Login</button>
-				<button type="button" class="btn btn-link">Sign Up</button>
-			</div>
-		</div>	
-	</form>
+		</div>
+	</div>
 
 	<div class="d-flex justify-content-center">
 		<p>© 2020 Copyright Kyle Piira, Hannah Dacayanan, and Nga Huynh, All Rights Reserved</p>
