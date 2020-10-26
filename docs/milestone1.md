@@ -58,8 +58,6 @@ The information in the left and right sidebars is for the currently logged in us
 
 ![](../wireframes/profile_submissions_wireframe.png)
 
-
-
 ![](../wireframes/profile_comments_wireframe.png)
 
 ![](../wireframes/profile_portfolio_wireframe.png)
@@ -81,6 +79,14 @@ The login page allows a user to sign into their existing account and provides a 
 The sign up page allows a user to register an account on the site using only a username and password (no email required).
 
 ![](../wireframes/sign-up_wireframe.png)
+
+## Admin
+
+The website will also contain a simple admin area where administrators can manage submissions and user accounts.
+
+![](../wireframes/admin_user_wireframe.png)
+
+![](../wireframes/admin_submission_wireframe.png)
 
 # Bootstrap Mockups
 
@@ -121,3 +127,9 @@ We've implemented each of the Wireframes in Bootstrap 4 using the [Flatly theme]
 ## Sign Up
 
 ![](../screenshots/sign-up.png)
+
+## Admin
+
+![](../screenshots/admin_user.png)
+
+![](../screenshots/admin_submission.png)
