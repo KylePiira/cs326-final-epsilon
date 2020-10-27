@@ -133,3 +133,33 @@ We've implemented each of the Wireframes in Bootstrap 4 using the [Flatly theme]
 ![](../screenshots/admin_user.png)
 
 ![](../screenshots/admin_submission.png)
+
+# Division of Labor
+
+* Kyle Piira
+  
+  * Homepage
+  
+  * Stock page
+  
+  * Story page
+  
+  * User profile
+
+* Hannah Dacayanan
+  
+  * Search Results
+  
+  * Submit
+  
+  * Login
+  
+  * Sign up
+
+* Nga Huynh
+  
+  * Admin area
+    
+    * User management
+    
+    * Submission management
