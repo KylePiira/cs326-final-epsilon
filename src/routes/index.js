@@ -11,6 +11,7 @@ router.get('/story', function(req, res, next) {
   res.render('story.html');
 });
 
+<<<<<<< HEAD
 router.get('/admin-submission', function(req, res, next) {
   res.render('admin_submission.html');
 });
@@ -18,4 +19,36 @@ router.get('/admin-submission', function(req, res, next) {
 router.get('/admin-user', function(req, res, next) {
   res.render('admin_users.html');
 });
+=======
+/* GET investment */
+router.get('/investment', function(req, res, next) {
+  res.render('stock.html');
+});
+
+/* GET profile */
+router.get('/profile', function(req, res, next) {
+  res.render('profile.html');
+});
+  
+/*GET login*/
+router.get('/login', function(req, res, next) {
+  res.render('login.html');
+});
+
+/*GET sign up*/
+router.get('/sign-up', function(req, res, next) {
+  res.render('sign-up.html');
+});
+
+/*GET submit*/
+router.get('/submit', function(req, res, next) {
+  res.render('submit.html');
+});
+
+/*GET search results*/
+router.get('/search-results', function(req, res, next) {
+  res.render('search-results.html');
+});
+
+>>>>>>> 9d22d566976ff91a87039131ead667c02012d667
 module.exports = router;
