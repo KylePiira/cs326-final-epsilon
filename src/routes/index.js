@@ -11,15 +11,16 @@ router.get('/story', function(req, res, next) {
   res.render('story.html');
 });
 
-<<<<<<< HEAD
+/* GET admin for submssions */
 router.get('/admin-submission', function(req, res, next) {
   res.render('admin_submission.html');
 });
 
+/* GET admin for comments */
 router.get('/admin-user', function(req, res, next) {
   res.render('admin_users.html');
 });
-=======
+
 /* GET investment */
 router.get('/investment', function(req, res, next) {
   res.render('stock.html');
@@ -50,5 +51,4 @@ router.get('/search-results', function(req, res, next) {
   res.render('search-results.html');
 });
 
->>>>>>> 9d22d566976ff91a87039131ead667c02012d667
 module.exports = router;
