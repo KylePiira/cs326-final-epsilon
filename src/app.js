@@ -1,17 +1,24 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const nunjucks  = require('nunjucks');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+
+// config nunjucks!
+nunjucks.configure('views', {
+  autoescape: true,
+  express: app
+});
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -37,6 +44,18 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+// app.get('/', function(req, res) {
+//   res.render('index.html', {
+//     title : 'My First Nunjucks Page',
+//     items : [
+//       { name : 'item #1' },
+//       { name : 'item #2' },
+//       { name : 'item #3' },
+//       { name : 'item #4' },
+//     ]
+//   });
+// });
 
 module.exports = app;
 

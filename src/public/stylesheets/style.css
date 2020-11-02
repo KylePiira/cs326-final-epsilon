@@ -1,8 +1,81 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+/* Vote styles adapted from http://jsfiddle.net/ujew6/ */
+.upvote {
+    width: 0; height: 0;
+    border-color: #e8e8e8;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid #e8e8e8;
+}
+.upvote:after {
+    width: 5px;
+    height: 6px;
+    background-color: #e8e8e8;
+    content: '';
+    position:absolute;
+    margin-top: 8px;
+    margin-left: -3px;
 }
 
-a {
-  color: #00B7FF;
+.upvote:hover {
+    width: 0; height: 0;
+    border-color: #01770b;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid #01770b;
+}
+
+.upvote:hover:after {
+    width: 5px;
+    height: 6px;
+    background-color: #01770b;
+    content: '';
+    position:absolute;
+    margin-top: 8px;
+    margin-left: -3px;
+}
+
+.downvote {
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid #e8e8e8;
+    margin-left: -1px;
+}
+
+.downvote:after {
+    width: 5px;
+    height: 6px;
+    background-color: #e8e8e8;
+    content: '';
+    position: absolute;
+    margin-left: -2px;
+    margin-top: -14px;
+}
+
+.downvote:hover {
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid #9e1301;
+    margin-left: -1px;
+}
+
+.downvote:hover:after {
+    width: 5px;
+    height: 6px;
+    background-color: #9e1301;
+    content: '';
+    position: absolute;
+    margin-left: -2px;
+    margin-top: -14px;
+}
+
+.votes {
+    margin-left: 35%;
+}
+
+.progress-bar-placeholder {
+    width: 10%
 }

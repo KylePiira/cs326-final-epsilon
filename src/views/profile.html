@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>User Profile - Stock News</title>
+	<!-- Bootstrap core CSS -->
+	<link href="https://cdn.hoxly.com/bootstrap/4/themes/flatly/bootstrap.min.css" rel="stylesheet">
+	<!-- Custom Styles -->
+	<link href="appstyle.css" rel="stylesheet">
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+		<div class="container">
+			<a class="navbar-brand" href="#">Stock News</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarCollapse">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item">
+						<form class="form-inline my-2 my-lg-0 mr-auto">
+							<input class="form-control mr-sm-2" type="text" placeholder="Search...">
+							<button class="btn btn-white my-2 my-sm-0" type="submit">Search</button>
+						</form>
+					</li>
+				</ul>
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="#">Submit</a>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Account</a>
+						<div class="dropdown-menu dropdown-menu-right">
+							<a class="dropdown-item" href="#">Profile</a>
+							<a class="dropdown-item" href="#">Settings</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="#">Logout</a>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="container">
+		<div class="row mt-3">
+			<div class="col-md-2 order-md-0 mb-4">
+				<div class="card">
+					<div class="card-body">
+						<h5 class="card-title text-muted">Watchlist</h5>
+						<ul class="list-group list-group-flush">
+							<li class="list-group-item">AAPL</li>
+							<li class="list-group-item">MSFT</li>
+							<li class="list-group-item">TSLA</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-8 order-first order-md-1 mb-4">
+				<div class="card">
+					<div class="card-body">
+						<h3 class="card-title">User's profile page</h3>
+						<ul class="nav nav-tabs" id="profileTabs" role="tablist">
+						  <li class="nav-item" role="presentation">
+							<a class="nav-link active" id="submissions-tab" data-toggle="tab" href="#submissions" role="tab" aria-controls="submissions" aria-selected="true">Submissions</a>
+						  </li>
+						  <li class="nav-item" role="presentation">
+							<a class="nav-link" id="comments-tab" data-toggle="tab" href="#comments" role="tab" aria-controls="comments" aria-selected="false">Comments</a>
+						  </li>
+						  <li class="nav-item" role="presentation">
+							<a class="nav-link" id="portfolio-tab" data-toggle="tab" href="#portfolio" role="tab" aria-controls="portfolio" aria-selected="false">Portfolio</a>
+						  </li>
+						</ul>
+						<div class="tab-content" id="profileTabsConent">
+						  <div class="tab-pane fade show active" id="submissions" role="tabpanel" aria-labelledby="submissions-tab">
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item">
+									<div class="row">
+										<div class="col-1 pl-0 pr-0">
+											<div class="votes">
+												<div class="upvote"></div>
+												<p class="mt-2 mb-2 badge badge-light">5</p>
+												<div class="downvote"></div>
+											</div>
+										</div>
+										<div class="col-11 pl-0">
+											<h5 class="card-title">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</h5>
+											<span class="badge badge-secondary">example.com</span>
+											<span>submitted 10 minutes ago by frank</span>
+										</div>
+									</div>
+								</li>
+								<li class="list-group-item">
+									<div class="row">
+										<div class="col-1 pl-0 pr-0">
+											<div class="votes">
+												<div class="upvote"></div>
+												<p class="mt-2 mb-2 badge badge-light">5</p>
+												<div class="downvote"></div>
+											</div>
+										</div>
+										<div class="col-11 pl-0">
+											<h5 class="card-title">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</h5>
+											<span class="badge badge-secondary">example.com</span>
+											<span>submitted 10 minutes ago by frank</span>
+										</div>
+									</div>
+								</li>
+								<li class="list-group-item">
+									<div class="row">
+										<div class="col-1 pl-0 pr-0">
+											<div class="votes">
+												<div class="upvote"></div>
+												<p class="mt-2 mb-2 badge badge-light">5</p>
+												<div class="downvote"></div>
+											</div>
+										</div>
+										<div class="col-11 pl-0">
+											<h5 class="card-title">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</h5>
+											<span class="badge badge-secondary">example.com</span>
+											<span>submitted 10 minutes ago by frank</span>
+										</div>
+									</div>
+								</li>
+								<li class="list-group-item">
+									<div class="row">
+										<div class="col-1 pl-0 pr-0">
+											<div class="votes">
+												<div class="upvote"></div>
+												<p class="mt-2 mb-2 badge badge-light">5</p>
+												<div class="downvote"></div>
+											</div>
+										</div>
+										<div class="col-11 pl-0">
+											<h5 class="card-title">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</h5>
+											<span class="badge badge-secondary">example.com</span>
+											<span>submitted 10 minutes ago by frank</span>
+										</div>
+									</div>
+								</li>
+							</ul>
+						  </div>
+						  <div class="tab-pane fade" id="comments" role="tabpanel" aria-labelledby="comments-tab">
+						  	<div class="comment row mt-3">
+								<div class="col-1 pl-0 pr-0">
+									<div class="votes">
+										<div class="upvote"></div>
+										<p class="mt-2 mb-2 badge badge-light">1</p>
+										<div class="downvote"></div>
+									</div>
+								</div>
+								<div class="col-11 pl-0">
+									<span><a href="#">john</a> - <i>1 minutes ago</i></span>
+									<p>Sit ipsam fugit nulla nihil ratione aut aut. Voluptatem harum nemo alias nam deleniti excepturi. Quaerat corporis enim ipsum vel fuga quo. In assumenda vel nesciunt eius voluptatem eum. </p>
+									<span class="btn btn-sm btn-primary">reply</span>
+								</div>
+							</div>
+							<div class="comment row mt-3">
+								<div class="col-1 pl-0 pr-0">
+									<div class="votes">
+										<div class="upvote"></div>
+										<p class="mt-2 mb-2 badge badge-light">1</p>
+										<div class="downvote"></div>
+									</div>
+								</div>
+								<div class="col-11 pl-0">
+									<span><a href="#">john</a> - <i>3 days ago</i></span>
+									<p>Deleniti aut qui ab voluptates in qui at tempora. Unde ratione natus laborum eum voluptates. Sequi deserunt dolor doloremque maiores quia. Minus iure deleniti ducimus dolore. Dignissimos perferendis quia voluptatem laboriosam delectus magni. Optio itaque ut autem vero excepturi</p>
+									<span class="btn btn-sm btn-primary">reply</span>
+								</div>
+							</div>
+						  </div>
+						  <div class="tab-pane fade" id="portfolio" role="tabpanel" aria-labelledby="portfolio-tab">
+							<div class="row mt-1">
+								<div class="col-md">
+									<h5 class="card-title text-muted">Long</h5>
+									<ul class="list-group list-group-flush">
+										<li class="list-group-item text-success">AAPL</li>
+										<li class="list-group-item text-success">MSFT</li>
+										<li class="list-group-item text-success">VT</li>
+										<li class="list-group-item text-success">AMZN</li>
+									</ul>
+								</div>
+								<div class="col-md">
+									<h5 class="card-title text-muted">Short</h5>
+									<ul class="list-group list-group-flush">
+										<li class="list-group-item text-danger">TSLA</li>
+									</ul>
+								</div>
+							</div>
+						  </div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2 order-md-2 mb-4">
+				<div class="card">
+					<div class="card-body">
+						<div class="progress">
+							<div class="progress-bar progress-bar-placeholder" role="progressbar" title="Voting power"></div>
+						</div>
+						<br>
+						<h5 class="card-title text-muted">Long</h5>
+						<ul class="list-group list-group-flush">
+							<li class="list-group-item text-success">AAPL</li>
+							<li class="list-group-item text-success">MSFT</li>
+							<li class="list-group-item text-success">VT</li>
+							<li class="list-group-item text-success">AMZN</li>
+						</ul>
+						<br>
+						<h5 class="card-title text-muted">Short</h5>
+						<ul class="list-group list-group-flush">
+							<li class="list-group-item text-danger">TSLA</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="d-flex justify-content-center">
+		<p>© 2020 Copyright Kyle Piira, Hannah Dacayanan, and Nga Huynh, All Rights Reserved</p>
+	</div>
+	<!-- JQuery -->
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+	<!-- Bootstrap core JavaScript -->
+	<script type="text/javascript" src="https://cdn.hoxly.com/bootstrap/4/js/bootstrap.min.js"></script>
+</body>
+</html>
