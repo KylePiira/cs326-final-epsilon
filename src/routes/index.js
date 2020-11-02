@@ -20,5 +20,25 @@ router.get('/investment', function(req, res, next) {
 router.get('/profile', function(req, res, next) {
   res.render('profile.html');
 });
+  
+/*GET login*/
+router.get('/login', function(req, res, next) {
+  res.render('login.html');
+});
+
+/*GET sign up*/
+router.get('/sign-up', function(req, res, next) {
+  res.render('sign-up.html');
+});
+
+/*GET submit*/
+router.get('/submit', function(req, res, next) {
+  res.render('submit.html');
+});
+
+/*GET search results*/
+router.get('/search-results', function(req, res, next) {
+  res.render('search-results.html');
+});
 
 module.exports = router;
