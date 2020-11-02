@@ -39,3 +39,9 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
+const port = 3000
+
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`)
+})
