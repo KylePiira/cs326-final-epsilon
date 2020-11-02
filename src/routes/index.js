@@ -11,4 +11,14 @@ router.get('/story', function(req, res, next) {
   res.render('story.html');
 });
 
+/* GET investment */
+router.get('/investment', function(req, res, next) {
+  res.render('stock.html');
+});
+
+/* GET profile */
+router.get('/profile', function(req, res, next) {
+  res.render('profile.html');
+});
+
 module.exports = router;
