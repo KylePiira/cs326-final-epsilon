@@ -12,12 +12,12 @@ router.get('/story', function(req, res, next) {
 });
 
 /* GET admin for submssions */
-router.get('/admin-submission', function(req, res, next) {
+router.get('/admin/submission', function(req, res, next) {
   res.render('admin_submission.html');
 });
 
 /* GET admin for comments */
-router.get('/admin-user', function(req, res, next) {
+router.get('/admin/user', function(req, res, next) {
   res.render('admin_users.html');
 });
 
