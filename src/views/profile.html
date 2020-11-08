@@ -1,0 +1,89 @@
+{% extends "wrapper.html" %}
+{% block head %}
+<script>
+	window.userId = "{{ userId }}";
+</script>
+<script src="/javascripts/submission.js"></script>
+<script src="/javascripts/comment.js"></script>
+<script src="/javascripts/profile.js"></script>
+{% endblock %}
+{% block content %}
+<div class="row mt-3">
+	<div class="col-md-2 order-md-0 mb-4">
+		<div class="card">
+			<div class="card-body">
+				<h5 class="card-title text-muted">Watchlist</h5>
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item">AAPL</li>
+					<li class="list-group-item">MSFT</li>
+					<li class="list-group-item">TSLA</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-8 order-first order-md-1 mb-4">
+		<div class="card">
+			<div class="card-body">
+				<h3 class="card-title"><span id="username"></span>'s profile page</h3>
+				<ul class="nav nav-tabs" id="profileTabs" role="tablist">
+					<li class="nav-item" role="presentation">
+					<a class="nav-link active" id="submissions-tab" data-toggle="tab" href="#submissions" role="tab" aria-controls="submissions" aria-selected="true">Submissions</a>
+					</li>
+					<li class="nav-item" role="presentation">
+					<a class="nav-link" id="comments-tab" data-toggle="tab" href="#comments" role="tab" aria-controls="comments" aria-selected="false">Comments</a>
+					</li>
+					<li class="nav-item" role="presentation">
+					<a class="nav-link" id="portfolio-tab" data-toggle="tab" href="#portfolio" role="tab" aria-controls="portfolio" aria-selected="false">Portfolio</a>
+					</li>
+				</ul>
+				<div class="tab-content" id="profileTabsConent">
+					<div class="tab-pane fade show active" id="submissions" role="tabpanel" aria-labelledby="submissions-tab">
+						<ul class="list-group list-group-flush" id="submission-list">
+						</ul>
+					</div>
+					<div class="tab-pane fade" id="comments" role="tabpanel" aria-labelledby="comments-tab">
+						<ul class="list-group list-group-flush" id="comment-list">
+						</ul>
+					</div>
+					<div class="tab-pane fade" id="portfolio" role="tabpanel" aria-labelledby="portfolio-tab">
+					<div class="row mt-1">
+						<div class="col-md">
+							<h5 class="card-title text-muted">Long</h5>
+							<ul class="list-group list-group-flush" id="long-list">
+							</ul>
+						</div>
+						<div class="col-md">
+							<h5 class="card-title text-muted">Short</h5>
+							<ul class="list-group list-group-flush" id="short-list">
+							</ul>
+						</div>
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-2 order-md-2 mb-4">
+		<div class="card">
+			<div class="card-body">
+				<div class="progress">
+					<div class="progress-bar progress-bar-placeholder" role="progressbar" title="Voting power"></div>
+				</div>
+				<br>
+				<h5 class="card-title text-muted">Long</h5>
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item text-success">AAPL</li>
+					<li class="list-group-item text-success">MSFT</li>
+					<li class="list-group-item text-success">VT</li>
+					<li class="list-group-item text-success">AMZN</li>
+				</ul>
+				<br>
+				<h5 class="card-title text-muted">Short</h5>
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item text-danger">TSLA</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
