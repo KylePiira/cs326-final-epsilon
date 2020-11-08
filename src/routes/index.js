@@ -7,28 +7,24 @@ router.get('/', function(req, res, next) {
 });
 
 /* GET story */
-router.get('/story', function(req, res, next) {
-  res.render('story.html');
-});
-
-/* GET admin for submssions */
-router.get('/admin-submission', function(req, res, next) {
-  res.render('admin_submission.html');
-});
-
-/* GET admin for comments */
-router.get('/admin-user', function(req, res, next) {
-  res.render('admin_users.html');
+router.get('/story/:storyId', function(req, res, next) {
+  res.render('story.html', {
+    storyId: req.params.storyId,
+  });
 });
 
 /* GET investment */
-router.get('/investment', function(req, res, next) {
-  res.render('stock.html');
+router.get('/i/:investmentId', function(req, res, next) {
+  res.render('stock.html', {
+    investmentId: req.params.investmentId, 
+  });
 });
 
 /* GET profile */
-router.get('/profile', function(req, res, next) {
-  res.render('profile.html');
+router.get('/u/:userId', function(req, res, next) {
+  res.render('profile.html', {
+    userId: req.params.userId,
+  });
 });
   
 /*GET login*/
@@ -47,8 +43,18 @@ router.get('/submit', function(req, res, next) {
 });
 
 /*GET search results*/
-router.get('/search-results', function(req, res, next) {
+router.get('/search', function(req, res, next) {
   res.render('search-results.html');
+});
+
+/* GET admin for submssions */
+router.get('/admin/submissions', function(req, res, next) {
+  res.render('admin/submissions.html');
+});
+
+/* GET admin for comments */
+router.get('/admin/users', function(req, res, next) {
+  res.render('admin/users.html');
 });
 
 module.exports = router;
