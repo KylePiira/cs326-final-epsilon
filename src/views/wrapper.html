@@ -5,11 +5,13 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
-	<title>Stock Exchange</title>
+	<title>{% block title %}Stock Exchange{% endblock %}</title>
 	<!-- Bootstrap core CSS -->
 	<link href="https://cdn.hoxly.com/bootstrap/4/themes/flatly/bootstrap.min.css" rel="stylesheet">
 	<!-- Custom Styles -->
 	<link href="/stylesheets/style.css" rel="stylesheet">
+	{% block head %}
+	{% endblock %}
 </head>
 
 <body>
@@ -23,8 +25,8 @@
 			<div class="collapse navbar-collapse" id="navbarCollapse">
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item">
-						<form class="form-inline my-2 my-lg-0 mr-auto">
-							<input class="form-control mr-sm-2" type="text" placeholder="Search...">
+						<form class="form-inline my-2 my-lg-0 mr-auto" action="/search">
+							<input class="form-control mr-sm-2" type="text" name="q" placeholder="Search...">
 							<button class="btn btn-white my-2 my-sm-0" type="submit">Search</button>
 						</form>
 					</li>
@@ -36,7 +38,7 @@
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Account</a>
 						<div class="dropdown-menu dropdown-menu-right">
-							<a class="dropdown-item" href="/profile">Profile</a>
+							<a class="dropdown-item" href="/u/username">Profile</a>
 							<a class="dropdown-item" href="#">Settings</a>
 							<div class="dropdown-divider"></div>
 							<a class="dropdown-item" href="#">Logout</a>

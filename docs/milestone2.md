@@ -27,6 +27,8 @@
     * `reputation`
     
     * `password`
+  
+  * 
 
 * Stories (Hannah H)
   
@@ -85,6 +87,7 @@
   * `create`
     
     * `story` or `comment`
+    * `type`
   
   * `delete`
     

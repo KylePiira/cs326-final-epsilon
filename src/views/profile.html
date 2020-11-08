@@ -1,4 +1,12 @@
 {% extends "wrapper.html" %}
+{% block head %}
+<script>
+	window.userId = "{{ userId }}";
+</script>
+<script src="/javascripts/submission.js"></script>
+<script src="/javascripts/comment.js"></script>
+<script src="/javascripts/profile.js"></script>
+{% endblock %}
 {% block content %}
 <div class="row mt-3">
 	<div class="col-md-2 order-md-0 mb-4">
@@ -16,7 +24,7 @@
 	<div class="col-md-8 order-first order-md-1 mb-4">
 		<div class="card">
 			<div class="card-body">
-				<h3 class="card-title">User's profile page</h3>
+				<h3 class="card-title"><span id="username"></span>'s profile page</h3>
 				<ul class="nav nav-tabs" id="profileTabs" role="tablist">
 					<li class="nav-item" role="presentation">
 					<a class="nav-link active" id="submissions-tab" data-toggle="tab" href="#submissions" role="tab" aria-controls="submissions" aria-selected="true">Submissions</a>
@@ -30,118 +38,23 @@
 				</ul>
 				<div class="tab-content" id="profileTabsConent">
 					<div class="tab-pane fade show active" id="submissions" role="tabpanel" aria-labelledby="submissions-tab">
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item">
-							<div class="row">
-								<div class="col-1 pl-0 pr-0">
-									<div class="votes">
-										<div class="upvote"></div>
-										<p class="mt-2 mb-2 badge badge-light">5</p>
-										<div class="downvote"></div>
-									</div>
-								</div>
-								<div class="col-11 pl-0">
-									<h5 class="card-title">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</h5>
-									<span class="badge badge-secondary">example.com</span>
-									<span>submitted 10 minutes ago by frank</span>
-								</div>
-							</div>
-						</li>
-						<li class="list-group-item">
-							<div class="row">
-								<div class="col-1 pl-0 pr-0">
-									<div class="votes">
-										<div class="upvote"></div>
-										<p class="mt-2 mb-2 badge badge-light">5</p>
-										<div class="downvote"></div>
-									</div>
-								</div>
-								<div class="col-11 pl-0">
-									<h5 class="card-title">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</h5>
-									<span class="badge badge-secondary">example.com</span>
-									<span>submitted 10 minutes ago by frank</span>
-								</div>
-							</div>
-						</li>
-						<li class="list-group-item">
-							<div class="row">
-								<div class="col-1 pl-0 pr-0">
-									<div class="votes">
-										<div class="upvote"></div>
-										<p class="mt-2 mb-2 badge badge-light">5</p>
-										<div class="downvote"></div>
-									</div>
-								</div>
-								<div class="col-11 pl-0">
-									<h5 class="card-title">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</h5>
-									<span class="badge badge-secondary">example.com</span>
-									<span>submitted 10 minutes ago by frank</span>
-								</div>
-							</div>
-						</li>
-						<li class="list-group-item">
-							<div class="row">
-								<div class="col-1 pl-0 pr-0">
-									<div class="votes">
-										<div class="upvote"></div>
-										<p class="mt-2 mb-2 badge badge-light">5</p>
-										<div class="downvote"></div>
-									</div>
-								</div>
-								<div class="col-11 pl-0">
-									<h5 class="card-title">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</h5>
-									<span class="badge badge-secondary">example.com</span>
-									<span>submitted 10 minutes ago by frank</span>
-								</div>
-							</div>
-						</li>
-					</ul>
+						<ul class="list-group list-group-flush" id="submission-list">
+						</ul>
 					</div>
 					<div class="tab-pane fade" id="comments" role="tabpanel" aria-labelledby="comments-tab">
-					<div class="comment row mt-3">
-						<div class="col-1 pl-0 pr-0">
-							<div class="votes">
-								<div class="upvote"></div>
-								<p class="mt-2 mb-2 badge badge-light">1</p>
-								<div class="downvote"></div>
-							</div>
-						</div>
-						<div class="col-11 pl-0">
-							<span><a href="#">john</a> - <i>1 minutes ago</i></span>
-							<p>Sit ipsam fugit nulla nihil ratione aut aut. Voluptatem harum nemo alias nam deleniti excepturi. Quaerat corporis enim ipsum vel fuga quo. In assumenda vel nesciunt eius voluptatem eum. </p>
-							<span class="btn btn-sm btn-primary">reply</span>
-						</div>
-					</div>
-					<div class="comment row mt-3">
-						<div class="col-1 pl-0 pr-0">
-							<div class="votes">
-								<div class="upvote"></div>
-								<p class="mt-2 mb-2 badge badge-light">1</p>
-								<div class="downvote"></div>
-							</div>
-						</div>
-						<div class="col-11 pl-0">
-							<span><a href="#">john</a> - <i>3 days ago</i></span>
-							<p>Deleniti aut qui ab voluptates in qui at tempora. Unde ratione natus laborum eum voluptates. Sequi deserunt dolor doloremque maiores quia. Minus iure deleniti ducimus dolore. Dignissimos perferendis quia voluptatem laboriosam delectus magni. Optio itaque ut autem vero excepturi</p>
-							<span class="btn btn-sm btn-primary">reply</span>
-						</div>
-					</div>
+						<ul class="list-group list-group-flush" id="comment-list">
+						</ul>
 					</div>
 					<div class="tab-pane fade" id="portfolio" role="tabpanel" aria-labelledby="portfolio-tab">
 					<div class="row mt-1">
 						<div class="col-md">
 							<h5 class="card-title text-muted">Long</h5>
-							<ul class="list-group list-group-flush">
-								<li class="list-group-item text-success">AAPL</li>
-								<li class="list-group-item text-success">MSFT</li>
-								<li class="list-group-item text-success">VT</li>
-								<li class="list-group-item text-success">AMZN</li>
+							<ul class="list-group list-group-flush" id="long-list">
 							</ul>
 						</div>
 						<div class="col-md">
 							<h5 class="card-title text-muted">Short</h5>
-							<ul class="list-group list-group-flush">
-								<li class="list-group-item text-danger">TSLA</li>
+							<ul class="list-group list-group-flush" id="short-list">
 							</ul>
 						</div>
 					</div>

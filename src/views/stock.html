@@ -1,4 +1,11 @@
 {% extends "wrapper.html" %}
+{% block head %}
+<script>
+	window.investmentId = '{{ investmentId }}';
+</script>
+<script src="/javascripts/submission.js"></script>
+<script src="/javascripts/listing.js"></script>
+{% endblock %}
 {% block content %}
 <div class="row mt-3">
 	<div class="col-md-2 order-md-0 mb-4">
@@ -19,71 +26,7 @@
 	<div class="col-md-8 order-first order-md-1 mb-4">
 		<div class="card">
 			<div class="card-body">
-				<ul class="list-group list-group-flush">
-					<li class="list-group-item">
-						<div class="row">
-							<div class="col-1 pl-0 pr-0">
-								<div class="votes">
-									<div class="upvote"></div>
-									<p class="mt-2 mb-2 badge badge-light">5</p>
-									<div class="downvote"></div>
-								</div>
-							</div>
-							<div class="col-11 pl-0">
-								<h5 class="card-title">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</h5>
-								<span class="badge badge-secondary">example.com</span>
-								<span>submitted 10 minutes ago by frank</span>
-							</div>
-						</div>
-					</li>
-					<li class="list-group-item">
-						<div class="row">
-							<div class="col-1 pl-0 pr-0">
-								<div class="votes">
-									<div class="upvote"></div>
-									<p class="mt-2 mb-2 badge badge-light">5</p>
-									<div class="downvote"></div>
-								</div>
-							</div>
-							<div class="col-11 pl-0">
-								<h5 class="card-title">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</h5>
-								<span class="badge badge-secondary">example.com</span>
-								<span>submitted 10 minutes ago by frank</span>
-							</div>
-						</div>
-					</li>
-					<li class="list-group-item">
-						<div class="row">
-							<div class="col-1 pl-0 pr-0">
-								<div class="votes">
-									<div class="upvote"></div>
-									<p class="mt-2 mb-2 badge badge-light">5</p>
-									<div class="downvote"></div>
-								</div>
-							</div>
-							<div class="col-11 pl-0">
-								<h5 class="card-title">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</h5>
-								<span class="badge badge-secondary">example.com</span>
-								<span>submitted 10 minutes ago by frank</span>
-							</div>
-						</div>
-					</li>
-					<li class="list-group-item">
-						<div class="row">
-							<div class="col-1 pl-0 pr-0">
-								<div class="votes">
-									<div class="upvote"></div>
-									<p class="mt-2 mb-2 badge badge-light">5</p>
-									<div class="downvote"></div>
-								</div>
-							</div>
-							<div class="col-11 pl-0">
-								<h5 class="card-title">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</h5>
-								<span class="badge badge-secondary">example.com</span>
-								<span>submitted 10 minutes ago by frank</span>
-							</div>
-						</div>
-					</li>
+				<ul class="list-group list-group-flush" id="stories">
 				</ul>
 			</div>
 		</div>
