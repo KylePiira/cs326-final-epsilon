@@ -28,7 +28,7 @@ Most pages on the site follow a three-column design:
 
 The homepage contains a list of top stories about stocks in a users watchlist. If the user is not logged in then it will contain a list of top stories across all stocks.
 
-![](../wireframes/index_wireframe.png)
+![](./wireframes/index_wireframe.png)
 
 ## Stock
 
@@ -36,19 +36,19 @@ Each stock has a dedicated page founder under `/stock/{TICKER}` which is very si
 
 The left sidebar contains a button to add the stock to the users watchlist and the right sidebar contains buttons to "buy" and "sell" the stock which will add it to either the "long" or "short" portions of their portfolio respectively.
 
-![](../wireframes/stock_wireframe.png)
+![](./wireframes/stock_wireframe.png)
 
 ## Search Results
 
 The search results page can be found at `/search?q={QUERY}` and contains a list of stories related to the query. The user can get to this page by typing in the search box at the top of every page.
 
-![](../wireframes/search-results_wireframe.png)
+![](./wireframes/search-results_wireframe.png)
 
 ## Story
 
 Each news story has a dedicated page under `/story/{ID}` where users may discuss the news story via comments. This is where users can post new comments, reply to existing comments, or vote on comments.
 
-![](../wireframes/story_wireframe.png)
+![](./wireframes/story_wireframe.png)
 
 ## User Profile
 
@@ -56,37 +56,37 @@ The user profile page contains a list of submitted stories and comments by that 
 
 The information in the left and right sidebars is for the currently logged in user, not the user who's profile is being viewed (unless they are the same).
 
-![](../wireframes/profile_submissions_wireframe.png)
+![](./wireframes/profile_submissions_wireframe.png)
 
-![](../wireframes/profile_comments_wireframe.png)
+![](./wireframes/profile_comments_wireframe.png)
 
-![](../wireframes/profile_portfolio_wireframe.png)
+![](./wireframes/profile_portfolio_wireframe.png)
 
 ## Submit
 
 The article submission page contains a form that the user can use to submit news stories to the site. It takes a title, URL, and which stock to post the story into. This page is linked from the "Submit" button found in the navbar of every page.
 
-![](../wireframes/submit_wireframe.png)
+![](./wireframes/submit_wireframe.png)
 
 ## Login
 
 The login page allows a user to sign into their existing account and provides a link to sign up if they don't already have an account.
 
-![](../wireframes/login_wireframe.png)
+![](./wireframes/login_wireframe.png)
 
 ## Sign Up
 
 The sign up page allows a user to register an account on the site using only a username and password (no email required).
 
-![](../wireframes/sign-up_wireframe.png)
+![](./wireframes/sign-up_wireframe.png)
 
 ## Admin
 
 The website will also contain a simple admin area where administrators can manage submissions and user accounts.
 
-![](../wireframes/admin_user_wireframe.png)
+![](./wireframes/admin_user_wireframe.png)
 
-![](../wireframes/admin_submission_wireframe.png)
+![](./wireframes/admin_submission_wireframe.png)
 
 # Bootstrap Mockups
 
@@ -94,45 +94,45 @@ We've implemented each of the Wireframes in Bootstrap 4 using the [Flatly theme]
 
 ## Homepage
 
-![](../screenshots/index.png)
+![](./screenshots/index.png)
 
 ## Stock
 
-![](../screenshots/stock.png)
+![](./screenshots/stock.png)
 
 ## Search Results
 
-![](../screenshots/search-results.png)
+![](./screenshots/search-results.png)
 
 ## Story
 
-![](../screenshots/story.png)
+![](./screenshots/story.png)
 
 ## User Profile
 
-![](../screenshots/profile_submissions.png)
+![](./screenshots/profile_submissions.png)
 
-![](../screenshots/profile_comments.png)
+![](./screenshots/profile_comments.png)
 
-![](../screenshots/profile_portfolio.PNG)
+![](./screenshots/profile_portfolio.PNG)
 
 ## Submit
 
-![](../screenshots/submit.png)
+![](./screenshots/submit.png)
 
 ## Login
 
-![](../screenshots/login.png)
+![](./screenshots/login.png)
 
 ## Sign Up
 
-![](../screenshots/sign-up.png)
+![](./screenshots/sign-up.png)
 
 ## Admin
 
-![](../screenshots/admin_user.png)
+![](./screenshots/admin_user.png)
 
-![](../screenshots/admin_submission.png)
+![](./screenshots/admin_submission.png)
 
 # Division of Labor
 
