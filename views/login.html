@@ -1,4 +1,7 @@
 {% extends "wrapper.html" %}
+{% block head %}
+<script src="/javascripts/login.js"></script>
+{% endblock %}
 {% block content %}
 <div class="row justify-content-center mt-5 mb-5">
 	<div class="col-md-4 col-sm-12">
@@ -7,22 +10,22 @@
 				<h3 class="card-title"><small class="text-muted">Login</small></h3>
 				<form>
 					<div class="text-left">
-						<label id="username"><b>Username: </b></label>
+						<label for="username"><b>Username: </b></label>
 					</div>
-					<input type="text" class="form-control" placeholder="Enter Username" name="username" required>
+					<input id="username" type="text" class="form-control" placeholder="Enter Username" name="username" required>
 					<br>
 					<br>
 					<div class="text-left">
-						<label id="password"><b>Password: </b></label>
+						<label for="password"><b>Password: </b></label>
 					</div>
-					<input type="text" class="form-control" placeholder="Enter Password" name="password" required>
+					<input id="password" type="password" class="form-control" placeholder="Enter Password" name="password" required>
 					<label>
 						<input type="checkbox" checked="checked" name="remember"> Remember me
 					</label>
 					<br>
 					<br>
 					<div class="d-flex justify-content-center">
-						<button type="button" class="btn btn-primary">Login</button>
+						<button id="login" type="button" class="btn btn-primary">Login</button>
 						<button type="button" class="btn btn-link">Sign Up</button>
 					</div>
 				</form>

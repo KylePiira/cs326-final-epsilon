@@ -103,6 +103,19 @@ router.get('/user/:userId/submissions', function(req, res, next) {
   });
 });
 
+router.get('/user/:userId/watchlist', function(req, res, next) {
+  res.json({
+    error: false,
+    data: generateDummyUser().watchlist,
+  });
+});
+
+router.post('/user/:userId/watchlist', function(req, res, next) {
+  res.json({
+    error: false,
+  });
+});
+
 /*
 Users API
 */

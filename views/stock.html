@@ -5,6 +5,7 @@
 </script>
 <script src="/javascripts/submission.js"></script>
 <script src="/javascripts/listing.js"></script>
+<script src="/javascripts/investment.js"></script>
 {% endblock %}
 {% block content %}
 <div class="row mt-3">
@@ -12,14 +13,14 @@
 		<div class="card">
 			<div class="card-body">
 				<h5 class="card-title text-muted">Watchlist</h5>
-				<ul class="list-group list-group-flush">
+				<ul id="watchlist" class="list-group list-group-flush">
 					<li class="list-group-item">AAPL</li>
 					<li class="list-group-item">MSFT</li>
 					<li class="list-group-item">TSLA</li>
 				</ul>
 				<br>
 				<p>5,023 people watch this stock</p>
-				<button class="btn btn-sm btn-primary">Watch</button>
+				<button id="watch" class="btn btn-sm btn-primary">Watch</button>
 			</div>
 		</div>
 	</div>
@@ -60,7 +61,7 @@
 				<button class="btn btn-danger">Sell</button>
 				<br class="mb-4">
 				<h5 class="card-title text-muted">Long</h5>
-				<ul class="list-group list-group-flush">
+				<ul id="long" class="list-group list-group-flush">
 					<li class="list-group-item text-success">AAPL</li>
 					<li class="list-group-item text-success">MSFT</li>
 					<li class="list-group-item text-success">VT</li>
@@ -68,7 +69,7 @@
 				</ul>
 				<br>
 				<h5 class="card-title text-muted">Short</h5>
-				<ul class="list-group list-group-flush">
+				<ul id="short" class="list-group list-group-flush">
 					<li class="list-group-item text-danger">TSLA</li>
 				</ul>
 			</div>
