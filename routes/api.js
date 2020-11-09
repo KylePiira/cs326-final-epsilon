@@ -1,5 +1,4 @@
 const express = require('express');
-const { fake } = require('faker');
 const faker = require('faker');
 const router = express.Router();
 
@@ -11,10 +10,10 @@ function generateDummyUser() {
     email: faker.internet.email(),
     date: faker.date.past(2),
     reputation: faker.random.number(500),
-    watchlist: ['TSLA', 'WMT', 'AMZN'],
+    watchlist: faker.random.arrayElements(faker.random.number(10)),
     portfolio: {
-      long: ['APPL', 'GOOGL', 'MSFT'],
-      short: ['TSLA'],
+      long: faker.random.arrayElements(faker.random.number(10)),
+      short: faker.random.arrayElements(faker.random.number(10)),
     }
   }
 }
@@ -183,7 +182,7 @@ router.get('/story/:storyId/comments', function(req, res, next) {
 });
 
 /*
-List Stories API
+Stories API
 */
 router.get('/stories/all', function(req, res, next) {
   const data = [];
@@ -210,7 +209,7 @@ router.get('/stories/:investment', function(req, res, next) {
 });
 
 /*
-Comments API
+Comment API
 */
 router.get('/comment/:commentId', function(req, res, next) {
   res.json({
