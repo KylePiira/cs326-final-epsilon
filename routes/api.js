@@ -8,6 +8,8 @@ function generateDummyUser() {
     id: faker.random.uuid(),
     type: 'user',
     username: faker.internet.userName(),
+    email: faker.internet.email(),
+    date: faker.date.past(2),
     reputation: faker.random.number(500),
     watchlist: ['TSLA', 'WMT', 'AMZN'],
     portfolio: {
