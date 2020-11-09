@@ -1,5 +1,5 @@
 const express = require('express');
-const { fake } = require('faker');
+const { fake, random } = require('faker');
 const faker = require('faker');
 const router = express.Router();
 
@@ -9,10 +9,10 @@ function generateDummyUser() {
     type: 'user',
     username: faker.internet.userName(),
     reputation: faker.random.number(500),
-    watchlist: ['TSLA', 'WMT', 'AMZN'],
+    watchlist: faker.random.arrayElements(faker.random.number(10)),
     portfolio: {
-      long: ['APPL', 'GOOGL', 'MSFT'],
-      short: ['TSLA'],
+      long: faker.random.arrayElements(faker.random.number(10)),
+      short: faker.random.arrayElements(faker.random.number(10)),
     }
   }
 }
