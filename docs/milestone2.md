@@ -231,7 +231,162 @@ Example response:
 
 
 ## Stories API
+`GET /api/stories/all`
+
+Retrieve a list of all stories
+
+Example response:
+
+```json
+{
+	"error": false,
+	"data": [{
+		"id": "f725b92e-0646-41c1-9fc6-85bbd256900d",
+		"type": "story",
+		"title": "Adipisci dolore veritatis velit magni.",
+		"url": "http://koby.net",
+		"author": {
+			"id": "d94e2e6a-7a11-4494-810e-055e58293538",
+			"type": "user",
+			"username": "Jaida.Von",
+			"reputation": 371,
+			"watchlist": ["TSLA", "WMT", "AMZN"],
+			"portfolio": {
+				"long": ["APPL", "GOOGL", "MSFT"],
+				"short": ["TSLA"]
+			}
+		},
+		"investment": "BTC",
+		"created": 1604955535,
+		"votes": 9,
+		"score": 4,
+		"replies": 60
+	}, {
+		"id": "f725b92e-0646-41c1-9fc6-85bbd256900d",
+		"type": "story",
+		"title": "Coca hgn idhe idhswh.",
+		"url": "http://koby.net",
+		"author": {
+			"id": "d94e2e6a-7a11-4494-810e-055e58293538",
+			"type": "user",
+			"username": "Maria.Lee",
+			"reputation": 371,
+			"watchlist": ["TSLA", "WMT", "AMZN"],
+			"portfolio": {
+				"long": ["APPL", "GOOGL", "MSFT"],
+				"short": ["TSLA"]
+			}
+		},
+		"investment": "BTC",
+		"created": 1604955535,
+		"votes": 9,
+		"score": 4,
+		"replies": 70
+	}]
+}
+```
+
+`GET /api/stories/:investment`
+
+Retrieve a list of all stories
+
+Example response:
+
+```json
+{
+	"error": false,
+	"data": [{
+		"id": "f725b92e-0646-41c1-9fc6-85bbd256900d",
+		"type": "story",
+		"title": "Adipisci dolore veritatis velit magni.",
+		"url": "http://koby.net",
+		"author": {
+			"id": "d94e2e6a-7a11-4494-810e-055e58293538",
+			"type": "user",
+			"username": "Jaida.Von",
+			"reputation": 371,
+			"watchlist": ["TSLA", "WMT", "AMZN"],
+			"portfolio": {
+				"long": ["APPL", "GOOGL", "MSFT"],
+				"short": ["TSLA"]
+			}
+		},
+		"investment": "BTC",
+		"created": 1604955535,
+		"votes": 9,
+		"score": 4,
+		"replies": 60
+	}, {
+		"id": "f725b92e-0646-41c1-9fc6-85bbd256900d",
+		"type": "story",
+		"title": "Coca hgn idhe idhswh.",
+		"url": "http://koby.net",
+		"author": {
+			"id": "d94e2e6a-7a11-4494-810e-055e58293538",
+			"type": "user",
+			"username": "Maria.Lee",
+			"reputation": 371,
+			"watchlist": ["TSLA", "WMT", "AMZN"],
+			"portfolio": {
+				"long": ["APPL", "GOOGL", "MSFT"],
+				"short": ["TSLA"]
+			}
+		},
+		"investment": "BTC",
+		"created": 1604955535,
+		"votes": 9,
+		"score": 4,
+		"replies": 70
+	}]
+}
+```
+
+
 
 ## Comment API
+
+`GET /api/comment/:commentId`
+
+Retrieve a comment given their comment Id.
+
+Example response:
+
+```json
+{
+	"error": false,
+	"data": {
+		"id": "7d5d9549-8e30-46e1-ab5f-e9cb7402f03a",
+		"type": "comment",
+		"body": "Adipisci dolore veritatis velit magni.",
+		"author": {
+			"id": "d94e2e6a-7a11-4494-810e-055e58293538",
+			"type": "user",
+			"username": "Jaida.Von",
+			"reputation": 371,
+			"watchlist": ["TSLA", "WMT", "AMZN"],
+			"portfolio": {
+				"long": ["APPL", "GOOGL", "MSFT"],
+				"short": ["TSLA"]
+			}
+		},
+		"created": 1604955535,
+		"votes": 9,
+		"score": 4,
+		"replies": 60
+	}
+}
+```
+
+`DELETE /api/comment/:commentId`
+
+Delete a comment with a specific comment ID.
+
+Example response:
+
+```json
+{
+    "error": false,
+}
+```
 
 ## Search API
