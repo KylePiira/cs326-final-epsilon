@@ -168,7 +168,7 @@ router.get('/story/:storyId/comments', function(req, res, next) {
 });
 
 /*
-List Stories API
+Stories API
 */
 router.get('/stories/all', function(req, res, next) {
   const data = [];
@@ -195,7 +195,7 @@ router.get('/stories/:investment', function(req, res, next) {
 });
 
 /*
-Comments API
+Comment API
 */
 router.get('/comment/:commentId', function(req, res, next) {
   res.json({
