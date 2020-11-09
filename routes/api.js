@@ -1,5 +1,4 @@
 const express = require('express');
-const { fake, random } = require('faker');
 const faker = require('faker');
 const router = express.Router();
 
