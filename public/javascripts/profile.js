@@ -27,7 +27,7 @@ window.addEventListener('load', async () => {
         link.innerText = ticker;
         link.setAttribute('href', `/i/${ticker}`);
         listItem.appendChild(link);
-        document.getElementById('long-list').appendChild(listItem);
+        document.getElementById('long-profile').appendChild(listItem);
     }
 
     for (const ticker of profile.portfolio.short) {
@@ -38,7 +38,7 @@ window.addEventListener('load', async () => {
         link.innerText = ticker;
         link.setAttribute('href', `/i/${ticker}`);
         listItem.appendChild(link);
-        document.getElementById('short-list').appendChild(listItem);
+        document.getElementById('short-profile').appendChild(listItem);
     }
     
     document.getElementById('username').innerText = profile.username;
