@@ -60,6 +60,8 @@ router.get('/', function(req, res, next) {
 /*
 User API
 */
+
+// retrieves user by userId
 router.get('/user/:userId', function(req, res, next) {
   res.json({
     error: false,
@@ -67,6 +69,7 @@ router.get('/user/:userId', function(req, res, next) {
   });
 });
 
+// creates a user
 router.post('/user', function(req, res, next) {
   res.json({
     error: false,
@@ -76,12 +79,14 @@ router.post('/user', function(req, res, next) {
   });
 });
 
+// deletes user by userId 
 router.delete('/user/:userId', function(req, res, next) {
   res.json({
     error: false,
   });
 });
 
+// retrieves comments by userId
 router.get('/user/:userId/comments', function(req, res, next) {
   const data = [];
   const limit = faker.random.number(15);
@@ -94,6 +99,7 @@ router.get('/user/:userId/comments', function(req, res, next) {
   });
 });
 
+// retrieves submissions by userId
 router.get('/user/:userId/submissions', function(req, res, next) {
   const data = [];
   const limit = faker.random.number(15);
@@ -106,6 +112,7 @@ router.get('/user/:userId/submissions', function(req, res, next) {
   });
 });
 
+// retrieves watchlist by userId
 router.get('/user/:userId/watchlist', function(req, res, next) {
   res.json({
     error: false,
@@ -113,18 +120,21 @@ router.get('/user/:userId/watchlist', function(req, res, next) {
   });
 });
 
+// adds ticker to watchlist by userId
 router.post('/user/:userId/watchlist', function(req, res, next) {
   res.json({
     error: false,
   });
 });
 
+// deletes ticker from watchlist by userId
 router.delete('/user/:userId/watchlist', function(req, res, next) {
   res.json({
     error: false,
   });
 });
 
+// retrieves a user's long stocks
 router.get('/user/:userId/long', function(req, res, next) {
   res.json({
     error: false,
@@ -132,18 +142,21 @@ router.get('/user/:userId/long', function(req, res, next) {
   });
 });
 
+// adds a ticker to a user's long stocks
 router.post('/user/:userId/long', function(req, res, next) {
   res.json({
     error: false,
   });
 });
 
+// deletes a ticker from a user's long stocks
 router.delete('/user/:userId/long', function(req, res, next) {
   res.json({
     error: false,
   });
 });
 
+// retrieves a user's short stocks
 router.get('/user/:userId/short', function(req, res, next) {
   res.json({
     error: false,
@@ -151,12 +164,14 @@ router.get('/user/:userId/short', function(req, res, next) {
   });
 });
 
+// adds a ticker to a user's short stocks
 router.post('/user/:userId/short', function(req, res, next) {
   res.json({
     error: false,
   });
 });
 
+// deletes a ticker from a user's short stocks
 router.delete('/user/:userId/short', function(req, res, next) {
   res.json({
     error: false,
@@ -166,6 +181,8 @@ router.delete('/user/:userId/short', function(req, res, next) {
 /*
 Users API
 */
+
+// gets a list of all the users
 router.get('/users/all', function(req, res, next) {
   const data = [];
   const limit = faker.random.number(15);
@@ -181,6 +198,8 @@ router.get('/users/all', function(req, res, next) {
 /*
 Story API
 */
+
+// retrieves a story by its storyId
 router.get('/story/:storyId', function(req, res, next) {
   res.json({
     error: false,
@@ -188,24 +207,28 @@ router.get('/story/:storyId', function(req, res, next) {
   });
 });
 
+// upvotes a story
 router.post('/story/:storyId/upvote', function(req, res, next) {
   res.json({
     error: false,
   });
 });
 
+// downvotes a story
 router.post('/story/:storyId/downvote', function(req, res, next) {
   res.json({
     error: false,
   });
 });
 
+// deletes a story
 router.delete('/story/:storyId', function(req, res, next) {
   res.json({
     error: false,
   })
 })
 
+// creates a story
 router.post('/story', function(req, res, next) {
   res.json({
     error: false,
@@ -215,6 +238,7 @@ router.post('/story', function(req, res, next) {
   })
 });
 
+// retrieves a story's comments
 router.get('/story/:storyId/comments', function(req, res, next) {
   const data = [];
   const limit = faker.random.number(15);
@@ -230,6 +254,8 @@ router.get('/story/:storyId/comments', function(req, res, next) {
 /*
 Stories API
 */
+
+// gets a list of all the stories
 router.get('/stories/all', function(req, res, next) {
   const data = [];
   const limit = faker.random.number(15);
@@ -242,6 +268,7 @@ router.get('/stories/all', function(req, res, next) {
   });
 });
 
+// gets a list of all the stories for a particular investment
 router.get('/stories/:investment', function(req, res, next) {
   const data = [];
   const limit = faker.random.number(15);
@@ -257,6 +284,8 @@ router.get('/stories/:investment', function(req, res, next) {
 /*
 Comment API
 */
+
+// retrieves a comment by its commentId
 router.get('/comment/:commentId', function(req, res, next) {
   res.json({
     error: false,
@@ -264,26 +293,28 @@ router.get('/comment/:commentId', function(req, res, next) {
   })
 });
 
+// deletes a comment
 router.delete('/comment/:commentId', function(req, res, next) {
   res.json({
     error: false,
   })
 })
 
-
+// upvotes a comment
 router.post('/comment/:commentId/upvote', function(req, res, next) {
   res.json({
     error: false,
   })
 });
 
+// downvotes a comment
 router.post('/comment/:commentId/downvote', function(req, res, next) {
   res.json({
     error: false,
   })
 });
 
-
+// retrieves a comment's thread of comments
 router.get('/comment/:commentId/comments', function(req, res, next) {
   const data = [];
   const limit = faker.random.number(15);
@@ -296,6 +327,7 @@ router.get('/comment/:commentId/comments', function(req, res, next) {
   });
 });
 
+// creates a comment
 router.post('/comment', function(req, res, next) {
   res.json({
     error: false,
@@ -308,6 +340,8 @@ router.post('/comment', function(req, res, next) {
 /*
 Search API
 */
+
+// retrieves search results
 router.get('/search', function(req, res, next) {
   if (req.query.q) {
     const data = [];

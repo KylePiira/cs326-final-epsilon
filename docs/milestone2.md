@@ -124,6 +124,118 @@ Example response:
 }
 ```
 
+`GET /api/user/:userId/watchlist`
+
+Retrieve a watchlist by userId
+
+Example response:
+
+```json
+{
+	"error": false,
+	"data": ["TSLA", "WMT", "AMZN"]
+}
+```
+
+`POST /api/user/:userId/watchlist`
+
+Add a ticker to the watchlist
+
+Example response:
+
+```json
+{
+	"error": false,
+}
+```
+
+`DELETE /api/user/:userId/watchlist`
+
+Add a ticker to the watchlist
+
+Example response:
+
+```json
+{
+	"error": false,
+}
+```
+
+`GET /api/user/:userId/long`
+
+Retrieve a user's long stocks
+
+Example response:
+
+```json
+{
+	"error": false,
+	"data": ["APPL", "GOOGL", "MSFT"]
+}
+```
+
+`POST /api/user/:userId/long`
+
+Adds a ticker to a user's long stocks
+
+Example response:
+
+```json
+{
+	"error": false,
+}
+```
+
+`DELETE /api/user/:userId/long`
+
+Delete a ticker from a user's long stocks
+
+Example response:
+
+```json
+{
+	"error": false,
+}
+```
+
+`GET /api/user/:userId/short`
+
+Retrieve a user's short stocks
+
+Example response:
+
+```json
+{
+	"error": false,
+	"data": ["TSLA"]
+}
+```
+
+`POST /api/user/:userId/short`
+
+Adds a ticker to a user's short stocks
+
+Example response:
+
+```json
+{
+	"error": false,
+}
+```
+
+`DELETE /api/user/:userId/short`
+
+Delete a ticker from a user's short stocks
+
+Example response:
+
+```json
+{
+	"error": false,
+}
+```
+
+
 ## Users API
 
 `GET /api/users/all`
