@@ -5,6 +5,7 @@
 </script>
 <script src="/javascripts/submission.js"></script>
 <script src="/javascripts/listing.js"></script>
+<script src="/javascripts/sidebars.js"></script>
 <script src="/javascripts/investment.js"></script>
 {% endblock %}
 {% block content %}
@@ -13,13 +14,8 @@
 		<div class="card">
 			<div class="card-body">
 				<h5 class="card-title text-muted">Watchlist</h5>
-				<ul id="watchlist" class="list-group list-group-flush">
-					<li class="list-group-item">AAPL</li>
-					<li class="list-group-item">MSFT</li>
-					<li class="list-group-item">TSLA</li>
-				</ul>
+				<ul id="watchlist" class="list-group list-group-flush"></ul>
 				<br>
-				<p>5,023 people watch this stock</p>
 				<button id="watch" class="btn btn-sm btn-primary">Watch</button>
 			</div>
 		</div>
@@ -57,21 +53,14 @@
 					<div class="progress-bar progress-bar-placeholder" role="progressbar" title="Voting power"></div>
 				</div>
 				<br>
-				<button class="btn btn-success">Buy</button>
-				<button class="btn btn-danger">Sell</button>
+				<button class="btn btn-success" id="buy">Buy</button>
+				<button class="btn btn-danger" id="sell">Sell</button>
 				<br class="mb-4">
 				<h5 class="card-title text-muted">Long</h5>
-				<ul id="long" class="list-group list-group-flush">
-					<li class="list-group-item text-success">AAPL</li>
-					<li class="list-group-item text-success">MSFT</li>
-					<li class="list-group-item text-success">VT</li>
-					<li class="list-group-item text-success">AMZN</li>
-				</ul>
+				<ul id="long" class="list-group list-group-flush"></ul>
 				<br>
 				<h5 class="card-title text-muted">Short</h5>
-				<ul id="short" class="list-group list-group-flush">
-					<li class="list-group-item text-danger">TSLA</li>
-				</ul>
+				<ul id="short" class="list-group list-group-flush"></ul>
 			</div>
 		</div>
 	</div>
