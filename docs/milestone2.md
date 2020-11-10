@@ -687,3 +687,56 @@ Example response:
 ```
 
 
+# Part 2: Front-end Implementation
+
+This is the homepage, which lists some stories which are read from a Javascript API. Each of the stories can be upvoted or downvoted by users.
+
+![](./docs/screenshots/milestone-2/index.png)
+
+This is the profile page, which displays the stories, comments, and portfolio for the user. They can also vote on comment and stories, as well as reply here.
+
+![](./docs/screenshots/milestone-2/profile.png)
+
+This is the story page, which displays all of the comments posted on a story. From this page, users are able to submit new comments, submit replies to existing comments, vote on the story, and vote on existing comments.
+
+![](./docs/screenshots/milestone-2/story.png)
+
+This is the admin page, which allows admin users to delete users and submissions.
+
+![](./docs/screenshots/milestone-2/admin.png)
+
+This is the submit page, which allows users to create new stories on the site.
+
+![](./docs/screenshots/milestone-2/submit.png)
+
+This is the investments page, which allows users to add investments to their watchlist, and buy and sell them in their virtual portfolio. They can also vote on stories from this page.
+
+![](./docs/screenshots/milestone-2/investments.png)
+
+# Part 3: Deployment
+
+Link to hosted application in Heroku: https://stock-exchange-326.herokuapp.com/
+
+# Conclusion
+
+## Division of Labor
+
+Kyle
+* investment
+* story
+* error
+* wrapper
+
+Hannah D.
+* login
+* sign up
+* search results
+* submit
+
+Hannah H.
+* admin submissions
+* admin users
+* profile
+* homepage
+
+**We all made contributions to api.js**
