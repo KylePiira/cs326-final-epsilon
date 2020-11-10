@@ -6,6 +6,7 @@
 <script src="/javascripts/comment.js"></script>
 <script src="/javascripts/submission.js"></script>
 <script src="/javascripts/story.js"></script>
+<script src="/javascripts/sidebars.js"></script>
 {% endblock %}
 {% block content %}
 <div class="row mt-3">
@@ -13,11 +14,7 @@
 		<div class="card">
 			<div class="card-body">
 				<h5 class="card-title text-muted">Watchlist</h5>
-				<ul class="list-group list-group-flush">
-					<li class="list-group-item">AAPL</li>
-					<li class="list-group-item">MSFT</li>
-					<li class="list-group-item">TSLA</li>
-				</ul>
+				<ul id="watchlist" class="list-group list-group-flush"></ul>
 			</div>
 		</div>
 	</div>
@@ -65,17 +62,10 @@
 				</div>
 				<br>
 				<h5 class="card-title text-muted">Long</h5>
-				<ul class="list-group list-group-flush">
-					<li class="list-group-item text-success">AAPL</li>
-					<li class="list-group-item text-success">MSFT</li>
-					<li class="list-group-item text-success">VT</li>
-					<li class="list-group-item text-success">AMZN</li>
-				</ul>
+				<ul id="long" class="list-group list-group-flush"></ul>
 				<br>
 				<h5 class="card-title text-muted">Short</h5>
-				<ul class="list-group list-group-flush">
-					<li class="list-group-item text-danger">TSLA</li>
-				</ul>
+				<ul id="short" class="list-group list-group-flush"></ul>
 			</div>
 		</div>
 	</div>

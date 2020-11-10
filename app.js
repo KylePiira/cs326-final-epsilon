@@ -45,18 +45,6 @@ app.use(function(err, req, res, next) {
   res.render('error.html');
 });
 
-// app.get('/', function(req, res) {
-//   res.render('index.html', {
-//     title : 'My First Nunjucks Page',
-//     items : [
-//       { name : 'item #1' },
-//       { name : 'item #2' },
-//       { name : 'item #3' },
-//       { name : 'item #4' },
-//     ]
-//   });
-// });
-
 module.exports = app;
 
 const port = process.env.PORT || 8080
