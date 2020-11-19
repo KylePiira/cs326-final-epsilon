@@ -180,3 +180,233 @@ module.exports.user.short = async function(user) {
         return false;
     }
 }
+
+/*
+Submissions
+*/
+module.exports.submission = {}
+// Create Submission
+module.exports.submission.create = async function(submission) {
+    try {
+        return (await db.one('INSERT INTO Submissions (author, title, url, investment) VALUES (${author}, ${title}, ${url}, ${investment}) RETURNING id', {
+            author: submission.author,
+            title: submission.title,
+            url: submission.url,
+            investment: submission.investment,
+        })).id;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+// Read Submission
+module.exports.submission.read = async function(submission) {
+    try {
+        return await db.one('SELECT * FROM Submissions WHERE id=${id}', {
+            id: submission.id
+        });
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+// Update Submission
+module.exports.submission.update = async function(submission) {
+    try {
+        db.none('UPDATE Submissions SET title=${title}, url=${url}, investment=${investment} WHERE id=${id}', {
+            id: submission.id,
+            title: submission.title,
+            url: submission.url,
+            investment: submission.investment,
+        })
+        return true;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+// Delete Submission
+module.exports.submission.delete = async function(submission) {
+    try {
+        db.none('DELETE FROM Submissions WHERE id=${id}', {
+            id: submission.id
+        });
+        return true;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+// Exists Submission
+module.exports.submission.exists = async function(submission) {
+    try {
+        return Number((await db.one('SELECT COUNT(*) FROM Submissions WHERE id=${id}', {
+            id: submission.id
+        })).count) > 0;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+// Increment Replies
+module.exports.submission.reply = async function(submission) {
+    try {
+        db.none('UPDATE Submissions SET replies=replies + 1 WHERE id=${id}', {
+            id: submission.id
+        })
+        return true;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+// Upvote Submission
+module.exports.submission.upvote = async function(submission) {
+    try {
+        db.none('UPDATE Submissions SET votes=votes + 1 WHERE id=${id}', {
+            id: submission.id
+        });
+        return true;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+// Downvote Submission
+module.exports.submission.downvote = async function(submission) {
+    try {
+        db.none('UPDATE Submissions SET votes=votes - 1 WHERE id=${id}', {
+            id: submission.id
+        });
+        return true;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+// Retrieve comments for Subission
+module.exports.submission.comments = async function(submission) {
+    try {
+        return await db.any('SELECT * FROM Comments WHERE parent=${id}', {
+            id: submission.id
+        });
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+
+/*
+Submissions
+*/
+module.exports.submission = {}
+// Create Submission
+module.exports.submission.create = async function(submission) {
+    try {
+        return (await db.one('INSERT INTO Submissions (author, title, url, investment) VALUES (${author}, ${title}, ${url}, ${investment}) RETURNING id', {
+            author: submission.author,
+            title: submission.title,
+            url: submission.url,
+            investment: submission.investment,
+        })).id;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+// Read Submission
+module.exports.submission.read = async function(submission) {
+    try {
+        return await db.one('SELECT * FROM Submissions WHERE id=${id}', {
+            id: submission.id
+        });
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+// Update Submission
+module.exports.submission.update = async function(submission) {
+    try {
+        db.none('UPDATE Submissions SET title=${title}, url=${url}, investment=${investment} WHERE id=${id}', {
+            id: submission.id,
+            title: submission.title,
+            url: submission.url,
+            investment: submission.investment,
+        })
+        return true;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+// Delete Submission
+module.exports.submission.delete = async function(submission) {
+    try {
+        db.none('DELETE FROM Submissions WHERE id=${id}', {
+            id: submission.id
+        });
+        return true;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+// Exists Submission
+module.exports.submission.exists = async function(submission) {
+    try {
+        return Number((await db.one('SELECT COUNT(*) FROM Submissions WHERE id=${id}', {
+            id: submission.id
+        })).count) > 0;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+// Increment Replies
+module.exports.submission.reply = async function(submission) {
+    try {
+        db.none('UPDATE Submissions SET replies=replies + 1 WHERE id=${id}', {
+            id: submission.id
+        })
+        return true;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+// Upvote Submission
+module.exports.submission.upvote = async function(submission) {
+    try {
+        db.none('UPDATE Submissions SET votes=votes + 1 WHERE id=${id}', {
+            id: submission.id
+        });
+        return true;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+// Downvote Submission
+module.exports.submission.downvote = async function(submission) {
+    try {
+        db.none('UPDATE Submissions SET votes=votes - 1 WHERE id=${id}', {
+            id: submission.id
+        });
+        return true;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+// Retrieve comments for Subission
+module.exports.submission.comments = async function(submission) {
+    try {
+        return await db.any('SELECT * FROM Comments WHERE parent=${id}', {
+            id: submission.id
+        });
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
