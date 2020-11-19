@@ -1,5 +1,6 @@
 const express = require('express');
 const faker = require('faker');
+const db = require('./db.js');
 const router = express.Router();
 
 function generateDummyUser() {

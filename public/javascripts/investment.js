@@ -1,10 +1,22 @@
 window.addEventListener('load', async function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const investmentId = urlParams.get('id');
+    const userId = (await (await fetch(`/api/userId`, {credentials: 'same-origin'})).json()).data.id;
+
     const watchButton = document.getElementById('watch');
     const watchlist = document.getElementById('watchlist');
+
+    // Check if investment is already in watchlist
+    if ((await (await fetch(`/api/user/${userId}/watchlist`)).json()).data.includes(investmentId)) {
+        watchButton.innerText = 'Unwatch';
+    } else {
+        watchButton.innerText = 'Watch';
+    }
+
     watchButton.addEventListener('click', async function() {
         if (watchButton.innerText === 'Watch') {
-            watchButton.innerText = 'Watched';
-            await fetch(`/api/user/${window.localStorage.getItem('username')}/watchlist`, {
+            watchButton.innerText = 'Unwatch';
+            await fetch(`/api/user/${userId}/watchlist`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -15,7 +27,7 @@ window.addEventListener('load', async function() {
             });
         } else {
             watchButton.innerText = 'Watch';
-            fetch(`/api/user/${window.localStorage.getItem('username')}/watchlist`, {
+            await fetch(`/api/user/${userId}/watchlist`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -32,8 +44,9 @@ window.addEventListener('load', async function() {
     const sellButton = document.getElementById('sell');
     const long = document.getElementById('long');
     const short = document.getElementById('short');
+
     buyButton.addEventListener('click', async function() {
-        fetch(`/api/user/${window.localStorage.getItem('username')}/long`, {
+        await fetch(`/api/user/${userId}/long`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -41,32 +54,14 @@ window.addEventListener('load', async function() {
             body: JSON.stringify({
                 id: investmentId,
             })
-        })
-        fetch(`/api/user/${window.localStorage.getItem('username')}/short`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                id: investmentId,
-            })
-        })
+        });
 
         buildLongs(long);
         buildShorts(short);
     });
 
     sellButton.addEventListener('click', async function() {
-        fetch(`/api/user/${window.localStorage.getItem('username')}/long`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                id: investmentId,
-            })
-        })
-        fetch(`/api/user/${window.localStorage.getItem('username')}/short`, {
+        await fetch(`/api/user/${userId}/short`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -74,7 +69,7 @@ window.addEventListener('load', async function() {
             body: JSON.stringify({
                 id: investmentId,
             })
-        })
+        });
 
         buildLongs(long);
         buildShorts(short);

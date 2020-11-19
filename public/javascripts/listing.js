@@ -1,4 +1,7 @@
 window.addEventListener('load', async () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const investmentId = urlParams.get('id') || 'all';
+
     if (investmentId !== 'all') {
         document.title = `${investmentId} - Stock Exchange`;
     }

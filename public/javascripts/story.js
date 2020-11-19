@@ -1,4 +1,6 @@
 window.addEventListener('load', async function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const storyId = urlParams.get('id');
     // Insert the story
     const story = (await (await fetch(`/api/story/${storyId}`)).json()).data;
     document.getElementById('story').appendChild(buildSubmission(story));
@@ -16,13 +18,13 @@ window.addEventListener('load', async function() {
         const replyCommentId = (await (await fetch('/api/comment', {
             method: 'POST',
             headers: {
-                'Content-Type': 'applicaiton/json'
+                'Content-Type': 'application/json'
             },
-            body: {
+            body: JSON.stringify({
                 body: document.getElementById('comment-box').value,
                 parent: storyId,
-            }
-        })).json()).data;
+            })
+        })).json()).data.id;
         const replyComment = (await (await fetch(`/api/comment/${replyCommentId}`)).json()).data
         document.getElementById('comments').insertBefore(
             buildComment(replyComment), 
