@@ -8,9 +8,9 @@ window.addEventListener('load', () => {
             body: JSON.stringify({
                 title: document.getElementById('title').value,
                 url: document.getElementById('url').value,
-                stock: document.getElementById('stock').value,
+                investment: document.getElementById('stock').value,
             })
         })).json();
-        window.location.href = `/story/${response.data.id}`;
+        window.location.href = `/story?id=${response.data.id}`;
     });
 });
