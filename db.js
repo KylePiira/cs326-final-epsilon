@@ -522,3 +522,138 @@ module.exports.comment.comments = async function(comment) {
         return false;
     }
 }
+
+/*
+Investments
+*/
+module.exports.investment = {}
+// Create Investment Relationship
+module.exports.investment.create = async function(author, ticker, type) {
+    try {
+        db.none('INSERT INTO UserInvestments (author, investment, type) VALUES (${author}, ${ticker}, ${type})', {
+            author: author,
+            ticker: ticker,
+            type: type,
+        });
+        return true;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+
+// Delete Investment Relationship
+module.exports.investment.delete = async function(author, ticker, type) {
+    try {
+        db.none('DELETE FROM UserInvestments WHERE author=${author} AND investment=${investment} AND type=${type}', {
+            author: author,
+            investment: ticker,
+            type: type,
+        });
+        return true;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+
+// Follow an Investment
+module.exports.investment.watch = async function(author, ticker) {
+    try {
+        return module.exports.investment.create(author, ticker, 'watchlist');
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+
+// Unfollow an Investment
+module.exports.investment.unwatch = async function(author, ticker) {
+    try {
+        return module.exports.investment.delete(author, ticker, 'watchlist');
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+
+// Buy an Investment
+module.exports.investment.buy = async function(author, ticker) {
+    try {
+        if (Number((await db.one('SELECT COUNT(*) FROM UserInvestments WHERE author=${author} AND investment=${ticker} AND type=\'short\'', {
+            author: author,
+            ticker: ticker,
+        })).count) > 0) {
+            return module.exports.investment.delete(author, ticker, 'short');
+        } else if (Number((await db.one('SELECT COUNT(*) FROM UserInvestments WHERE author=${author} AND investment=${ticker} AND type=\'long\'', {
+            author: author,
+            ticker: ticker,
+        })).count) === 0) {
+            return module.exports.investment.create(author, ticker, 'long');
+        }
+        return false;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+    
+}
+
+// Sell an Investment
+module.exports.investment.sell = async function(author, ticker) {
+    try {
+        if (Number((await db.one('SELECT COUNT(*) FROM UserInvestments WHERE author=${author} AND investment=${ticker} AND type=\'long\'', {
+            author: author,
+            ticker: ticker,
+        })).count) > 0) {
+            return module.exports.investment.delete(author, ticker, 'long');
+        } else if (Number((await db.one('SELECT COUNT(*) FROM UserInvestments WHERE author=${author} AND investment=${ticker} AND type=\'short\'', {
+            author: author,
+            ticker: ticker,
+        })).count) === 0) {
+            return module.exports.investment.create(author, ticker, 'short');
+        }
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+
+// Retrieve a list of submissions for an investment
+module.exports.investment.submissions = async function(ticker) {
+    if (ticker === 'all') {
+        try {
+            return await db.any('SELECT * FROM Submissions');
+        } catch (error) {
+            console.error(error);
+            return false;
+        }
+    } else {
+        try {
+            return await db.any('SELECT * FROM Submissions WHERE investment=${investment}', {
+                investment: ticker
+            })
+        } catch (error) {
+            console.error(error);
+            return false;
+        }
+    }
+     
+}
+
+/*
+Search Engine
+*/
+module.exports.search = {}
+
+// Search submissions
+module.exports.search.submissions = async function(query) {
+    try {
+        return await db.any('SELECT * FROM Submissions WHERE title ILIKE ${query}', {
+            query: `%${query}%`
+        });
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
