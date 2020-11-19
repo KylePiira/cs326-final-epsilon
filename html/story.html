@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>Stock Exchange</title>
+	<!-- Bootstrap core CSS -->
+	<link href="https://cdn.hoxly.com/bootstrap/4/themes/flatly/bootstrap.min.css" rel="stylesheet">
+	<!-- Custom Styles -->
+	<link href="/stylesheets/style.css" rel="stylesheet">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+<script src="/javascripts/comment.js"></script>
+<script src="/javascripts/submission.js"></script>
+<script src="/javascripts/story.js"></script>
+<script src="/javascripts/sidebars.js"></script>
+
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+		<div class="container">
+			<a class="navbar-brand" href="/">Stock Exchange</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarCollapse">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item">
+						<form class="form-inline my-2 my-lg-0 mr-auto" action="/search">
+							<input class="form-control mr-sm-2" type="text" name="q" placeholder="Search...">
+							<button class="btn btn-white my-2 my-sm-0" type="submit">Search</button>
+						</form>
+					</li>
+				</ul>
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="/submit">Submit</a>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Account</a>
+						<div class="dropdown-menu dropdown-menu-right">
+							<a class="dropdown-item" href="/u/username">Profile</a>
+							<a class="dropdown-item" href="#">Settings</a>
+							<a class="dropdown-item" href="/admin/users">Admin</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="/logout">Logout</a>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="container">
+		
+<div class="row mt-3">
+	<div class="col-md-2 order-md-0 mb-4">
+		<div class="card">
+			<div class="card-body">
+				<h5 class="card-title text-muted">Watchlist</h5>
+				<ul id="watchlist" class="list-group list-group-flush"></ul>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-8 order-first order-md-1 mb-4">
+		<div class="card">
+			<div class="card-body" id="story">
+			</div>
+		</div>
+		<br>
+		<div class="card">
+			<div class="card-body">
+				<form>
+					<textarea class="form-control" id="comment-box" placeholder="Remember to be civil..."></textarea>
+					<br>
+					<input class="btn btn-sm btn-primary" id="comment-submit" type="button" value="reply">
+				</form>
+				<div id="comments"></div>
+				<!-- <div class="comment row mt-3">
+    <div class="col-1 pl-0 pr-0">
+        <div class="votes">
+            <div class="upvote"></div>
+            <p class="mt-2 mb-2 badge badge-light">1</p>
+            <div class="downvote"></div>
+        </div>
+    </div>
+    <div class="col-11 pl-0">
+        <span><a href="#">john</a> - <i>1 minutes ago</i></span>
+        <p>Sit ipsam fugit nulla nihil ratione aut aut. Voluptatem harum nemo alias nam deleniti excepturi. Quaerat corporis enim ipsum vel fuga quo. In assumenda vel nesciunt eius voluptatem eum. </p>
+        <span class="btn btn-sm btn-primary">reply</span>
+        <span class="btn btn-sm btn-white">show replies</span>
+        <form class="replyInput">
+            <textarea class="form-control" placeholder="Remember to be civil..."></textarea>
+            <br>
+            <input class="btn btn-sm btn-primary" type="button" value="reply">
+        </form>
+    </div>
+    <div class="replies ml-3">
+        <div class="comment row mt-3">
+            <div class="col-1 pl-0 pr-0">
+                <div class="votes">
+                    <div class="upvote"></div>
+                    <p class="mt-2 mb-2 badge badge-light">1</p>
+                    <div class="downvote"></div>
+                </div>
+            </div>
+            <div class="col-11 pl-0">
+                <span><a href="#">john</a> - <i>1 minutes ago</i></span>
+                <p>Sit ipsam fugit nulla nihil ratione aut aut. Voluptatem harum nemo alias nam deleniti excepturi. Quaerat corporis enim ipsum vel fuga quo. In assumenda vel nesciunt eius voluptatem eum. </p>
+                <span class="btn btn-sm btn-primary">reply</span>
+            </div>
+            <div class="replies">
+            </div>
+        </div>
+    </div>
+</div> -->
+			</div>
+		</div>
+		<br>
+		<nav aria-label="Page navigation" class="d-flex justify-content-center">
+			<ul class="pagination">
+				<li class="page-item">
+					<a class="page-link" href="#" aria-label="Previous">
+						<span aria-hidden="true">&laquo;</span>
+					</a>
+				</li>
+				<li class="page-item"><a class="page-link" href="#">1</a></li>
+				<li class="page-item"><a class="page-link" href="#">2</a></li>
+				<li class="page-item"><a class="page-link" href="#">3</a></li>
+				<li class="page-item">
+					<a class="page-link" href="#" aria-label="Next">
+						<span aria-hidden="true">&raquo;</span>
+					</a>
+				</li>
+			</ul>
+		</nav>
+	</div>
+	<div class="col-md-2 order-md-2 mb-4">
+		<div class="card">
+			<div class="card-body">
+				<div class="progress">
+					<div class="progress-bar progress-bar-placeholder" role="progressbar" title="Voting power"></div>
+				</div>
+				<br>
+				<h5 class="card-title text-muted">Long</h5>
+				<ul id="long" class="list-group list-group-flush"></ul>
+				<br>
+				<h5 class="card-title text-muted">Short</h5>
+				<ul id="short" class="list-group list-group-flush"></ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+	</div>
+	
+	<div class="d-flex justify-content-center">
+		<p>© 2020 Copyright Kyle Piira, Hannah Dacayanan, and Nga Huynh, All Rights Reserved</p>
+	</div>
+	<!-- JQuery -->
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+	<!-- Bootstrap core JavaScript -->
+	<script type="text/javascript" src="https://cdn.hoxly.com/bootstrap/4/js/bootstrap.min.js"></script>
+</body>
+</html>

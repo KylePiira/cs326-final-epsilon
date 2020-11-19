@@ -5,15 +5,16 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
-	<title>{% block title %}Stock Exchange{% endblock %}</title>
+	<title>Submit - Stock Exchange</title>
 	<!-- Bootstrap core CSS -->
 	<link href="https://cdn.hoxly.com/bootstrap/4/themes/flatly/bootstrap.min.css" rel="stylesheet">
 	<!-- Custom Styles -->
 	<link href="/stylesheets/style.css" rel="stylesheet">
 	<!-- Font Awesome -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	{% block head %}
-	{% endblock %}
+	
+<script src="/javascripts/submit.js"></script>
+
 </head>
 
 <body>
@@ -44,7 +45,7 @@
 							<a class="dropdown-item" href="#">Settings</a>
 							<a class="dropdown-item" href="/admin/users">Admin</a>
 							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="#">Logout</a>
+							<a class="dropdown-item" href="/logout">Logout</a>
 						</div>
 					</li>
 				</ul>
@@ -52,8 +53,37 @@
 		</div>
 	</nav>
 	<div class="container">
-		{% block content %}
-		{% endblock %}
+		
+<div class="row justify-content-center mt-5 mb-5">
+	<div class="col-md-6 col-sm-12">
+		<div class="card">
+			<div class="card-body">
+				<h3 class="card-title"><small class="text-muted">Submit an Article</small></h3>
+				<form>
+					<div class="text-left">
+						<label for="title"><b>Title: </b></label>
+					</div>
+					<input type="text" class="form-control" placeholder="Enter Title" name="title" id="title" required>
+					<br>
+					<div class="text-left">
+						<label for="url"><b>URL: </b></label>
+					</div>
+					<input type="url" class="form-control" placeholder="Enter URL" name="url" id="url" required>
+					<br>
+					<div class="text-left">
+						<label for="stock"><b>Stock: </b></label>
+					</div>
+					<input type="text" class="form-control" placeholder="Enter Stock" name="url" id="stock" required>
+					<br>
+					<div class="d-flex justify-content-center">
+						<input type="button" class="btn btn-primary" id="submit" value="Submit"></button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
 	</div>
 	
 	<div class="d-flex justify-content-center">
