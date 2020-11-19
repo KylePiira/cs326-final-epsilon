@@ -268,6 +268,13 @@ router.get('/stories/all', async function(req, res, next) {
   });
 });
 
+router.get('/stories/trending', async function(req, res, next) {
+  res.json({
+    error: false,
+    data: await db.user.trending({id: req.user.id}),
+  });
+});
+
 router.get('/stories/:investment', async function(req, res, next) {
   res.json({
     error: false,

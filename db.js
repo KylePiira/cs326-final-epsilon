@@ -1,4 +1,5 @@
 const pgp = require('pg-promise')();
+const { watch } = require('fs');
 const minicrypt = require('./miniCrypt.js');
 const db = pgp(process.env.DATABASE_URL);
 module.exports.db = db;
@@ -175,6 +176,19 @@ module.exports.user.short = async function(user) {
             tickers.push(ticker.investment);
         }
         return tickers;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+
+// Retrive a list of stories that a user is following
+module.exports.user.trending = async function(user) {
+    try {
+        const watchlist = await module.exports.user.watchlist(user);
+        const results = await db.any('SELECT * FROM Submissions WHERE investment IN ${investments}', {
+            investments: watchlist,
+        })
     } catch (error) {
         console.error(error);
         return false;
