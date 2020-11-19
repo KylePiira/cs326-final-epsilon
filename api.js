@@ -61,120 +61,124 @@ router.get('/', function(req, res, next) {
 User API
 */
 
-// retrieves user by userId
-router.get('/user/:userId', function(req, res, next) {
-  res.json({
-    error: false,
-    data: generateDummyUser(),
-  });
-});
-
-// creates a user
-router.post('/user', function(req, res, next) {
+// retrieves a userId of the currently logged in user
+router.get('/userId', async function(req, res, next) {
   res.json({
     error: false,
     data: {
-      id: faker.random.uuid(),
+      id: req.user.id,
     }
-  });
+  })
 });
 
-// deletes user by userId 
-router.delete('/user/:userId', function(req, res, next) {
+// retrieves a user by its userId
+router.get('/user/:userId', async function(req, res, next) {
+  if (db.user.exists({id: req.params.userId})) {
+    res.json({
+      error: false,
+      data: await db.user.read({id: req.params.userId}),
+    });
+  } else {
+    res.json({
+      error: true,
+      message: 'User does not exist'
+    })
+  }
+});
+
+// creates a user
+router.post('/user', async function(req, res, next) {
+  if (db.user.exists({username: req.body.username})) {
+    res.json({
+      error: true,
+      message: 'User already exists'
+    })
+  } else {
+    res.json({
+      error: false,
+      data: {
+        id: await db.user.create({
+          username: req.body.username,
+          password: req.body.password,
+        }),
+      }
+    });
+  }
+});
+
+// deletes a user
+router.delete('/user/:userId', async function(req, res, next) {
   res.json({
-    error: false,
+    error: await db.user.delete({id: req.params.userId}),
   });
 });
 
 // retrieves comments by userId
-router.get('/user/:userId/comments', function(req, res, next) {
-  const data = [];
-  const limit = faker.random.number(15);
-  for (let i = 0; i < limit; i++) {
-    data.push(generateDummyComment());
-  }
+router.get('/user/:userId/comments', async function(req, res, next) {
   res.json({
     error: false,
-    data: data,
+    data: await db.user.comments({id: req.params.userId}),
   });
 });
 
-// retrieves submissions by userId
-router.get('/user/:userId/submissions', function(req, res, next) {
-  const data = [];
-  const limit = faker.random.number(15);
-  for (let i = 0; i < limit; i++) {
-    data.push(generateDummySubmission());
-  }
+// retrieves submissions by a userId
+router.get('/user/:userId/submissions', async function(req, res, next) {
   res.json({
     error: false,
-    data: data,
+    data: await db.user.submissions({id: req.params.userId}),
   });
 });
 
-// retrieves watchlist by userId
-router.get('/user/:userId/watchlist', function(req, res, next) {
+// retrieves watchlist by a userId
+router.get('/user/:userId/watchlist', async function(req, res, next) {
   res.json({
     error: false,
-    data: generateDummyUser().watchlist,
+    data: await db.user.watchlist({id: req.params.userId}),
   });
 });
 
-// adds ticker to watchlist by userId
-router.post('/user/:userId/watchlist', function(req, res, next) {
+// adds an investment to watchlist
+router.post('/user/:userId/watchlist', async function(req, res, next) {
   res.json({
-    error: false,
+    error: await db.investment.watch(req.params.userId, req.body.id),
   });
 });
 
-// deletes ticker from watchlist by userId
-router.delete('/user/:userId/watchlist', function(req, res, next) {
+// deletes an investment from watchlist
+router.delete('/user/:userId/watchlist', async function(req, res, next) {
+  db.investment
   res.json({
-    error: false,
+    error: await db.investment.unwatch(req.params.userId, req.body.id),
   });
 });
 
-// retrieves a user's long stocks
-router.get('/user/:userId/long', function(req, res, next) {
+// retrieves a list of stocks of user's long
+router.get('/user/:userId/long', async function(req, res, next) {
   res.json({
     error: false,
-    data: generateDummyUser().portfolio.long,
+    data: await db.user.long({id: req.params.userId}),
   });
 });
 
-// adds a ticker to a user's long stocks
-router.post('/user/:userId/long', function(req, res, next) {
+// buys a stock to a user's long
+router.post('/user/:userId/long', async function(req, res, next) {
   res.json({
-    error: false,
+    error: await db.investment.buy(req.params.userId, req.body.id),
   });
 });
 
-// deletes a ticker from a user's long stocks
-router.delete('/user/:userId/long', function(req, res, next) {
+// retrieves a list of user's short
+router.get('/user/:userId/short', async function(req, res, next) {
   res.json({
     error: false,
+    data: await db.user.short({id: req.params.userId}),
   });
 });
 
-// retrieves a user's short stocks
-router.get('/user/:userId/short', function(req, res, next) {
+// sells a stock to user's short
+router.post('/user/:userId/short', async function(req, res, next) {
   res.json({
-    error: false,
-    data: generateDummyUser().portfolio.long,
-  });
-});
-
-// adds a ticker to a user's short stocks
-router.post('/user/:userId/short', function(req, res, next) {
-  res.json({
-    error: false,
-  });
-});
-
-// deletes a ticker from a user's short stocks
-router.delete('/user/:userId/short', function(req, res, next) {
-  res.json({
-    error: false,
+    error: await db.investment.sell(req.params.userId, req.body.id),
   });
 });
 
@@ -182,7 +186,7 @@ router.delete('/user/:userId/short', function(req, res, next) {
 Users API
 */
 
-// gets a list of all the users
+// retrieves a list of all users
 router.get('/users/all', function(req, res, next) {
   const data = [];
   const limit = faker.random.number(15);
