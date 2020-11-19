@@ -47,7 +47,12 @@ function buildComment(comm) {
     const metadata = document.createElement('span');
     // Username
     const username = document.createElement('a');
-    username.setAttribute('href', '/u/' + comm.author.username);
+    fetch(`/api/user/${comm.author}`)
+        .then((res) => res.json())
+        .then((author) => {
+            username.setAttribute('href', `/user?id=${author.data.id}`);
+            username.innerText = author.data.username;
+        });
     // Timestamp
     const age = document.createElement('i');
     // Comment contents
@@ -103,20 +108,21 @@ function buildComment(comm) {
     rightColumn.appendChild(metadata);
     rightColumn.appendChild(body);
     rightColumn.appendChild(replyButton);
-    if (comm.replies) {
-        rightColumn.appendChild(showRepliesButton);
+    rightColumn.appendChild(showRepliesButton);
+    if (comm.replies === 0) {
+        showRepliesButton.classList.add('d-none');
     }
     rightColumn.appendChild(replyForm);
     rightColumn.appendChild(replies);
 
     // Fill in the contents
     voteCount.innerText = comm.votes;
-    username.innerText = comm.author.username;
+    // username.innerText = comm.author.username;
     body.innerText = comm.body;
     replyButton.innerText = 'reply';
     showRepliesButton.innerText = `show ${comm.replies} replies`;
     replySubmitButton.innerText = 'reply';
-    age.innerText = ' - ' + new Date(comm.created * 1000).toLocaleDateString("en-US");
+    age.innerText = ' - ' + new Date(comm.created).toLocaleDateString("en-US");
 
     // Make everything interactive
     replyButton.addEventListener('click', () => {
@@ -131,6 +137,7 @@ function buildComment(comm) {
 
     showRepliesButton.addEventListener('click', async () => {
         if (showRepliesButton.innerText === `show ${comm.replies} replies`) {
+            replies.innerHTML = '';
             const response = (await (await fetch(`/api/comment/${comm.id}/comments`)).json()).data;
             for (let i = 0; i < response.length; i++) {
                 replies.appendChild(buildComment(response[i]));
@@ -149,18 +156,23 @@ function buildComment(comm) {
         const replyCommentId = (await (await fetch('/api/comment', {
             method: 'POST',
             headers: {
-                'Content-Type': 'applicaiton/json'
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({
                 body: replyTextarea.value,
                 parent: comm.id,
             })
-        })).json()).data;
+        })).json()).data.id;
         const replyComment = (await (await fetch(`/api/comment/${replyCommentId}`)).json()).data
         replies.insertBefore(
             buildComment(replyComment), 
             replies.firstChild
         );
+        comm.replies++;
+        if (showRepliesButton.innerText !== 'hide replies') {
+            showRepliesButton.innerText = `show ${comm.replies} replies`;
+        }
+        showRepliesButton.classList.remove('d-none');
         replyTextarea.value = '';
         replyButton.innerText = 'reply';
     })

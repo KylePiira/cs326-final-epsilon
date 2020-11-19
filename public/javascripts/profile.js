@@ -1,4 +1,6 @@
 window.addEventListener('load', async () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const userId = urlParams.get('id');
     // Do the submissions
     const submissions = (await (await fetch(`/api/user/${userId}/submissions`)).json()).data;
     for (const sub of submissions) {
@@ -18,29 +20,31 @@ window.addEventListener('load', async () => {
         document.getElementById('comment-list').appendChild(listItem);
     }
     // Do the portfolio
-    const profile = (await (await fetch(`/api/user/${userId}`)).json()).data;
-    for (const ticker of profile.portfolio.long) {
+    const long = (await (await fetch(`/api/user/${userId}/long`)).json()).data;
+    for (const ticker of long) {
         const listItem = document.createElement('li')
         listItem.classList.add('list-group-item');
         const link = document.createElement('a');
         link.classList.add('text-success');
         link.innerText = ticker;
-        link.setAttribute('href', `/i/${ticker}`);
+        link.setAttribute('href', `/investment?id=${ticker}`);
         listItem.appendChild(link);
         document.getElementById('long-profile').appendChild(listItem);
     }
 
-    for (const ticker of profile.portfolio.short) {
+    const short = (await (await fetch(`/api/user/${userId}/short`)).json()).data;
+    for (const ticker of short) {
         const listItem = document.createElement('li')
         listItem.classList.add('list-group-item');
         const link = document.createElement('a');
         link.classList.add('text-danger');
         link.innerText = ticker;
-        link.setAttribute('href', `/i/${ticker}`);
+        link.setAttribute('href', `/investment?id=${ticker}`);
         listItem.appendChild(link);
         document.getElementById('short-profile').appendChild(listItem);
     }
     
+    const profile = (await (await fetch(`/api/user/${userId}`)).json()).data;
     document.getElementById('username').innerText = profile.username;
     document.title = `${profile.username}'s Profile - Stock Exchange`;
 })

@@ -58,17 +58,22 @@ function buildSubmission(sub) {
     const age = document.createElement('span');
     // Username
     const username = document.createElement('a');
-    username.setAttribute('href', '/u/' + sub.author.username);
+    fetch(`/api/user/${sub.author}`)
+        .then((res) => res.json())
+        .then((author) => {
+            username.setAttribute('href', `/user?id=${author.data.id}`);
+            username.innerText = author.data.username;
+        });
     // Investmnet Description
     const investmentDesc = document.createElement('span');
     // Investment
     const investment = document.createElement('a');
-    investment.setAttribute('href', '/i/' + sub.investment);
+    investment.setAttribute('href', `/investment?id=${sub.investment}`);
     // Comment Description
     const commentDesc = document.createElement('span');
     // Comments
     const comments = document.createElement('a');
-    comments.setAttribute('href', '/story/' + sub.id);
+    comments.setAttribute('href', `/story?id=${sub.id}`);
 
     // Put it all together
     // The columns
@@ -96,8 +101,7 @@ function buildSubmission(sub) {
     title.innerText = sub.title;
     domain.innerText = new URL(sub.url).hostname;
     voteCount.innerText = sub.votes;
-    age.innerText = ' submitted on ' + new Date(sub.created * 1000).toLocaleDateString("en-US") + ' by ';
-    username.innerText = sub.author.username;
+    age.innerText = ' submitted on ' + new Date(sub.created).toLocaleDateString("en-US") + ' by ';
     investmentDesc.innerText = ' in ';
     investment.innerText = sub.investment;
     commentDesc.innerText = ', it has ';
