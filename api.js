@@ -1,54 +1,6 @@
 const express = require('express');
-const faker = require('faker');
 const db = require('./db.js');
 const router = express.Router();
-
-function generateDummyUser() {
-  const dummyStocks = ['TSLA', 'APPL', 'MSFT', 'FB', 'AMZN', 'GOOGL',
-                        'ABC', 'CNN', 'BBC', 'T', 'AK', 'TX', 'OIL',
-                        'USD', 'GOLD', 'VT', 'SPY', 'VTI'];
-  return {
-    id: faker.random.uuid(),
-    type: 'user',
-    username: faker.internet.userName(),
-    email: faker.internet.email(),
-    date: faker.date.past(2),
-    reputation: faker.random.number(500),
-    watchlist: faker.random.arrayElements(dummyStocks, faker.random.number(5)),
-    portfolio: {
-      long: faker.random.arrayElements(dummyStocks, faker.random.number(5)),
-      short: faker.random.arrayElements(dummyStocks, faker.random.number(5)),
-    }
-  }
-}
-
-function generateDummySubmission() {
-  return {
-    id: faker.random.uuid(),
-    type: 'story',
-    title: faker.lorem.sentence(5, 10),
-    url: faker.internet.url(),
-    author: generateDummyUser(),
-    investment: 'BTC',
-    created: Math.floor(faker.time.recent() / 1000),
-    votes: faker.random.number(10),
-    score: faker.random.number(10),
-    replies: faker.random.number(100),
-  }
-}
-
-function generateDummyComment() {
-  return {
-    id: faker.random.uuid(),
-    type: 'comment',
-    body: faker.lorem.sentences(5),
-    author: generateDummyUser(),
-    created: Math.floor(faker.time.recent() / 1000),
-    votes: faker.random.number(10),
-    score: faker.random.number(10),
-    replies: faker.random.number(100),
-  }
-}
 
 /* GET api home listing. */
 router.get('/', function(req, res, next) {
@@ -183,20 +135,23 @@ router.post('/user/:userId/short', async function(req, res, next) {
   });
 });
 
+// get users voting power level
+router.get('/user/:userId/power', async function(req, res, next) {
+  res.json({
+    error: false,
+    data: await db.user.power({id: req.params.userId}),
+  })
+});
+
 /*
 Users API
 */
 
 // retrieves a list of all users
-router.get('/users/all', function(req, res, next) {
-  const data = [];
-  const limit = faker.random.number(15);
-  for (let i = 0; i < limit; i++) {
-    data.push(generateDummyUser());
-  }
+router.get('/users/all', async function(req, res, next) {
   res.json({
     error: false,
-    data: data,
+    data: await db.users.all(),
   });
 });
 
@@ -249,9 +204,6 @@ router.post('/story', async function(req, res, next) {
 
 router.get('/story/:storyId/comments', async function(req, res, next) {
   const comments = await db.submission.comments({id: req.params.storyId});
-  // for (const comment of comments) {
-  //   comments.author = await db.user.read({id: comments.author});
-  // }
   res.json({
     error: false,
     data: comments,

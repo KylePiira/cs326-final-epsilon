@@ -51,3 +51,11 @@ async function buildShorts(list) {
 }
 
 window.addEventListener('load', async () => buildShorts(document.getElementById('short')));
+
+async function votingPowerUpdate(powerbar) {
+    const userId = (await (await fetch(`/api/userId`, {credentials: 'same-origin'})).json()).data.id;
+    const power = (await (await fetch(`/api/user/${userId}/power`)).json()).data;
+    powerbar.style.width = `${power}%`;
+}
+
+window.addEventListener('load', async () => votingPowerUpdate(document.getElementById('power')));

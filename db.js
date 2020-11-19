@@ -186,10 +186,48 @@ module.exports.user.short = async function(user) {
 module.exports.user.trending = async function(user) {
     try {
         const watchlist = await module.exports.user.watchlist(user);
-        const results = await db.any('SELECT * FROM Submissions WHERE investment IN (${investments:list}) ORDER BY created DESC', {
-            investments: watchlist,
-        })
+        let results;
+        if (watchlist.length > 0) {
+            results = await db.any(`SELECT * FROM Submissions WHERE investment IN ($[investments:list]) 
+                                    ORDER BY score / EXTRACT(EPOCH FROM ((NOW() AT TIME ZONE 'utc') - created)) DESC`, {
+                investments: watchlist,
+            })
+        } else {
+            results = await db.any('SELECT * FROM Submissions ORDER BY score / EXTRACT(EPOCH FROM ((NOW() AT TIME ZONE \'utc\') - created)) DESC')
+        }
+        
         return results;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+
+// Get a users voting power
+module.exports.user.power = async function(user) {
+    try {
+        return (await db.one('SELECT power FROM Users WHERE id=${id}', {
+            id: user.id,
+        })).power;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+
+/*
+Users
+*/
+module.exports.users = {}
+// Retrive a list of all users
+module.exports.users.all = async function() {
+    try {
+        const users = await db.any('SELECT * FROM Users');
+        for (const user of users) {
+            // Do not return the passwords
+            delete user.password;
+        }
+        return users;
     } catch (error) {
         console.error(error);
         return false;
