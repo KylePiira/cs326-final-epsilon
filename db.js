@@ -1,6 +1,6 @@
 const pgp = require('pg-promise')();
 const minicrypt = require('./miniCrypt.js');
-const db = pgp(process.env.DATABASE_URL);
+const db = pgp(process.env.DATABASE_URL || 'postgres://waojpihrrmzibf:5cc79d3afc002bb0bf6ce2914f0b444774764784d99dc7555cf2e19faea05838@ec2-34-237-236-32.compute-1.amazonaws.com:5432/ddi8pfkuf4vocj?ssl=True');
 module.exports.db = db;
 const mc = new minicrypt();
 /*
