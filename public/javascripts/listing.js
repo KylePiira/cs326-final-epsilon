@@ -2,7 +2,7 @@ window.addEventListener('load', async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const investmentId = urlParams.get('id') || 'trending';
 
-    if (investmentId !== 'all') {
+    if (investmentId !== 'trending') {
         document.title = `${investmentId} - Stock Exchange`;
     }
     const stories = (await (await fetch(`/api/stories/${investmentId}`)).json()).data;
