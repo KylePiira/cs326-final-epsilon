@@ -202,141 +202,139 @@ router.get('/users/all', function(req, res, next) {
 /*
 Story API
 */
-
-// retrieves a story by its storyId
-router.get('/story/:storyId', function(req, res, next) {
+router.get('/story/:storyId', async function(req, res, next) {
   res.json({
     error: false,
-    data: generateDummySubmission(),
+    data: await db.submission.read({
+      id: req.params.storyId,
+    }),
   });
 });
 
-// upvotes a story
-router.post('/story/:storyId/upvote', function(req, res, next) {
-  res.json({
-    error: false,
-  });
-});
-
-// downvotes a story
-router.post('/story/:storyId/downvote', function(req, res, next) {
+router.post('/story/:storyId/upvote', async function(req, res, next) {
+  db.submission.upvote({id: req.params.storyId});
   res.json({
     error: false,
   });
 });
 
-// deletes a story
-router.delete('/story/:storyId', function(req, res, next) {
+router.post('/story/:storyId/downvote', async function(req, res, next) {
+  db.submission.downvote({id: req.params.storyId});
+  res.json({
+    error: false,
+  });
+});
+
+router.delete('/story/:storyId', async function(req, res, next) {
+  db.submission.delete({id: req.params.storyId});
   res.json({
     error: false,
   })
 })
 
-// creates a story
-router.post('/story', function(req, res, next) {
+router.post('/story', async function(req, res, next) {
   res.json({
     error: false,
     data: {
-      id: faker.random.uuid(),
+      id: await db.submission.create({
+        title: req.body.title,
+        url: req.body.url,
+        investment: req.body.investment,
+        author: req.user.id,
+      })
     }
   })
 });
 
-// retrieves a story's comments
-router.get('/story/:storyId/comments', function(req, res, next) {
-  const data = [];
-  const limit = faker.random.number(15);
-  for (let i = 0; i < limit; i++) {
-    data.push(generateDummyComment());
-  }
+router.get('/story/:storyId/comments', async function(req, res, next) {
+  const comments = await db.submission.comments({id: req.params.storyId});
+  // for (const comment of comments) {
+  //   comments.author = await db.user.read({id: comments.author});
+  // }
   res.json({
     error: false,
-    data: data,
+    data: comments,
   });
 });
 
 /*
 Stories API
 */
-
-// gets a list of all the stories
-router.get('/stories/all', function(req, res, next) {
-  const data = [];
-  const limit = faker.random.number(15);
-  for (let i = 0; i < limit; i++) {
-    data.push(generateDummySubmission());
-  }
+router.get('/stories/all', async function(req, res, next) {
   res.json({
     error: false,
-    data: data,
+    data: await db.investment.submissions('all'),
   });
 });
 
-// gets a list of all the stories for a particular investment
-router.get('/stories/:investment', function(req, res, next) {
-  const data = [];
-  const limit = faker.random.number(15);
-  for (let i = 0; i < limit; i++) {
-    data.push(generateDummySubmission());
-  }
+router.get('/stories/:investment', async function(req, res, next) {
   res.json({
     error: false,
-    data: data,
+    data: await db.investment.submissions(req.params.investment),
   });
 });
 
 /*
 Comment API
 */
-
-// retrieves a comment by its commentId
-router.get('/comment/:commentId', function(req, res, next) {
+router.get('/comment/:commentId', async function(req, res, next) {
   res.json({
     error: false,
-    data: generateDummyComment()
+    data: await db.comment.read({id: req.params.commentId}),
   })
 });
 
-// deletes a comment
-router.delete('/comment/:commentId', function(req, res, next) {
+router.delete('/comment/:commentId', async function(req, res, next) {
+  db.comment.delete({id: req.params.commentId});
   res.json({
     error: false,
   })
 })
 
-// upvotes a comment
+
 router.post('/comment/:commentId/upvote', function(req, res, next) {
+  db.comment.upvote({id: req.params.commentId});
   res.json({
     error: false,
   })
 });
 
-// downvotes a comment
 router.post('/comment/:commentId/downvote', function(req, res, next) {
+  db.comment.downvote({id: req.params.commentId});
   res.json({
     error: false,
   })
 });
 
-// retrieves a comment's thread of comments
-router.get('/comment/:commentId/comments', function(req, res, next) {
-  const data = [];
-  const limit = faker.random.number(15);
-  for (let i = 0; i < limit; i++) {
-    data.push(generateDummyComment());
-  }
+
+router.get('/comment/:commentId/comments', async function(req, res, next) {
   res.json({
     error: false,
-    data: data,
+    data: await db.comment.comments({id: req.params.commentId}),
   });
 });
 
-// creates a comment
-router.post('/comment', function(req, res, next) {
+router.post('/comment', async function(req, res, next) {
+  if (await db.comment.exists({id: req.body.parent})) {
+    db.comment.reply({id: req.body.parent});
+  } else if (await db.submission.exists({id: req.body.parent})) {
+    db.submission.reply({id: req.body.parent});
+  } else {
+    res.json({
+      error: true,
+      message: "Parent does not exist"
+    })
+    return;
+  }
+  const commentId = await db.comment.create({
+    author: req.user.id,
+    parent: req.body.parent,
+    body: req.body.body,
+  })
   res.json({
     error: false,
     data: {
-      id: faker.random.uuid()
+      id: commentId
     }
   })
 });
@@ -344,25 +342,11 @@ router.post('/comment', function(req, res, next) {
 /*
 Search API
 */
-
-// retrieves search results
-router.get('/search', function(req, res, next) {
-  if (req.query.q) {
-    const data = [];
-    const limit = faker.random.number(15);
-    for (let i = 0; i < limit; i++) {
-      data.push(generateDummySubmission());
-    }
-    res.json({
-      error: false,
-      data: data,
-    });
-  } else {
-    res.json({
-      error: true,
-      message: 'no query parameter'
-    })
-  }
+router.get('/search', async function(req, res, next) {
+  res.json({
+    error: false,
+    data: await db.search.submissions(req.query.q),
+  })
 });
 
 module.exports = router;
