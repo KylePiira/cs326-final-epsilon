@@ -410,3 +410,115 @@ module.exports.submission.comments = async function(submission) {
         return false;
     }
 }
+
+/*
+Comments
+*/
+module.exports.comment = {}
+// Create Comment
+module.exports.comment.create = async function(comment) {
+    try {
+        return (await db.one('INSERT INTO Comments (author, parent, body) VALUES (${author}, ${parent}, ${body}) RETURNING id', {
+            author: comment.author,
+            parent: comment.parent,
+            body: comment.body,
+        })).id;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+// Read Comment
+module.exports.comment.read = async function(comment) {
+    try {
+        return await db.one('SELECT * FROM Comments WHERE id=${id}', {
+            id: comment.id
+        });
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+// Update Comment
+module.exports.comment.update = async function(comment) {
+    try {
+        db.none('UPDATE Comments SET body=${body} WHERE id=${id}', {
+            id: comment.id,
+            body: comment.body,
+        });
+        return true;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+// Delete Comment
+module.exports.comment.delete = async function(comment) {
+    try {
+        db.none('DELETE FROM Comments WHERE id=${id}', {
+            id: comment.id
+        });
+        return true;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+// Exists Comment
+module.exports.comment.exists = async function(comment) {
+    try {
+        return Number((await db.one('SELECT COUNT(*) FROM Comments WHERE id=${id}', {
+            id: comment.id
+        })).count) > 0;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+// Increment Replies
+module.exports.comment.reply = async function(comment) {
+    try {
+        db.none('UPDATE Comments SET replies=replies + 1 WHERE id=${id}', {
+            id: comment.id
+        })
+        return true;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+// Upvote Comment
+module.exports.comment.upvote = async function(comment) {
+    try {
+        db.none('UPDATE Comments SET votes=votes + 1 WHERE id=${id}', {
+            id: comment.id
+        });
+        return true;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+// Downvote Comment
+module.exports.comment.downvote = async function(comment) {
+    try {
+        db.none('UPDATE Comments SET votes=votes - 1 WHERE id=${id}', {
+            id: comment.id
+        });
+        return true;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+// Retrieve comments for Comments
+module.exports.comment.comments = async function(comment) {
+    try {
+        return await db.any('SELECT * FROM Comments WHERE parent=${id}', {
+            id: comment.id
+        });
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
