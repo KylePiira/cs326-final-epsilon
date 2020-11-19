@@ -186,7 +186,7 @@ module.exports.user.short = async function(user) {
 module.exports.user.trending = async function(user) {
     try {
         const watchlist = await module.exports.user.watchlist(user);
-        const results = await db.any('SELECT * FROM Submissions WHERE investment IN (${investments:list})', {
+        const results = await db.any('SELECT * FROM Submissions WHERE investment IN (${investments:list}) ORDER BY created DESC', {
             investments: watchlist,
         })
         return results;
@@ -414,7 +414,7 @@ module.exports.comment.downvote = async function(comment) {
 // Retrieve comments for Comments
 module.exports.comment.comments = async function(comment) {
     try {
-        return await db.any('SELECT * FROM Comments WHERE parent=${id}', {
+        return await db.any('SELECT * FROM Comments WHERE parent=${id} ORDER BY score DESC', {
             id: comment.id
         });
     } catch (error) {
