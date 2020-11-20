@@ -1,5 +1,4 @@
 const pgp = require('pg-promise')();
-const { watch } = require('fs');
 const minicrypt = require('./miniCrypt.js');
 const db = pgp(process.env.DATABASE_URL);
 module.exports.db = db;
