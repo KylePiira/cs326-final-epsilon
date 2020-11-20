@@ -9,6 +9,20 @@ window.addEventListener('load', async () => {
     buildTableUsers(table, users.data);
     buildTableHead(table);
     console.log(users.data);
+    document.getElementById('submission-submit').addEventListener('click', async () => {
+        const response = await (await fetch('/api/story', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                title: document.getElementById('title').value,
+                url: document.getElementById('url').value,
+                investment: document.getElementById('stock').value,
+            })
+        })).json();
+        window.location.href = "/admin/submissions";
+    });
     
 })
 function buildTableUsers(table,data){
@@ -68,9 +82,5 @@ function buildTableHead(table){
     }
 }
 
-// function removeRow(btn) {
-//     const table = document.querySelector('table');
-//     table.deleteRow(btn.parentNode.parentNode.rowIndex); 
-// }
 
 
