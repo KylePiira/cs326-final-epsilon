@@ -14,11 +14,12 @@ window.addEventListener('load', async () => {
 
 function buildTableUsers(table,data){
     table.className ="table table-striped";
-    const fields = ['username','date','email']
+    
     for (let element of data){
         const row = table.insertRow();
-        for (let key of fields){
+        for (let key in element){
             const cell = row.insertCell();
+            console.log(key);
             const text = document.createTextNode(element[key]);
             cell.appendChild(text);
         }
@@ -29,11 +30,22 @@ function buildTableUsers(table,data){
         //btn.classList.add("btn btn-success btn-sm rounded-0");
         btn.className = "fa fa-trash";
         cell.appendChild(btn);
-        btn.setAttribute('onclick', 'removeRow(this)');
+        
+        btn.addEventListener('click', async function(){
+            const table = document.querySelector('table');
+            const userId = element['id'];
+            await fetch(`/api/user/${userId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            table.deleteRow(btn.parentNode.parentNode.rowIndex); 
+        });
     }
 }
 function buildTableHead(table){
-    const data  = ['Username','Date created', 'Email','Action'];
+    const data  = ['User ID','Username', 'Reputation','Date created','Admin','Power','Action'];
     const thead = table.createTHead();
     thead.className = "thead-light";
     const row = thead.insertRow();
@@ -43,9 +55,4 @@ function buildTableHead(table){
         th.appendChild(text);
         row.appendChild(th);
     }
-}
-
-function removeRow(btn) {
-    const table = document.querySelector('table');
-    table.deleteRow(btn.parentNode.parentNode.rowIndex); 
 }
