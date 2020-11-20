@@ -174,6 +174,8 @@ router.get('/users/all', async function(req, res, next) {
 /*
 Story API
 */
+
+// retrieve story by storyId
 // eslint-disable-next-line no-unused-vars
 router.get('/story/:storyId', async function(req, res, next) {
   res.json({
@@ -184,6 +186,7 @@ router.get('/story/:storyId', async function(req, res, next) {
   });
 });
 
+// upvote story by storyId
 // eslint-disable-next-line no-unused-vars
 router.post('/story/:storyId/upvote', async function(req, res, next) {
   if (req.user.reputation > 0) {
@@ -208,6 +211,7 @@ router.post('/story/:storyId/upvote', async function(req, res, next) {
   }
 });
 
+// downvote story by storyId
 // eslint-disable-next-line no-unused-vars
 router.post('/story/:storyId/downvote', async function(req, res, next) {
   if (req.user.reputation > 0) {
@@ -232,6 +236,7 @@ router.post('/story/:storyId/downvote', async function(req, res, next) {
   }
 });
 
+// delete story by storyId
 // eslint-disable-next-line no-unused-vars
 router.delete('/story/:storyId', async function(req, res, next) {
   db.submission.delete({id: req.params.storyId});
@@ -240,6 +245,7 @@ router.delete('/story/:storyId', async function(req, res, next) {
   })
 })
 
+// create a story
 // eslint-disable-next-line no-unused-vars
 router.post('/story', async function(req, res, next) {
   res.json({
@@ -255,6 +261,7 @@ router.post('/story', async function(req, res, next) {
   })
 });
 
+// retrieve story comments by storyId
 // eslint-disable-next-line no-unused-vars
 router.get('/story/:storyId/comments', async function(req, res, next) {
   const comments = await db.submission.comments({id: req.params.storyId});
@@ -267,6 +274,8 @@ router.get('/story/:storyId/comments', async function(req, res, next) {
 /*
 Stories API
 */
+
+// retrieves all stories
 // eslint-disable-next-line no-unused-vars
 router.get('/stories/all', async function(req, res, next) {
   res.json({
@@ -275,6 +284,7 @@ router.get('/stories/all', async function(req, res, next) {
   });
 });
 
+// retrieves trending stories
 // eslint-disable-next-line no-unused-vars
 router.get('/stories/trending', async function(req, res, next) {
   res.json({
@@ -283,6 +293,7 @@ router.get('/stories/trending', async function(req, res, next) {
   });
 });
 
+// retrieves stories by investment
 // eslint-disable-next-line no-unused-vars
 router.get('/stories/:investment', async function(req, res, next) {
   res.json({
@@ -294,6 +305,8 @@ router.get('/stories/:investment', async function(req, res, next) {
 /*
 Comment API
 */
+
+// retrieves comment by commentId
 // eslint-disable-next-line no-unused-vars
 router.get('/comment/:commentId', async function(req, res, next) {
   res.json({
@@ -302,14 +315,30 @@ router.get('/comment/:commentId', async function(req, res, next) {
   })
 });
 
+// deletes comment by commentId
 // eslint-disable-next-line no-unused-vars
 router.delete('/comment/:commentId', async function(req, res, next) {
+  const comment = await db.comment.read({
+    id: req.params.commentId
+  });
+  if (await db.comment.exists({id: comment.parent})) {
+    db.comment.unreply({id: comment.parent});
+  } else if (await db.submission.exists({id: comment.parent})) {
+    db.submission.unreply({id: comment.parent});
+  } else {
+    res.json({
+      error: true,
+      message: "Parent does not exist"
+    })
+    return;
+  }
   db.comment.delete({id: req.params.commentId});
   res.json({
     error: false,
-  })
-})
+  });
+});
 
+// upvotes a comment by commentId
 // eslint-disable-next-line no-unused-vars
 router.post('/comment/:commentId/upvote', async function(req, res, next) {
   if (req.user.reputation > 0) {
@@ -330,10 +359,11 @@ router.post('/comment/:commentId/upvote', async function(req, res, next) {
     res.json({
       error: true,
       message: 'Insufficient reputation'
-    })
+    });
   }
 });
 
+// downvotes a comment by commentId
 // eslint-disable-next-line no-unused-vars
 router.post('/comment/:commentId/downvote', async function(req, res, next) {
   if (req.user.reputation > 0) {
@@ -358,6 +388,7 @@ router.post('/comment/:commentId/downvote', async function(req, res, next) {
   }
 });
 
+// retrieves a comment's comments by commentId
 // eslint-disable-next-line no-unused-vars
 router.get('/comment/:commentId/comments', async function(req, res, next) {
   res.json({
@@ -366,6 +397,7 @@ router.get('/comment/:commentId/comments', async function(req, res, next) {
   });
 });
 
+// creates a comment
 // eslint-disable-next-line no-unused-vars
 router.post('/comment', async function(req, res, next) {
   if (await db.comment.exists({id: req.body.parent})) {
@@ -396,6 +428,7 @@ router.post('/comment', async function(req, res, next) {
 Search API
 */
 
+// retrieves search results
 // eslint-disable-next-line no-unused-vars
 router.get('/search', async function(req, res, next) {
   res.json({
