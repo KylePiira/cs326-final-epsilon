@@ -59,6 +59,17 @@ router.post('/user', async function(req, res, next) {
   }
 });
 
+// edit a user's admin info
+router.post('/user/edit', async function(req, res, next) {
+  res.json({
+    error: await db.user.change_admin({
+      username: req.body.username,
+      is_admin: req.body.is_admin,
+    }),
+  }); 
+});
+
+
 // deletes a user
 router.delete('/user/:userId', async function(req, res, next) {
   res.json({
@@ -158,6 +169,7 @@ router.get('/users/all', async function(req, res, next) {
 /*
 Story API
 */
+// retrieve the story by the story ID
 router.get('/story/:storyId', async function(req, res, next) {
   res.json({
     error: false,
