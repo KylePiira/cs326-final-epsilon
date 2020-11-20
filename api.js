@@ -63,6 +63,17 @@ router.post('/user', async function(req, res, next) {
   }
 });
 
+// edit a user's admin info
+router.post('/user/edit', async function(req, res, next) {
+  res.json({
+    error: await db.user.change_admin({
+      username: req.body.username,
+      is_admin: req.body.is_admin,
+    }),
+  }); 
+});
+
+
 // deletes a user
 // eslint-disable-next-line no-unused-vars
 router.delete('/user/:userId', async function(req, res, next) {
@@ -174,9 +185,9 @@ router.get('/users/all', async function(req, res, next) {
 /*
 Story API
 */
-
 // retrieve story by storyId
 // eslint-disable-next-line no-unused-vars
+ master
 router.get('/story/:storyId', async function(req, res, next) {
   res.json({
     error: false,
@@ -261,8 +272,24 @@ router.post('/story', async function(req, res, next) {
   })
 });
 
+ huynh-dev
+// edit a story
+router.post('/story/edit', async function(req, res, next) {
+  res.json({
+    error: await db.submission.update({
+      id : req.body.id,
+      title: req.body.title,
+      url: req.body.url,
+      investment: req.body.investment,
+    }),
+  }); 
+});
+
+
+
 // retrieve story comments by storyId
 // eslint-disable-next-line no-unused-vars
+ master
 router.get('/story/:storyId/comments', async function(req, res, next) {
   const comments = await db.submission.comments({id: req.params.storyId});
   res.json({

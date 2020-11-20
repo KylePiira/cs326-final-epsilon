@@ -44,6 +44,22 @@ module.exports.user.read = async function(user) {
         return false;
     }    
 }
+ huynh-dev
+// Change a user role (admin or not)
+module.exports.user.change_admin = async function(user) {
+    try {
+        db.none('UPDATE Users SET is_admin=${is_admin} WHERE username=${username}', {
+            username: user.username,
+            is_admin: user.is_admin,
+        });
+        return true;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+
+ master
 
 // Change a users password
 module.exports.user.change_password = async function(user) {
