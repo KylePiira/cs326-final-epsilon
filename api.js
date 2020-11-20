@@ -292,7 +292,7 @@ router.get('/comment/:commentId', async function(req, res, next) {
 
 // deletes comment by commentId
 router.delete('/comment/:commentId', async function(req, res, next) {
-  const comment = db.comment.read({
+  const comment = await db.comment.read({
     id: req.params.commentId
   });
   if (await db.comment.exists({id: comment.parent})) {
@@ -332,7 +332,7 @@ router.post('/comment/:commentId/upvote', async function(req, res, next) {
     res.json({
       error: true,
       message: 'Insufficient reputation'
-    })
+    });
   }
 });
 

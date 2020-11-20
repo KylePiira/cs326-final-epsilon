@@ -78,11 +78,11 @@ module.exports.user.delete = async function(user) {
 module.exports.user.exists = async function(user) {
     try {
         if (user.id) {
-            return Number((await db.one('SELECT COUNT(*) FROM Users WHERE id=${id}', {
+            return Number((await db.one('SELECT COUNT(*) FROM Users WHERE id=${id} AND is_deleted=FALSE', {
                 id: user.id
             })).count) > 0;
         } else if (user.username) {
-            return Number((await db.one('SELECT COUNT(*) FROM Users WHERE username=${username}', {
+            return Number((await db.one('SELECT COUNT(*) FROM Users WHERE username=${username} AND is_deleted=FALSE', {
                 username: user.username
             })).count) > 0;
         } else {
@@ -123,7 +123,7 @@ module.exports.user.validate = async function(user) {
 // Retrieve a list of submissions by a user
 module.exports.user.submissions = async function(user) {
     try {
-        return await db.any('SELECT * FROM Submissions WHERE author=${id} ORDER BY created DESC', {
+        return await db.any('SELECT * FROM Submissions WHERE author=${id} AND is_deleted=FALSE ORDER BY created DESC', {
             id: user.id
         })
     } catch (error) {
@@ -135,7 +135,7 @@ module.exports.user.submissions = async function(user) {
 // Retrieve a list of comments by a user
 module.exports.user.comments = async function(user) {
     try {
-        return await db.any('SELECT * FROM Comments WHERE author=${id} ORDER BY created DESC', {
+        return await db.any('SELECT * FROM Comments WHERE author=${id} AND is_deleted=FALSE ORDER BY created DESC', {
             id: user.id
         })
     } catch (error) {
@@ -201,12 +201,12 @@ module.exports.user.trending = async function(user) {
         const watchlist = await module.exports.user.watchlist(user);
         let results;
         if (watchlist.length > 0) {
-            results = await db.any(`SELECT * FROM Submissions WHERE investment IN ($[investments:list]) 
+            results = await db.any(`SELECT * FROM Submissions WHERE investment IN ($[investments:list]) AND is_deleted=FALSE
                                     ORDER BY score / EXTRACT(EPOCH FROM ((NOW() AT TIME ZONE 'utc') - created)) DESC`, {
                 investments: watchlist,
             })
         } else {
-            results = await db.any('SELECT * FROM Submissions ORDER BY score / EXTRACT(EPOCH FROM ((NOW() AT TIME ZONE \'utc\') - created)) DESC')
+            results = await db.any('SELECT * FROM Submissions WHERE is_deleted=FALSE ORDER BY score / EXTRACT(EPOCH FROM ((NOW() AT TIME ZONE \'utc\') - created)) DESC')
         }
         
         return results;
@@ -290,7 +290,7 @@ module.exports.submission.create = async function(submission) {
 // Read Submission
 module.exports.submission.read = async function(submission) {
     try {
-        return await db.one('SELECT * FROM Submissions WHERE id=${id}', {
+        return await db.one('SELECT * FROM Submissions WHERE id=${id} AND is_deleted=FALSE', {
             id: submission.id
         });
     } catch (error) {
@@ -318,7 +318,7 @@ module.exports.submission.update = async function(submission) {
 // Delete Submission
 module.exports.submission.delete = async function(submission) {
     try {
-        db.none('DELETE FROM Submissions WHERE id=${id}', {
+        db.none('UPDATE Submissions SET is_deleted=TRUE WHERE id=${id}', {
             id: submission.id
         });
         return true;
@@ -331,7 +331,7 @@ module.exports.submission.delete = async function(submission) {
 // Exists Submission
 module.exports.submission.exists = async function(submission) {
     try {
-        return Number((await db.one('SELECT COUNT(*) FROM Submissions WHERE id=${id}', {
+        return Number((await db.one('SELECT COUNT(*) FROM Submissions WHERE id=${id} AND is_deleted=FALSE', {
             id: submission.id
         })).count) > 0;
     } catch (error) {
@@ -395,7 +395,7 @@ module.exports.submission.downvote = async function(submission) {
 // Retrieve comments for Submission
 module.exports.submission.comments = async function(submission) {
     try {
-        return await db.any('SELECT * FROM Comments WHERE parent=${id} ORDER BY score DESC', {
+        return await db.any('SELECT * FROM Comments WHERE parent=${id} AND is_deleted=FALSE ORDER BY score DESC', {
             id: submission.id
         });
     } catch (error) {
@@ -427,7 +427,7 @@ module.exports.comment.create = async function(comment) {
 // Read Comment
 module.exports.comment.read = async function(comment) {
     try {
-        return await db.one('SELECT * FROM Comments WHERE id=${id}', {
+        return await db.one('SELECT * FROM Comments WHERE id=${id} AND is_deleted=FALSE', {
             id: comment.id
         });
     } catch (error) {
@@ -453,7 +453,7 @@ module.exports.comment.update = async function(comment) {
 // Delete Comment
 module.exports.comment.delete = async function(comment) {
     try {
-        db.none('DELETE FROM Comments WHERE id=${id}', {
+        db.none('UPDATE Comments SET is_deleted=TRUE WHERE id=${id}', {
             id: comment.id
         });
         return true;
@@ -466,7 +466,7 @@ module.exports.comment.delete = async function(comment) {
 // Exists Comment
 module.exports.comment.exists = async function(comment) {
     try {
-        return Number((await db.one('SELECT COUNT(*) FROM Comments WHERE id=${id}', {
+        return Number((await db.one('SELECT COUNT(*) FROM Comments WHERE id=${id} AND is_deleted=FALSE', {
             id: comment.id
         })).count) > 0;
     } catch (error) {
@@ -530,7 +530,7 @@ module.exports.comment.downvote = async function(comment) {
 // Retrieve comments for Comments
 module.exports.comment.comments = async function(comment) {
     try {
-        return await db.any('SELECT * FROM Comments WHERE parent=${id} ORDER BY score DESC', {
+        return await db.any('SELECT * FROM Comments WHERE parent=${id} AND is_deleted=FALSE ORDER BY score DESC', {
             id: comment.id
         });
     } catch (error) {
@@ -641,14 +641,14 @@ module.exports.investment.sell = async function(author, ticker) {
 module.exports.investment.submissions = async function(ticker) {
     if (ticker === 'all') {
         try {
-            return await db.any('SELECT * FROM Submissions');
+            return await db.any('SELECT * FROM Submissions WHERE is_deleted=FALSE');
         } catch (error) {
             console.error(error);
             return false;
         }
     } else {
         try {
-            return await db.any('SELECT * FROM Submissions WHERE investment=${investment}', {
+            return await db.any('SELECT * FROM Submissions WHERE investment=${investment} AND is_deleted=FALSE', {
                 investment: ticker
             })
         } catch (error) {
@@ -667,7 +667,7 @@ module.exports.search = {}
 // Search submissions
 module.exports.search.submissions = async function(query) {
     try {
-        return await db.any('SELECT * FROM Submissions WHERE title ILIKE ${query}', {
+        return await db.any('SELECT * FROM Submissions WHERE title ILIKE ${query} AND is_deleted=FALSE', {
             query: `%${query}%`
         });
     } catch (error) {
