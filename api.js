@@ -136,10 +136,10 @@ router.post('/user/:userId/short', async function(req, res, next) {
 });
 
 // get users voting power level
-router.get('/user/:userId/power', async function(req, res, next) {
+router.get('/user/:userId/reputation', async function(req, res, next) {
   res.json({
     error: false,
-    data: await db.user.power({id: req.params.userId}),
+    data: await db.user.reputation({id: req.params.userId}),
   })
 });
 
@@ -168,17 +168,49 @@ router.get('/story/:storyId', async function(req, res, next) {
 });
 
 router.post('/story/:storyId/upvote', async function(req, res, next) {
-  db.submission.upvote({id: req.params.storyId});
-  res.json({
-    error: false,
-  });
+  if (req.user.reputation > 0) {
+    const story = await db.submission.read({id: req.params.storyId});
+    // Check if the upvoter is also the author
+    if (req.user.id !== story.author) {
+      // Transfer the reputation to the author
+      await db.user.transfer({id: req.user.id}, {id: story.author});
+    } else {
+      // Destroy the reputation
+      await db.user.transfer({id: req.user.id}, null);
+    }
+    await db.submission.upvote({id: req.params.storyId});
+    res.json({
+      error: false,
+    });
+  } else {
+    res.json({
+      error: true,
+      message: 'Insufficient reputation'
+    })
+  }
 });
 
 router.post('/story/:storyId/downvote', async function(req, res, next) {
-  db.submission.downvote({id: req.params.storyId});
-  res.json({
-    error: false,
-  });
+  if (req.user.reputation > 0) {
+    const story = await db.submission.read({id: req.params.storyId});
+    // Check if the upvoter is also the author
+    if (req.user.id !== story.author) {
+      // Transfer the reputation to the author
+      await db.user.transfer({id: req.user.id}, {id: story.author});
+    } else {
+      // Destroy the reputation
+      await db.user.transfer({id: req.user.id}, null);
+    }
+    await db.submission.downvote({id: req.params.storyId});
+    res.json({
+      error: false,
+    });
+  } else {
+    res.json({
+      error: true,
+      message: 'Insufficient reputation'
+    })
+  }
 });
 
 router.delete('/story/:storyId', async function(req, res, next) {
@@ -252,18 +284,50 @@ router.delete('/comment/:commentId', async function(req, res, next) {
 })
 
 
-router.post('/comment/:commentId/upvote', function(req, res, next) {
-  db.comment.upvote({id: req.params.commentId});
-  res.json({
-    error: false,
-  })
+router.post('/comment/:commentId/upvote', async function(req, res, next) {
+  if (req.user.reputation > 0) {
+    const comment = await db.comment.read({id: req.params.commentId});
+    // Check if the upvoter is also the author
+    if (req.user.id !== comment.author) {
+      // Transfer the reputation to the author
+      await db.user.transfer({id: req.user.id}, {id: comment.author});
+    } else {
+      // Destroy the reputation
+      await db.user.transfer({id: req.user.id}, null);
+    }
+    await db.comment.upvote({id: req.params.commentId});
+    res.json({
+      error: false,
+    });
+  } else {
+    res.json({
+      error: true,
+      message: 'Insufficient reputation'
+    })
+  }
 });
 
-router.post('/comment/:commentId/downvote', function(req, res, next) {
-  db.comment.downvote({id: req.params.commentId});
-  res.json({
-    error: false,
-  })
+router.post('/comment/:commentId/downvote', async function(req, res, next) {
+  if (req.user.reputation > 0) {
+    const comment = await db.comment.read({id: req.params.commentId});
+    // Check if the upvoter is also the author
+    if (req.user.id !== comment.author) {
+      // Transfer the reputation to the author
+      await db.user.transfer({id: req.user.id}, {id: comment.author});
+    } else {
+      // Destroy the reputation
+      await db.user.transfer({id: req.user.id}, null);
+    }
+    await db.comment.downvote({id: req.params.commentId});
+    res.json({
+      error: false,
+    });
+  } else {
+    res.json({
+      error: true,
+      message: 'Insufficient reputation'
+    })
+  }
 });
 
 

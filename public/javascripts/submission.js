@@ -109,17 +109,29 @@ function buildSubmission(sub) {
 
     // Make everything interactive
     upvote.addEventListener('click', async () => {
-        voteCount.innerText = Number(voteCount.innerText) + 1;
-        fetch(`/api/story/${sub.id}/upvote`, {
+        const error = (await (await fetch(`/api/story/${sub.id}/upvote`, {
             method: 'POST',
-        });
+        })).json()).error;
+        if (!error) {
+            voteCount.innerText = Number(voteCount.innerText) + 1;
+        }
+        const balance = document.getElementById('balance');
+        if (balance) {
+            buildBalance(balance);
+        }
     })
 
     downvote.addEventListener('click', async () => {
-        voteCount.innerText = Number(voteCount.innerText) - 1;
-        fetch(`/api/story/${sub.id}/downvote`, {
+        const error = (await (await fetch(`/api/story/${sub.id}/downvote`, {
             method: 'POST',
-        });
+        })).json()).error;
+        if (!error) {
+            voteCount.innerText = Number(voteCount.innerText) - 1;
+        }
+        const balance = document.getElementById('balance');
+        if (balance) {
+            buildBalance(balance);
+        }
     })
 
     return submission;

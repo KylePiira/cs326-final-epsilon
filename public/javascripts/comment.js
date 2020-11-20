@@ -178,17 +178,29 @@ function buildComment(comm) {
     })
 
     upvote.addEventListener('click', async () => {
-        voteCount.innerText = Number(voteCount.innerText) + 1;
-        fetch(`/api/comment/${comm.id}/upvote`, {
+        const error = (await (await fetch(`/api/comment/${comm.id}/upvote`, {
             method: 'POST',
-        });
+        })).json()).error;
+        if (!error) {
+            voteCount.innerText = Number(voteCount.innerText) + 1;
+        }
+        const balance = document.getElementById('balance');
+        if (balance) {
+            buildBalance(balance);
+        }
     })
 
     downvote.addEventListener('click', async () => {
-        voteCount.innerText = Number(voteCount.innerText) - 1;
-        fetch(`/api/comment/${comm.id}/downvote`, {
+        const error = (await (await fetch(`/api/comment/${comm.id}/downvote`, {
             method: 'POST',
-        });
+        })).json()).error;
+        if (!error) {
+            voteCount.innerText = Number(voteCount.innerText) - 1;
+        }
+        const balance = document.getElementById('balance');
+        if (balance) {
+            buildBalance(balance);
+        }
     })
 
     return comment;

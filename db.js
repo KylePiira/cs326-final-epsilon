@@ -41,8 +41,8 @@ module.exports.user.read = async function(user) {
         return false;
     }    
 }
-// Update User
-module.exports.user.update = async function(user) {
+// Change a users password
+module.exports.user.change_password = async function(user) {
     try {
         db.none('UPDATE Users SET username=${username}, password=${password} WHERE id=${id}', {
             id: user.id,
@@ -55,6 +55,7 @@ module.exports.user.update = async function(user) {
         return false;
     }
 }
+
 // Delete User
 module.exports.user.delete = async function(user) {
     try {
@@ -204,13 +205,30 @@ module.exports.user.trending = async function(user) {
 }
 
 // Get a users voting power
-module.exports.user.power = async function(user) {
+module.exports.user.reputation = async function(user) {
     try {
-        return (await db.one('SELECT power FROM Users WHERE id=${id}', {
+        return (await db.one('SELECT reputation FROM Users WHERE id=${id}', {
             id: user.id,
-        })).power;
+        })).reputation;
     } catch (error) {
         console.error(error);
+        return false;
+    }
+}
+
+// Transfor a reputation point from one user to another
+module.exports.user.transfer = async function(from, to) {
+    if ((await module.exports.user.read({id: from.id})).reputation > 0) {
+        db.none('UPDATE Users SET reputation=reputation - 1 WHERE id=${user}', {
+            user: from.id,
+        })
+        if (to) {
+            db.none('UPDATE Users SET reputation=reputation + 1 WHERE id=${user}', {
+                user: to.id,
+            })
+        }
+        return true;
+    } else {
         return false;
     }
 }
