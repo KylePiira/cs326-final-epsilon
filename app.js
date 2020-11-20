@@ -64,6 +64,21 @@ app.post('/register', async function(req, res, next) {
     res.redirect('/login');
   }
 });
+
+app.post('/admin-register', async function(req, res, next) {
+  if (await db.user.exists({username: req.body.username})) {
+    res.redirect('/admin-register');
+  
+  } else {
+    db.user.create({
+      username: req.body.username, 
+      password: req.body.password
+    });
+    res.redirect('/admin/users');
+  }
+});
+
+
 // Handle logging out (takes us back to the login page).
 app.get('/logout', (req, res) => {
   req.logout(); // Logs us out!

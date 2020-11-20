@@ -10,6 +10,9 @@ window.addEventListener('load', async () => {
     buildTableHead(table);
     console.log(users.data);
     
+    
+    
+    
 })
 
 function buildTableUsers(table,data){
@@ -25,13 +28,20 @@ function buildTableUsers(table,data){
         }
         // delete button
         const cell = row.insertCell();
-        const btn = document.createElement('button');
-        btn.type = "button";
-        //btn.classList.add("btn btn-success btn-sm rounded-0");
-        btn.className = "fa fa-trash";
-        cell.appendChild(btn);
+        cell.className = "btn-group";
         
-        btn.addEventListener('click', async function(){
+        const btnDelete = document.createElement('button');
+        btnDelete.type = "button";
+        //btn.classList.add("btn btn-success btn-sm rounded-0");
+        btnDelete.className = "fa fa-trash";
+        
+        const btnEdit = document.createElement('button');
+        btnEdit.type = "button";
+        btnEdit.className = "fa fa-edit";
+        cell.appendChild(btnDelete);
+        cell.appendChild(btnEdit);
+        
+        btnDelete.addEventListener('click', async function(){
             const table = document.querySelector('table');
             const userId = element['id'];
             await fetch(`/api/user/${userId}`, {
@@ -40,8 +50,13 @@ function buildTableUsers(table,data){
                     'Content-Type': 'application/json',
                 },
             });
-            table.deleteRow(btn.parentNode.parentNode.rowIndex); 
+            table.deleteRow(btnDelete.parentNode.parentNode.rowIndex); 
         });
+
+        
+
+
+        
     }
 }
 function buildTableHead(table){
