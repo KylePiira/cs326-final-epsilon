@@ -189,11 +189,11 @@ module.exports.user.trending = async function(user) {
         let results;
         if (watchlist.length > 0) {
             results = await db.any(`SELECT * FROM Submissions WHERE investment IN ($[investments:list]) 
-                                    ORDER BY score / EXTRACT(EPOCH FROM ((NOW() AT TIME ZONE 'utc') - created)) DESC`, {
+                                    ORDER BY score / EXTRACT(EPOCH FROM ((NOW() AT TIME ZONE 'utc') - created)) DESC LIMIT 25`, {
                 investments: watchlist,
             })
         } else {
-            results = await db.any('SELECT * FROM Submissions ORDER BY score / EXTRACT(EPOCH FROM ((NOW() AT TIME ZONE \'utc\') - created)) DESC')
+            results = await db.any('SELECT * FROM Submissions ORDER BY score / EXTRACT(EPOCH FROM ((NOW() AT TIME ZONE \'utc\') - created)) DESC LIMIT 25')
         }
         
         return results;
@@ -578,14 +578,14 @@ module.exports.investment.sell = async function(author, ticker) {
 module.exports.investment.submissions = async function(ticker) {
     if (ticker === 'all') {
         try {
-            return await db.any('SELECT * FROM Submissions');
+            return await db.any('SELECT * FROM Submissions ORDER BY score / EXTRACT(EPOCH FROM ((NOW() AT TIME ZONE \'utc\') - created)) DESC LIMIT 25');
         } catch (error) {
             console.error(error);
             return false;
         }
     } else {
         try {
-            return await db.any('SELECT * FROM Submissions WHERE investment=${investment}', {
+            return await db.any('SELECT * FROM Submissions WHERE investment=${investment} ORDER BY score / EXTRACT(EPOCH FROM ((NOW() AT TIME ZONE \'utc\') - created)) DESC LIMIT 25', {
                 investment: ticker
             })
         } catch (error) {
