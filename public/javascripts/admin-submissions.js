@@ -37,10 +37,10 @@ function buildTableUsers(table,data){
                 const btn = document.createElement('button');
                 btn.type = "button";
                 btn.className = "btn btn-link";
-                btn.textContent = element[key];
-                // btn.setAttribute('onclick',()=>{
-                //     parent.open(element[key]);
-                // })
+                btn.textContent = 'Link';
+                btn.addEventListener('click', ()=> {
+                    window.open(element[key]);
+                });
                 cell.appendChild(btn);
             }
             else { 
@@ -55,7 +55,7 @@ function buildTableUsers(table,data){
         //btn.classList.add("btn btn-success btn-sm rounded-0");
         btn.className = "fa fa-trash";
         cell.appendChild(btn);
-        //btn.setAttribute('onclick', 'removeRow(this)'); 
+       
         btn.addEventListener('click', async function(){
             const table = document.querySelector('table');
             const storyId = element['id'];
@@ -67,6 +67,8 @@ function buildTableUsers(table,data){
             });
             table.deleteRow(btn.parentNode.parentNode.rowIndex); 
         });
+        // edit button
+        
     }
 }
 function buildTableHead(table){
