@@ -7,6 +7,7 @@ window.addEventListener('load', async () => {
     }
     const stories = (await (await fetch(`/api/stories/${investmentId}`)).json()).data;
     for (const sub of stories) {
+        // eslint-disable-next-line no-undef
         const submission = buildSubmission(sub);
         const listItem = document.createElement('li')
         listItem.classList.add('list-group-item');

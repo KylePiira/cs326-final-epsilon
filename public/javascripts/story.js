@@ -3,12 +3,14 @@ window.addEventListener('load', async function() {
     const storyId = urlParams.get('id');
     // Insert the story
     const story = (await (await fetch(`/api/story/${storyId}`)).json()).data;
+    // eslint-disable-next-line no-undef
     document.getElementById('story').appendChild(buildSubmission(story));
     document.title = `${story.title} - Stock Exchange`;
     // Insert the comments
     const comments = (await (await fetch(`/api/story/${storyId}/comments`)).json()).data;
     comments.sort((a, b) => a.score - b.score);
     for (const comm of comments) {
+        // eslint-disable-next-line no-undef
         const commentElement = buildComment(comm);
         document.getElementById('comments').appendChild(commentElement);
     }
@@ -27,6 +29,7 @@ window.addEventListener('load', async function() {
         })).json()).data.id;
         const replyComment = (await (await fetch(`/api/comment/${replyCommentId}`)).json()).data
         document.getElementById('comments').insertBefore(
+            // eslint-disable-next-line no-undef
             buildComment(replyComment), 
             document.getElementById('comments').firstChild
         );

@@ -4,6 +4,7 @@ window.addEventListener('load', async () => {
     // Do the submissions
     const submissions = (await (await fetch(`/api/user/${userId}/submissions`)).json()).data;
     for (const sub of submissions) {
+        // eslint-disable-next-line no-undef
         const submission = buildSubmission(sub);
         const listItem = document.createElement('li')
         listItem.classList.add('list-group-item');
@@ -13,6 +14,7 @@ window.addEventListener('load', async () => {
     // Do the comments
     const comments = (await (await fetch(`/api/user/${userId}/comments`)).json()).data;
     for (const comm of comments) {
+        // eslint-disable-next-line no-undef
         const comment = buildComment(comm);
         const listItem = document.createElement('li')
         listItem.classList.add('list-group-item');

@@ -3,9 +3,9 @@ async function buildWatchlist(list) {
     const watchlist = (await (await fetch(`/api/user/${userId}/watchlist`)).json()).data;
     list.innerHTML = '';
     for (const ticker of watchlist) {
-        li = document.createElement('li');
+        const li = document.createElement('li');
         li.classList.add('list-group-item');
-        a = document.createElement('a');
+        const a = document.createElement('a');
         a.classList.add('text-primary')
         a.setAttribute('href', `/investment?id=${ticker}`);
         a.innerText = ticker;
@@ -21,9 +21,9 @@ async function buildLongs(list) {
     const longs = (await (await fetch(`/api/user/${userId}/long`)).json()).data;
     list.innerHTML = '';
     for (const ticker of longs) {
-        li = document.createElement('li');
+        const li = document.createElement('li');
         li.classList.add('list-group-item');
-        a = document.createElement('a');
+        const a = document.createElement('a');
         a.classList.add('text-success')
         a.setAttribute('href', `/investment?id=${ticker}`);
         a.innerText = ticker;
@@ -39,9 +39,9 @@ async function buildShorts(list) {
     const shorts = (await (await fetch(`/api/user/${userId}/short`)).json()).data;
     list.innerHTML = '';
     for (const ticker of shorts) {
-        li = document.createElement('li');
+        const li = document.createElement('li');
         li.classList.add('list-group-item');
-        a = document.createElement('a');
+        const a = document.createElement('a');
         a.classList.add('text-danger')
         a.setAttribute('href', `/investment?id=${ticker}`);
         a.innerText = ticker;

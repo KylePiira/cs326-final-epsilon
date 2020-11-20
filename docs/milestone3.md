@@ -7,9 +7,10 @@ CREATE TABLE Users (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     username TEXT,
     password TEXT,
-    reputation DOUBLE PRECISION DEFAULT 0,
+    reputation DOUBLE PRECISION DEFAULT 100,
     created TIMESTAMP WITH TIME ZONE DEFAULT (NOW() AT TIME ZONE 'utc'),
     is_admin BOOLEAN DEFAULT FALSE,
+    is_deleted BOOLEAN DEFAULT FALSE
 );
 ```
 
@@ -24,7 +25,8 @@ CREATE TABLE Comments (
     created TIMESTAMP WITH TIME ZONE DEFAULT (NOW() AT TIME ZONE 'utc'),
     votes INTEGER DEFAULT 0,
     score DOUBLE PRECISION DEFAULT 0,
-    replies INTEGER DEFAULT 0
+    replies INTEGER DEFAULT 0,
+    is_deleted BOOLEAN DEFAULT FALSE
 );
 ```
 
@@ -40,7 +42,8 @@ CREATE TABLE Submissions (
     created TIMESTAMP WITH TIME ZONE DEFAULT (NOW() AT TIME ZONE 'utc'),
     votes INTEGER DEFAULT 0,
     score DOUBLE PRECISION DEFAULT 0,
-    replies INTEGER DEFAULT 0
+    replies INTEGER DEFAULT 0,
+    is_deleted BOOLEAN DEFAULT FALSE
 );
 ```
 
