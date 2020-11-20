@@ -246,6 +246,19 @@ router.post('/story', async function(req, res, next) {
   })
 });
 
+// edit a story
+router.post('/story/edit', async function(req, res, next) {
+  res.json({
+    error: await db.submission.update({
+      id : req.body.id,
+      title: req.body.title,
+      url: req.body.url,
+      investment: req.body.investment,
+    }),
+  }); 
+});
+
+
 router.get('/story/:storyId/comments', async function(req, res, next) {
   const comments = await db.submission.comments({id: req.params.storyId});
   res.json({
