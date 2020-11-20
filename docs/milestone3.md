@@ -7,7 +7,7 @@ CREATE TABLE Users (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     username TEXT,
     password TEXT,
-    reputation DOUBLE PRECISION DEFAULT 0,
+    reputation DOUBLE PRECISION DEFAULT 100,
     created TIMESTAMP WITH TIME ZONE DEFAULT (NOW() AT TIME ZONE 'utc'),
     is_admin BOOLEAN DEFAULT FALSE,
     is_deleted BOOLEAN DEFAULT FALSE
