@@ -46,7 +46,7 @@ function buildTableUsers(table,data){
         //btnDelete.classList.add("btn btn-success btn-sm rounded-0");
         btnDelete.className = "fa fa-trash";
         
-        
+        // edit button
         const btnEdit = document.createElement('button');
         btnEdit.type = "button";
         btnEdit.className = "fa fa-edit";
