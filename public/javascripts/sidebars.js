@@ -51,3 +51,11 @@ async function buildShorts(list) {
 }
 
 window.addEventListener('load', async () => buildShorts(document.getElementById('short')));
+
+async function buildBalance(balance) {
+    const userId = (await (await fetch(`/api/userId`, {credentials: 'same-origin'})).json()).data.id;
+    const repuation = (await (await fetch(`/api/user/${userId}/reputation`)).json()).data;
+    balance.innerText = `$${repuation}`;
+}
+
+window.addEventListener('load', async () => buildBalance(document.getElementById('balance')));

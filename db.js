@@ -1,4 +1,5 @@
 const pgp = require('pg-promise')();
+const { watch } = require('fs');
 const minicrypt = require('./miniCrypt.js');
 const db = pgp(process.env.DATABASE_URL);
 module.exports.db = db;
@@ -40,8 +41,8 @@ module.exports.user.read = async function(user) {
         return false;
     }    
 }
-// Update User
-module.exports.user.update = async function(user) {
+// Change a users password
+module.exports.user.change_password = async function(user) {
     try {
         db.none('UPDATE Users SET username=${username}, password=${password} WHERE id=${id}', {
             id: user.id,
@@ -54,6 +55,7 @@ module.exports.user.update = async function(user) {
         return false;
     }
 }
+
 // Delete User
 module.exports.user.delete = async function(user) {
     try {
@@ -181,115 +183,69 @@ module.exports.user.short = async function(user) {
     }
 }
 
+// Retrive a list of stories that a user is following
+module.exports.user.trending = async function(user) {
+    try {
+        const watchlist = await module.exports.user.watchlist(user);
+        let results;
+        if (watchlist.length > 0) {
+            results = await db.any(`SELECT * FROM Submissions WHERE investment IN ($[investments:list]) 
+                                    ORDER BY score / EXTRACT(EPOCH FROM ((NOW() AT TIME ZONE 'utc') - created)) DESC`, {
+                investments: watchlist,
+            })
+        } else {
+            results = await db.any('SELECT * FROM Submissions ORDER BY score / EXTRACT(EPOCH FROM ((NOW() AT TIME ZONE \'utc\') - created)) DESC')
+        }
+        
+        return results;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+
+// Get a users voting power
+module.exports.user.reputation = async function(user) {
+    try {
+        return (await db.one('SELECT reputation FROM Users WHERE id=${id}', {
+            id: user.id,
+        })).reputation;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+
+// Transfor a reputation point from one user to another
+module.exports.user.transfer = async function(from, to) {
+    if ((await module.exports.user.read({id: from.id})).reputation > 0) {
+        db.none('UPDATE Users SET reputation=reputation - 1 WHERE id=${user}', {
+            user: from.id,
+        })
+        if (to) {
+            db.none('UPDATE Users SET reputation=reputation + 1 WHERE id=${user}', {
+                user: to.id,
+            })
+        }
+        return true;
+    } else {
+        return false;
+    }
+}
+
 /*
-Submissions
+Users
 */
-module.exports.submission = {}
-// Create Submission
-module.exports.submission.create = async function(submission) {
+module.exports.users = {}
+// Retrive a list of all users
+module.exports.users.all = async function() {
     try {
-        return (await db.one('INSERT INTO Submissions (author, title, url, investment) VALUES (${author}, ${title}, ${url}, ${investment}) RETURNING id', {
-            author: submission.author,
-            title: submission.title,
-            url: submission.url,
-            investment: submission.investment,
-        })).id;
-    } catch (error) {
-        console.error(error);
-        return false;
-    }
-}
-// Read Submission
-module.exports.submission.read = async function(submission) {
-    try {
-        return await db.one('SELECT * FROM Submissions WHERE id=${id}', {
-            id: submission.id
-        });
-    } catch (error) {
-        console.error(error);
-        return false;
-    }
-}
-// Update Submission
-module.exports.submission.update = async function(submission) {
-    try {
-        db.none('UPDATE Submissions SET title=${title}, url=${url}, investment=${investment} WHERE id=${id}', {
-            id: submission.id,
-            title: submission.title,
-            url: submission.url,
-            investment: submission.investment,
-        })
-        return true;
-    } catch (error) {
-        console.error(error);
-        return false;
-    }
-}
-// Delete Submission
-module.exports.submission.delete = async function(submission) {
-    try {
-        db.none('DELETE FROM Submissions WHERE id=${id}', {
-            id: submission.id
-        });
-        return true;
-    } catch (error) {
-        console.error(error);
-        return false;
-    }
-}
-// Exists Submission
-module.exports.submission.exists = async function(submission) {
-    try {
-        return Number((await db.one('SELECT COUNT(*) FROM Submissions WHERE id=${id}', {
-            id: submission.id
-        })).count) > 0;
-    } catch (error) {
-        console.error(error);
-        return false;
-    }
-}
-// Increment Replies
-module.exports.submission.reply = async function(submission) {
-    try {
-        db.none('UPDATE Submissions SET replies=replies + 1 WHERE id=${id}', {
-            id: submission.id
-        })
-        return true;
-    } catch (error) {
-        console.error(error);
-        return false;
-    }
-}
-// Upvote Submission
-module.exports.submission.upvote = async function(submission) {
-    try {
-        db.none('UPDATE Submissions SET votes=votes + 1 WHERE id=${id}', {
-            id: submission.id
-        });
-        return true;
-    } catch (error) {
-        console.error(error);
-        return false;
-    }
-}
-// Downvote Submission
-module.exports.submission.downvote = async function(submission) {
-    try {
-        db.none('UPDATE Submissions SET votes=votes - 1 WHERE id=${id}', {
-            id: submission.id
-        });
-        return true;
-    } catch (error) {
-        console.error(error);
-        return false;
-    }
-}
-// Retrieve comments for Subission
-module.exports.submission.comments = async function(submission) {
-    try {
-        return await db.any('SELECT * FROM Comments WHERE parent=${id}', {
-            id: submission.id
-        });
+        const users = await db.any('SELECT * FROM Users');
+        for (const user of users) {
+            // Do not return the passwords
+            delete user.password;
+        }
+        return users;
     } catch (error) {
         console.error(error);
         return false;
@@ -402,7 +358,7 @@ module.exports.submission.downvote = async function(submission) {
 // Retrieve comments for Subission
 module.exports.submission.comments = async function(submission) {
     try {
-        return await db.any('SELECT * FROM Comments WHERE parent=${id}', {
+        return await db.any('SELECT * FROM Comments WHERE parent=${id} ORDER BY score DESC', {
             id: submission.id
         });
     } catch (error) {
@@ -514,7 +470,7 @@ module.exports.comment.downvote = async function(comment) {
 // Retrieve comments for Comments
 module.exports.comment.comments = async function(comment) {
     try {
-        return await db.any('SELECT * FROM Comments WHERE parent=${id}', {
+        return await db.any('SELECT * FROM Comments WHERE parent=${id} ORDER BY score DESC', {
             id: comment.id
         });
     } catch (error) {
