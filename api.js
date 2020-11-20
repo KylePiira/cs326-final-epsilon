@@ -1,9 +1,9 @@
 const express = require('express');
-const { resource } = require('./app.js');
 const db = require('./db.js');
 const router = express.Router();
 
 /* GET api home listing. */
+// eslint-disable-next-line no-unused-vars
 router.get('/', function(req, res, next) {
   res.json({
     message: 'no endpoint',
@@ -16,6 +16,7 @@ User API
 */
 
 // retrieves a userId of the currently logged in user
+// eslint-disable-next-line no-unused-vars
 router.get('/userId', async function(req, res, next) {
   res.json({
     error: false,
@@ -26,6 +27,7 @@ router.get('/userId', async function(req, res, next) {
 });
 
 // retrieves a user by its userId
+// eslint-disable-next-line no-unused-vars
 router.get('/user/:userId', async function(req, res, next) {
   if (db.user.exists({id: req.params.userId})) {
     res.json({
@@ -41,6 +43,7 @@ router.get('/user/:userId', async function(req, res, next) {
 });
 
 // creates a user
+// eslint-disable-next-line no-unused-vars
 router.post('/user', async function(req, res, next) {
   if (db.user.exists({username: req.body.username})) {
     res.json({
@@ -61,6 +64,7 @@ router.post('/user', async function(req, res, next) {
 });
 
 // deletes a user
+// eslint-disable-next-line no-unused-vars
 router.delete('/user/:userId', async function(req, res, next) {
   res.json({
     error: await db.user.delete({id: req.params.userId}),
@@ -68,6 +72,7 @@ router.delete('/user/:userId', async function(req, res, next) {
 });
 
 // retrieves comments by userId
+// eslint-disable-next-line no-unused-vars
 router.get('/user/:userId/comments', async function(req, res, next) {
   res.json({
     error: false,
@@ -76,6 +81,7 @@ router.get('/user/:userId/comments', async function(req, res, next) {
 });
 
 // retrieves submissions by a userId
+// eslint-disable-next-line no-unused-vars
 router.get('/user/:userId/submissions', async function(req, res, next) {
   res.json({
     error: false,
@@ -84,6 +90,7 @@ router.get('/user/:userId/submissions', async function(req, res, next) {
 });
 
 // retrieves watchlist by a userId
+// eslint-disable-next-line no-unused-vars
 router.get('/user/:userId/watchlist', async function(req, res, next) {
   res.json({
     error: false,
@@ -92,6 +99,7 @@ router.get('/user/:userId/watchlist', async function(req, res, next) {
 });
 
 // adds an investment to watchlist
+// eslint-disable-next-line no-unused-vars
 router.post('/user/:userId/watchlist', async function(req, res, next) {
   res.json({
     error: await db.investment.watch(req.params.userId, req.body.id),
@@ -99,6 +107,7 @@ router.post('/user/:userId/watchlist', async function(req, res, next) {
 });
 
 // deletes an investment from watchlist
+// eslint-disable-next-line no-unused-vars
 router.delete('/user/:userId/watchlist', async function(req, res, next) {
   db.investment
   res.json({
@@ -107,6 +116,7 @@ router.delete('/user/:userId/watchlist', async function(req, res, next) {
 });
 
 // retrieves a list of stocks of user's long
+// eslint-disable-next-line no-unused-vars
 router.get('/user/:userId/long', async function(req, res, next) {
   res.json({
     error: false,
@@ -115,6 +125,7 @@ router.get('/user/:userId/long', async function(req, res, next) {
 });
 
 // buys a stock to a user's long
+// eslint-disable-next-line no-unused-vars
 router.post('/user/:userId/long', async function(req, res, next) {
   res.json({
     error: await db.investment.buy(req.params.userId, req.body.id),
@@ -122,6 +133,7 @@ router.post('/user/:userId/long', async function(req, res, next) {
 });
 
 // retrieves a list of user's short
+// eslint-disable-next-line no-unused-vars
 router.get('/user/:userId/short', async function(req, res, next) {
   res.json({
     error: false,
@@ -130,6 +142,7 @@ router.get('/user/:userId/short', async function(req, res, next) {
 });
 
 // sells a stock to user's short
+// eslint-disable-next-line no-unused-vars
 router.post('/user/:userId/short', async function(req, res, next) {
   res.json({
     error: await db.investment.sell(req.params.userId, req.body.id),
@@ -137,6 +150,7 @@ router.post('/user/:userId/short', async function(req, res, next) {
 });
 
 // get users voting power level
+// eslint-disable-next-line no-unused-vars
 router.get('/user/:userId/reputation', async function(req, res, next) {
   res.json({
     error: false,
@@ -149,6 +163,7 @@ Users API
 */
 
 // retrieves a list of all users
+// eslint-disable-next-line no-unused-vars
 router.get('/users/all', async function(req, res, next) {
   res.json({
     error: false,
@@ -161,6 +176,7 @@ Story API
 */
 
 // retrieve story by storyId
+// eslint-disable-next-line no-unused-vars
 router.get('/story/:storyId', async function(req, res, next) {
   res.json({
     error: false,
@@ -171,6 +187,7 @@ router.get('/story/:storyId', async function(req, res, next) {
 });
 
 // upvote story by storyId
+// eslint-disable-next-line no-unused-vars
 router.post('/story/:storyId/upvote', async function(req, res, next) {
   if (req.user.reputation > 0) {
     const story = await db.submission.read({id: req.params.storyId});
@@ -195,6 +212,7 @@ router.post('/story/:storyId/upvote', async function(req, res, next) {
 });
 
 // downvote story by storyId
+// eslint-disable-next-line no-unused-vars
 router.post('/story/:storyId/downvote', async function(req, res, next) {
   if (req.user.reputation > 0) {
     const story = await db.submission.read({id: req.params.storyId});
@@ -219,6 +237,7 @@ router.post('/story/:storyId/downvote', async function(req, res, next) {
 });
 
 // delete story by storyId
+// eslint-disable-next-line no-unused-vars
 router.delete('/story/:storyId', async function(req, res, next) {
   db.submission.delete({id: req.params.storyId});
   res.json({
@@ -227,6 +246,7 @@ router.delete('/story/:storyId', async function(req, res, next) {
 })
 
 // create a story
+// eslint-disable-next-line no-unused-vars
 router.post('/story', async function(req, res, next) {
   res.json({
     error: false,
@@ -242,6 +262,7 @@ router.post('/story', async function(req, res, next) {
 });
 
 // retrieve story comments by storyId
+// eslint-disable-next-line no-unused-vars
 router.get('/story/:storyId/comments', async function(req, res, next) {
   const comments = await db.submission.comments({id: req.params.storyId});
   res.json({
@@ -255,6 +276,7 @@ Stories API
 */
 
 // retrieves all stories
+// eslint-disable-next-line no-unused-vars
 router.get('/stories/all', async function(req, res, next) {
   res.json({
     error: false,
@@ -263,6 +285,7 @@ router.get('/stories/all', async function(req, res, next) {
 });
 
 // retrieves trending stories
+// eslint-disable-next-line no-unused-vars
 router.get('/stories/trending', async function(req, res, next) {
   res.json({
     error: false,
@@ -271,6 +294,7 @@ router.get('/stories/trending', async function(req, res, next) {
 });
 
 // retrieves stories by investment
+// eslint-disable-next-line no-unused-vars
 router.get('/stories/:investment', async function(req, res, next) {
   res.json({
     error: false,
@@ -283,6 +307,7 @@ Comment API
 */
 
 // retrieves comment by commentId
+// eslint-disable-next-line no-unused-vars
 router.get('/comment/:commentId', async function(req, res, next) {
   res.json({
     error: false,
@@ -291,6 +316,7 @@ router.get('/comment/:commentId', async function(req, res, next) {
 });
 
 // deletes comment by commentId
+// eslint-disable-next-line no-unused-vars
 router.delete('/comment/:commentId', async function(req, res, next) {
   const comment = await db.comment.read({
     id: req.params.commentId
@@ -313,6 +339,7 @@ router.delete('/comment/:commentId', async function(req, res, next) {
 });
 
 // upvotes a comment by commentId
+// eslint-disable-next-line no-unused-vars
 router.post('/comment/:commentId/upvote', async function(req, res, next) {
   if (req.user.reputation > 0) {
     const comment = await db.comment.read({id: req.params.commentId});
@@ -337,6 +364,7 @@ router.post('/comment/:commentId/upvote', async function(req, res, next) {
 });
 
 // downvotes a comment by commentId
+// eslint-disable-next-line no-unused-vars
 router.post('/comment/:commentId/downvote', async function(req, res, next) {
   if (req.user.reputation > 0) {
     const comment = await db.comment.read({id: req.params.commentId});
@@ -361,6 +389,7 @@ router.post('/comment/:commentId/downvote', async function(req, res, next) {
 });
 
 // retrieves a comment's comments by commentId
+// eslint-disable-next-line no-unused-vars
 router.get('/comment/:commentId/comments', async function(req, res, next) {
   res.json({
     error: false,
@@ -369,6 +398,7 @@ router.get('/comment/:commentId/comments', async function(req, res, next) {
 });
 
 // creates a comment
+// eslint-disable-next-line no-unused-vars
 router.post('/comment', async function(req, res, next) {
   if (await db.comment.exists({id: req.body.parent})) {
     db.comment.reply({id: req.body.parent});
@@ -399,6 +429,7 @@ Search API
 */
 
 // retrieves search results
+// eslint-disable-next-line no-unused-vars
 router.get('/search', async function(req, res, next) {
   res.json({
     error: false,

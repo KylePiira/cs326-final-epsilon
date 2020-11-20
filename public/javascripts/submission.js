@@ -14,6 +14,7 @@
 </div> */
 
 
+// eslint-disable-next-line no-unused-vars
 function buildSubmission(sub) {
     // Submission
     const submission = document.createElement('div');
@@ -117,6 +118,7 @@ function buildSubmission(sub) {
         }
         const balance = document.getElementById('balance');
         if (balance) {
+            // eslint-disable-next-line no-undef
             buildBalance(balance);
         }
     })
@@ -130,6 +132,7 @@ function buildSubmission(sub) {
         }
         const balance = document.getElementById('balance');
         if (balance) {
+            // eslint-disable-next-line no-undef
             buildBalance(balance);
         }
     })
