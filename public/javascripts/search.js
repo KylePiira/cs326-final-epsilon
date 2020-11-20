@@ -6,6 +6,7 @@ window.addEventListener('load', async () => {
     document.title = `${urlParams.get('q')} - Stock Exchange`;
     const results = (await (await fetch(`/api/search?q=${urlParams.get('q')}`)).json()).data;
     for (const sub of results) {
+        // eslint-disable-next-line no-undef
         const submission = buildSubmission(sub);
         const listItem = document.createElement('li')
         listItem.classList.add('list-group-item');

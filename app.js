@@ -53,6 +53,7 @@ app.post('/login', passport.authenticate('local' , {
   'successRedirect': '/',
   'failureRedirect': '/login'
 }));
+// eslint-disable-next-line no-unused-vars
 app.post('/register', async function(req, res, next) {
   if (await db.user.exists({username: req.body.username})) {
     res.redirect('/register');
@@ -74,6 +75,7 @@ app.use(function(req, res, next) {
   next(createError(404));
 });
 // error handler
+// eslint-disable-next-line no-unused-vars
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.sendFile('error.html', {root : __dirname + '/html/'});

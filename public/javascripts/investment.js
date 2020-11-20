@@ -37,6 +37,7 @@ window.addEventListener('load', async function() {
                 })
             });
         }
+        // eslint-disable-next-line no-undef
         buildWatchlist(watchlist);
     });
 
@@ -56,7 +57,9 @@ window.addEventListener('load', async function() {
             })
         });
 
+        // eslint-disable-next-line no-undef
         buildLongs(long);
+        // eslint-disable-next-line no-undef
         buildShorts(short);
     });
 
@@ -71,7 +74,9 @@ window.addEventListener('load', async function() {
             })
         });
 
+        // eslint-disable-next-line no-undef
         buildLongs(long);
+        // eslint-disable-next-line no-undef
         buildShorts(short);
     })
 });

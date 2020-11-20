@@ -165,6 +165,7 @@ function buildComment(comm) {
         })).json()).data.id;
         const replyComment = (await (await fetch(`/api/comment/${replyCommentId}`)).json()).data
         replies.insertBefore(
+            // eslint-disable-next-line no-unused-vars
             buildComment(replyComment), 
             replies.firstChild
         );
@@ -186,6 +187,7 @@ function buildComment(comm) {
         }
         const balance = document.getElementById('balance');
         if (balance) {
+            // eslint-disable-next-line no-undef
             buildBalance(balance);
         }
     })
@@ -199,6 +201,7 @@ function buildComment(comm) {
         }
         const balance = document.getElementById('balance');
         if (balance) {
+            // eslint-disable-next-line no-undef
             buildBalance(balance);
         }
     })
