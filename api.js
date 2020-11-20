@@ -1,4 +1,5 @@
 const express = require('express');
+const { resource } = require('./app.js');
 const db = require('./db.js');
 const router = express.Router();
 
@@ -158,6 +159,8 @@ router.get('/users/all', async function(req, res, next) {
 /*
 Story API
 */
+
+// retrieve story by storyId
 router.get('/story/:storyId', async function(req, res, next) {
   res.json({
     error: false,
@@ -167,6 +170,7 @@ router.get('/story/:storyId', async function(req, res, next) {
   });
 });
 
+// upvote story by storyId
 router.post('/story/:storyId/upvote', async function(req, res, next) {
   if (req.user.reputation > 0) {
     const story = await db.submission.read({id: req.params.storyId});
@@ -190,6 +194,7 @@ router.post('/story/:storyId/upvote', async function(req, res, next) {
   }
 });
 
+// downvote story by storyId
 router.post('/story/:storyId/downvote', async function(req, res, next) {
   if (req.user.reputation > 0) {
     const story = await db.submission.read({id: req.params.storyId});
@@ -213,6 +218,7 @@ router.post('/story/:storyId/downvote', async function(req, res, next) {
   }
 });
 
+// delete story by storyId
 router.delete('/story/:storyId', async function(req, res, next) {
   db.submission.delete({id: req.params.storyId});
   res.json({
@@ -220,6 +226,7 @@ router.delete('/story/:storyId', async function(req, res, next) {
   })
 })
 
+// create a story
 router.post('/story', async function(req, res, next) {
   res.json({
     error: false,
@@ -234,6 +241,7 @@ router.post('/story', async function(req, res, next) {
   })
 });
 
+// retrieve story comments by storyId
 router.get('/story/:storyId/comments', async function(req, res, next) {
   const comments = await db.submission.comments({id: req.params.storyId});
   res.json({
@@ -245,6 +253,8 @@ router.get('/story/:storyId/comments', async function(req, res, next) {
 /*
 Stories API
 */
+
+// retrieves all stories
 router.get('/stories/all', async function(req, res, next) {
   res.json({
     error: false,
@@ -252,6 +262,7 @@ router.get('/stories/all', async function(req, res, next) {
   });
 });
 
+// retrieves trending stories
 router.get('/stories/trending', async function(req, res, next) {
   res.json({
     error: false,
@@ -259,6 +270,7 @@ router.get('/stories/trending', async function(req, res, next) {
   });
 });
 
+// retrieves stories by investment
 router.get('/stories/:investment', async function(req, res, next) {
   res.json({
     error: false,
@@ -269,6 +281,8 @@ router.get('/stories/:investment', async function(req, res, next) {
 /*
 Comment API
 */
+
+// retrieves comment by commentId
 router.get('/comment/:commentId', async function(req, res, next) {
   res.json({
     error: false,
@@ -276,14 +290,29 @@ router.get('/comment/:commentId', async function(req, res, next) {
   })
 });
 
+// deletes comment by commentId
 router.delete('/comment/:commentId', async function(req, res, next) {
+  const comment = await db.comment.read({
+    id: req.params.commentId
+  });
+  if (await db.comment.exists({id: comment.parent})) {
+    db.comment.unreply({id: comment.parent});
+  } else if (await db.submission.exists({id: comment.parent})) {
+    db.submission.unreply({id: comment.parent});
+  } else {
+    res.json({
+      error: true,
+      message: "Parent does not exist"
+    })
+    return;
+  }
   db.comment.delete({id: req.params.commentId});
   res.json({
     error: false,
-  })
-})
+  });
+});
 
-
+// upvotes a comment by commentId
 router.post('/comment/:commentId/upvote', async function(req, res, next) {
   if (req.user.reputation > 0) {
     const comment = await db.comment.read({id: req.params.commentId});
@@ -303,10 +332,11 @@ router.post('/comment/:commentId/upvote', async function(req, res, next) {
     res.json({
       error: true,
       message: 'Insufficient reputation'
-    })
+    });
   }
 });
 
+// downvotes a comment by commentId
 router.post('/comment/:commentId/downvote', async function(req, res, next) {
   if (req.user.reputation > 0) {
     const comment = await db.comment.read({id: req.params.commentId});
@@ -330,7 +360,7 @@ router.post('/comment/:commentId/downvote', async function(req, res, next) {
   }
 });
 
-
+// retrieves a comment's comments by commentId
 router.get('/comment/:commentId/comments', async function(req, res, next) {
   res.json({
     error: false,
@@ -338,6 +368,7 @@ router.get('/comment/:commentId/comments', async function(req, res, next) {
   });
 });
 
+// creates a comment
 router.post('/comment', async function(req, res, next) {
   if (await db.comment.exists({id: req.body.parent})) {
     db.comment.reply({id: req.body.parent});
@@ -366,6 +397,8 @@ router.post('/comment', async function(req, res, next) {
 /*
 Search API
 */
+
+// retrieves search results
 router.get('/search', async function(req, res, next) {
   res.json({
     error: false,
