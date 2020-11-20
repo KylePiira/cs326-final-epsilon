@@ -47,12 +47,6 @@ function buildComment(comm) {
     const metadata = document.createElement('span');
     // Username
     const username = document.createElement('a');
-    fetch(`/api/user/${comm.author}`)
-        .then((res) => res.json())
-        .then((author) => {
-            username.setAttribute('href', `/user?id=${author.data.id}`);
-            username.innerText = author.data.username;
-        });
     // Timestamp
     const age = document.createElement('i');
     // Comment contents
@@ -67,6 +61,12 @@ function buildComment(comm) {
     showRepliesButton.classList.add('btn');
     showRepliesButton.classList.add('btn-sm');
     showRepliesButton.classList.add('btn-white');
+    // Button to delete
+    const deleteButton = document.createElement('span');
+    deleteButton.classList.add('btn');
+    deleteButton.classList.add('btn-sm');
+    deleteButton.classList.add('btn-white');
+    deleteButton.classList.add('d-none');
     // Form to type the reply
     const replyForm = document.createElement('form');
     replyForm.classList.add('d-none');
@@ -112,6 +112,7 @@ function buildComment(comm) {
     if (comm.replies === 0) {
         showRepliesButton.classList.add('d-none');
     }
+    rightColumn.appendChild(deleteButton);
     rightColumn.appendChild(replyForm);
     rightColumn.appendChild(replies);
 
@@ -121,8 +122,21 @@ function buildComment(comm) {
     body.innerText = comm.body;
     replyButton.innerText = 'reply';
     showRepliesButton.innerText = `show ${comm.replies} replies`;
+    deleteButton.innerText = 'delete';
     replySubmitButton.innerText = 'reply';
     age.innerText = ' - ' + new Date(comm.created).toLocaleDateString("en-US");
+
+    // Get the author information
+    fetch(`/api/user/${comm.author}`)
+        .then((res) => res.json())
+        .then(async (author) => {
+            username.setAttribute('href', `/user?id=${author.data.id}`);
+            username.innerText = author.data.username;
+            const userId = (await (await fetch(`/api/userId`, {credentials: 'same-origin'})).json()).data.id;
+            if (author.data.id === userId) {
+                deleteButton.classList.remove('d-none');
+            }
+        });
 
     // Make everything interactive
     replyButton.addEventListener('click', () => {
@@ -133,7 +147,7 @@ function buildComment(comm) {
             replyButton.innerText = 'reply';
             replyForm.classList.add('d-none');
         }
-    })
+    });
 
     showRepliesButton.addEventListener('click', async () => {
         if (showRepliesButton.innerText === `show ${comm.replies} replies`) {
@@ -149,7 +163,14 @@ function buildComment(comm) {
             showRepliesButton.innerText = `show ${comm.replies} replies`;
             replies.innerHTML = '';
         }
-    })
+    });
+
+    deleteButton.addEventListener('click', async () => {
+        fetch(`/api/comment/${comm.id}`, {
+            method: 'DELETE'
+        });
+        comment.remove();
+    });
 
     replySubmitButton.addEventListener('click', async () => {
         replyForm.classList.add('d-none');
@@ -175,7 +196,7 @@ function buildComment(comm) {
         showRepliesButton.classList.remove('d-none');
         replyTextarea.value = '';
         replyButton.innerText = 'reply';
-    })
+    });
 
     upvote.addEventListener('click', async () => {
         const error = (await (await fetch(`/api/comment/${comm.id}/upvote`, {
@@ -188,7 +209,7 @@ function buildComment(comm) {
         if (balance) {
             buildBalance(balance);
         }
-    })
+    });
 
     downvote.addEventListener('click', async () => {
         const error = (await (await fetch(`/api/comment/${comm.id}/downvote`, {
@@ -201,7 +222,7 @@ function buildComment(comm) {
         if (balance) {
             buildBalance(balance);
         }
-    })
+    });
 
     return comment;
 }
