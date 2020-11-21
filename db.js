@@ -214,11 +214,11 @@ module.exports.user.trending = async function(user) {
         let results;
         if (watchlist.length > 0) {
             results = await db.any(`SELECT * FROM Submissions WHERE investment IN ($[investments:list]) AND is_deleted=FALSE
-                                    ORDER BY score / EXTRACT(EPOCH FROM ((NOW() AT TIME ZONE 'utc') - created)) DESC LIMIT 25`, {
+                                    ORDER BY votes / EXTRACT(EPOCH FROM ((NOW() AT TIME ZONE 'utc') - created)) DESC LIMIT 25`, {
                 investments: watchlist,
             })
         } else {
-            results = await db.any('SELECT * FROM Submissions WHERE is_deleted=FALSE ORDER BY score / EXTRACT(EPOCH FROM ((NOW() AT TIME ZONE \'utc\') - created)) DESC LIMIT 25');
+            results = await db.any('SELECT * FROM Submissions WHERE is_deleted=FALSE ORDER BY votes / EXTRACT(EPOCH FROM ((NOW() AT TIME ZONE \'utc\') - created)) DESC LIMIT 25');
         }
         
         return results;
@@ -407,7 +407,7 @@ module.exports.submission.downvote = async function(submission) {
 // Retrieve comments for Submission
 module.exports.submission.comments = async function(submission) {
     try {
-        return await db.any('SELECT * FROM Comments WHERE parent=${id} AND is_deleted=FALSE ORDER BY score DESC', {
+        return await db.any('SELECT * FROM Comments WHERE parent=${id} AND is_deleted=FALSE ORDER BY votes DESC', {
             id: submission.id
         });
     } catch (error) {
@@ -542,7 +542,7 @@ module.exports.comment.downvote = async function(comment) {
 // Retrieve comments for Comments
 module.exports.comment.comments = async function(comment) {
     try {
-        return await db.any('SELECT * FROM Comments WHERE parent=${id} AND is_deleted=FALSE ORDER BY score DESC', {
+        return await db.any('SELECT * FROM Comments WHERE parent=${id} AND is_deleted=FALSE ORDER BY votes DESC', {
             id: comment.id
         });
     } catch (error) {
@@ -653,14 +653,14 @@ module.exports.investment.sell = async function(author, ticker) {
 module.exports.investment.submissions = async function(ticker) {
     if (ticker === 'all') {
         try {
-            return await db.any('SELECT * FROM Submissions WHERE is_deleted=FALSE ORDER BY score / EXTRACT(EPOCH FROM ((NOW() AT TIME ZONE \'utc\') - created)) DESC LIMIT 25');
+            return await db.any('SELECT * FROM Submissions WHERE is_deleted=FALSE ORDER BY votes / EXTRACT(EPOCH FROM ((NOW() AT TIME ZONE \'utc\') - created)) DESC LIMIT 25');
         } catch (error) {
             console.error(error);
             return false;
         }
     } else {
         try {
-            return await db.any('SELECT * FROM Submissions WHERE investment=${investment} AND is_deleted=FALSE ORDER BY score / EXTRACT(EPOCH FROM ((NOW() AT TIME ZONE \'utc\') - created)) DESC LIMIT 25', {
+            return await db.any('SELECT * FROM Submissions WHERE investment=${investment} AND is_deleted=FALSE ORDER BY votes / EXTRACT(EPOCH FROM ((NOW() AT TIME ZONE \'utc\') - created)) DESC LIMIT 25', {
                 investment: ticker
             })
         } catch (error) {
