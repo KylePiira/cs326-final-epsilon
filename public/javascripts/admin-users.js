@@ -1,3 +1,4 @@
+'use strict';
 window.addEventListener('load', async () => {
     const response = await fetch(`/api/users/all`);
     if (!response.ok) {

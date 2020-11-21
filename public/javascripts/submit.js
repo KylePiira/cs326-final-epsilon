@@ -1,3 +1,4 @@
+'use strict';
 window.addEventListener('load', () => {
     document.getElementById('submit').addEventListener('click', async () => {
         const response = await (await fetch('/api/story', {

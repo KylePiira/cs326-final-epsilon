@@ -1,3 +1,4 @@
+'use strict';
 async function buildWatchlist(list) {
     const userId = (await (await fetch(`/api/userId`, {credentials: 'same-origin'})).json()).data.id;
     const watchlist = (await (await fetch(`/api/user/${userId}/watchlist`)).json()).data;

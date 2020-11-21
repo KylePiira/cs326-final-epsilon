@@ -1,3 +1,4 @@
+'use strict';
 /* <div class="comment row mt-3">
     <div class="col-1 pl-0 pr-0">
         <div class="votes">

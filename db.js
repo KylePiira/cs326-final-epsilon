@@ -1,3 +1,4 @@
+'use strict';
 const pgp = require('pg-promise')();
 const minicrypt = require('./miniCrypt.js');
 const db = pgp(process.env.DATABASE_URL);

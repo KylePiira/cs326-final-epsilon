@@ -1,3 +1,4 @@
+'use strict';
 window.addEventListener('load', async function() {
     const urlParams = new URLSearchParams(window.location.search);
     const investmentId = urlParams.get('id');

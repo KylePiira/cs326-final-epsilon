@@ -1,3 +1,4 @@
+'use strict';
 window.addEventListener('load', async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const userId = urlParams.get('id');
