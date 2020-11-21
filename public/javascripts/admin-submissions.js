@@ -46,7 +46,7 @@ window.addEventListener('load', async () => {
 })
 function buildTableUsers(table,data){
     table.className ="table table-striped";
-    const fields = ['title','url','score']
+    const fields = ['title','url','votes']
     
     for (let element of data){
         const row = table.insertRow();
@@ -104,7 +104,7 @@ function buildTableUsers(table,data){
     }
 }
 function buildTableHead(table){
-    const data  = ['Title','Link', 'Score','Action'];
+    const data  = ['Title','Link', 'Votes','Action'];
     const thead = table.createTHead();
     thead.className = "thead-light";
     const row = thead.insertRow();
