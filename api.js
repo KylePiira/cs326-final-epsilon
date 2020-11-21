@@ -187,7 +187,6 @@ Story API
 */
 // retrieve story by storyId
 // eslint-disable-next-line no-unused-vars
- master
 router.get('/story/:storyId', async function(req, res, next) {
   res.json({
     error: false,
@@ -272,7 +271,6 @@ router.post('/story', async function(req, res, next) {
   })
 });
 
- huynh-dev
 // edit a story
 router.post('/story/edit', async function(req, res, next) {
   res.json({
@@ -289,7 +287,6 @@ router.post('/story/edit', async function(req, res, next) {
 
 // retrieve story comments by storyId
 // eslint-disable-next-line no-unused-vars
- master
 router.get('/story/:storyId/comments', async function(req, res, next) {
   const comments = await db.submission.comments({id: req.params.storyId});
   res.json({

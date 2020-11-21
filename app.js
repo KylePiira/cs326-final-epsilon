@@ -73,7 +73,6 @@ app.post('/register', async function(req, res, next) {
   }
 });
 
- huynh-dev
 app.post('/admin-register', async function(req, res, next) {
   if (await db.user.exists({username: req.body.username})) {
     res.redirect('/admin-register');
@@ -87,9 +86,6 @@ app.post('/admin-register', async function(req, res, next) {
   }
 });
 
-
-
- master
 // Handle logging out (takes us back to the login page).
 app.get('/logout', (req, res) => {
   req.logout(); // Logs us out!
