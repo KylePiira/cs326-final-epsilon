@@ -121,12 +121,24 @@ CREATE TABLE UserInvestments (
   * story.js
   
   * investment.js
-
-* Python templating engine
+  
+  * comment.js (multiple people worked on this file)
+  
+  * submission.js (multiple people worked on this file)
+  
+  * submit.js (multiple people worked on this file)
+  
+  * profile.js (multiple people worked on this file)
+  
+  * Python template engine
 
 ## Hannah H.
 
 * Admin
+  
+  * User
+  
+  * Submissions
 
 * Database
   
@@ -134,15 +146,19 @@ CREATE TABLE UserInvestments (
 
 * Public JS
   
-  * comment.js
+  * profile.js (multiple people worked on this file)
   
-  * profile.js
+  * sidebars.js
   
-  * submission.js
+  * comment.js (multiple people worked on this file)
   
-  * submit.js
+  * submission.js (multiple people worked on this file)
   
-  * sidebar.js
+  * submit.js (multiple people worked on this file)
+  
+  * admin-submissions.js
+  
+  * admin-users.js
 
 * Server-side
   
@@ -164,7 +180,11 @@ CREATE TABLE UserInvestments (
   
   * Users
 
-* Passport
+* Authentication
+  
+  * Passport
+  
+  * Passport local
 
 * Deleting Comments
 
