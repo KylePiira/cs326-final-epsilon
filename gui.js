@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+
 function checkLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
     // If we are authenticated, run the next route.
@@ -9,6 +10,7 @@ function checkLoggedIn(req, res, next) {
     res.redirect('/login');
   }
 }
+
 /* GET home page. */
 // eslint-disable-next-line no-unused-vars
 router.get('/', checkLoggedIn, function(req, res, next) {

@@ -1,4 +1,3 @@
-const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const expressSession = require('express-session');
@@ -11,7 +10,7 @@ const app = express();
 
 // Session configuration
 const session = {
-  secret : process.env.SECRET || 'SECRET', // set this encryption key in Heroku config (never in GitHub)!
+  secret : process.env.SECRET, // set this encryption key in Heroku config (never in GitHub)!
   resave : false,
   saveUninitialized: false
 };
@@ -92,20 +91,14 @@ app.get('/logout', (req, res) => {
   res.redirect('/login'); // back to login
 });
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
-
 // error handler
 // eslint-disable-next-line no-unused-vars
-app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
+app.get('*', function(req, res, next) {
   res.sendFile('error.html', {root : __dirname + '/html/'});
 });
 
 module.exports = app;
 const port = process.env.PORT || 8080
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+  console.log(`Stock Exchange listening at http://localhost:${port}`)
 })

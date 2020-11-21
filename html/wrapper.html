@@ -12,6 +12,8 @@
 	<link href="/stylesheets/style.css" rel="stylesheet">
 	<!-- Font Awesome -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<!-- Global JavaScript -->
+	<script src="/javascripts/wrapper.js"></script>
 	
 	
 </head>
@@ -38,11 +40,10 @@
 						<a class="nav-link" href="/submit">Submit</a>
 					</li>
 					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Account</a>
+						<a class="nav-link dropdown-toggle" id="account-nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Account</a>
 						<div class="dropdown-menu dropdown-menu-right">
-							<a class="dropdown-item" href="/u/username">Profile</a>
-							<a class="dropdown-item" href="#">Settings</a>
-							<a class="dropdown-item" href="/admin/users">Admin</a>
+							<a class="dropdown-item" href="#" id="profile-nav-link">Profile</a>
+							<a class="dropdown-item d-none" href="/admin/users" id="admin-nav-link">Admin</a>
 							<div class="dropdown-divider"></div>
 							<a class="dropdown-item" href="/logout">Logout</a>
 						</div>
