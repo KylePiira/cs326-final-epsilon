@@ -11,6 +11,14 @@ function checkLoggedIn(req, res, next) {
   }
 }
 
+function checkAdmin(req, res, next) {
+  if (req.user.is_admin) {
+    next();
+  } else {
+    res.redirect('/');
+  }
+}
+
 /* GET home page. */
 // eslint-disable-next-line no-unused-vars
 router.get('/', checkLoggedIn, function(req, res, next) {
@@ -53,12 +61,12 @@ router.get('/search', checkLoggedIn, function(req, res, next) {
 });
 /* GET admin for submssions */
 // eslint-disable-next-line no-unused-vars
-router.get('/admin/submissions', checkLoggedIn, function(req, res, next) {
+router.get('/admin/submissions', checkLoggedIn, checkAdmin, function(req, res, next) {
   res.sendFile('admin/submissions.html', {root: __dirname + '/html'});
 });
 /* GET admin for comments */
 // eslint-disable-next-line no-unused-vars
-router.get('/admin/users', checkLoggedIn, function(req, res, next) {
+router.get('/admin/users', checkLoggedIn, checkAdmin, function(req, res, next) {
   res.sendFile('admin/users.html', {root: __dirname + '/html'});
 });
 module.exports = router;
