@@ -10,7 +10,6 @@ Users
 module.exports.user = {}
 
 // Create User
-
 module.exports.user.create = async function(user) {
     try {
         return (await db.one('INSERT INTO Users (username, password) VALUES (${username}, ${password}) RETURNING id', {
@@ -44,7 +43,7 @@ module.exports.user.read = async function(user) {
         return false;
     }    
 }
- huynh-dev
+
 // Change a user role (admin or not)
 module.exports.user.change_admin = async function(user) {
     try {
@@ -58,8 +57,6 @@ module.exports.user.change_admin = async function(user) {
         return false;
     }
 }
-
- master
 
 // Change a users password
 module.exports.user.change_password = async function(user) {
