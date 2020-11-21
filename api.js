@@ -285,7 +285,7 @@ router.post('/story', checkLoggedIn, async function(req, res, next) {
       id: await db.submission.create({
         title: req.body.title,
         url: req.body.url,
-        investment: req.body.investment,
+        investment: req.body.investment.toUpperCase(),
         author: req.user.id,
       })
     }
