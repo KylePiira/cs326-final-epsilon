@@ -24,7 +24,7 @@ async function updateInvestment(ticker) {
                 for (const investment of investments) {
                     // If they short it then we invert the return
                     if (investment.type === 'short') {
-                        change *= -1;
+                        percentChange *= -1;
                     }
                     db.none('UPDATE Users SET reputation=ROUND(cast((reputation + reputation*${change}) as numeric), 2) WHERE id=${id}', {
                         id: investment.author,
