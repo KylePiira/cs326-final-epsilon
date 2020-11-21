@@ -19,7 +19,7 @@ async function updateInvestment(ticker) {
         response.on('end', () => {
             // If we found the stock update it
             if (response.statusCode === 200) {
-                const percentChange = JSON.parse(data); 
+                let percentChange = JSON.parse(data); 
                 console.log(ticker, percentChange);
                 for (const investment of investments) {
                     // If they short it then we invert the return
