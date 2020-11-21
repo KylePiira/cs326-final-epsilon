@@ -1,3 +1,4 @@
+'use strict';
 /* <div class="row submission">
     <div class="col-1 pl-0 pr-0">
         <div class="votes">

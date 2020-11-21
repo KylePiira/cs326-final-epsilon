@@ -1,3 +1,4 @@
+'use strict';
 window.addEventListener('load', async function() {
     const response = (await (await fetch(`/api/userId`, {credentials: 'same-origin'})).json());
     if (response.error) {
