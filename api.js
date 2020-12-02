@@ -249,8 +249,9 @@ router.post('/story/:storyId/downvote', checkLoggedIn, async function(req, res, 
     const story = await db.submission.read({id: req.params.storyId});
     // Check if the upvoter is also the author
     if (req.user.id !== story.author) {
-      // Transfer the reputation to the author
-      await db.user.transfer({id: req.user.id}, {id: story.author});
+      // Take 1 reputation point from both the voter and the author
+      await db.user.transfer({id: req.user.id}, null);
+      await db.user.transfer({id: story.author}, null);
     } else {
       // Destroy the reputation
       await db.user.transfer({id: req.user.id}, null);
@@ -415,8 +416,9 @@ router.post('/comment/:commentId/downvote', checkLoggedIn, async function(req, r
     const comment = await db.comment.read({id: req.params.commentId});
     // Check if the upvoter is also the author
     if (req.user.id !== comment.author) {
-      // Transfer the reputation to the author
-      await db.user.transfer({id: req.user.id}, {id: comment.author});
+      // Take 1 reputation point from both the voter and the original commenter
+      await db.user.transfer({id: req.user.id}, null);
+      await db.user.transfer({id: comment.author}, null);
     } else {
       // Destroy the reputation
       await db.user.transfer({id: req.user.id}, null);
