@@ -24,7 +24,7 @@
     * Admin can create new account or new story for the website
     * Admin can also change the role of the any user to admin
     * Admin can edit any story information such as title, url or relating stock. 
-    * Admin can delete any account or story. 
+    * Admin can delete any account or story.
 
 
 

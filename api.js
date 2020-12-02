@@ -305,8 +305,6 @@ router.post('/story/edit', checkLoggedIn, async function(req, res, next) {
   }); 
 });
 
-
-
 // retrieve story comments by storyId
 // eslint-disable-next-line no-unused-vars
 router.get('/story/:storyId/comments', checkLoggedIn, async function(req, res, next) {
