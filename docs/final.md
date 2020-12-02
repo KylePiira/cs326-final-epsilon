@@ -1,8 +1,10 @@
 # Epsilon
 
-## Stock Exchange
+## [Stock Exchange](https://stock-exchange-326.herokuapp.com/)
 
 ### Fall 2020
+
+Link: https://stock-exchange-326.herokuapp.com/
 
 ### Overview
 
