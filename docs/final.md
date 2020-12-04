@@ -22,11 +22,11 @@ Each user has a reputation score on the site, which starts at $100. This score i
 
 ### Team Members, Github Aliases
 
-* Kyle Piira, *[KylePiira]([KylePiira (Kyle Piira) · GitHub](https://github.com/KylePiira))*
+* Kyle Piira, *[KylePiira](https://github.com/KylePiira)*
 
-* Hannah Dacayanan, *[hdacayanan]([hdacayanan · GitHub](https://github.com/hdacayanan))*
+* Hannah Dacayanan, *[hdacayanan](https://github.com/hdacayanan)*
 
-* Nga Huynh, *[Hannah_Huynh]([hannah1107 (Hannah_Huynh) · GitHub](https://github.com/hannah1107))*
+* Nga Huynh, *[Hannah_Huynh](https://github.com/hannah1107)*
 
 ### User Interface
 
